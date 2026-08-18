@@ -1,0 +1,522 @@
+"Juicora managed a massive corporate catering event for our company anniversary. They customized juice bottles with our brand logo, and the setup was visually breathtaking! Top-tier service."
+"The custom juices and wellness shots created for my wellness retreat were absolutely revitalizing! The citrus ginger flavor was an absolute hit with everyone. Highly recommend!"
+"We ordered a petite dessert stand for our daughter's birthday. The pastel unicorn theme was executed perfectly. The kids loved the chocolate pops, and the table setup made the party!"
+$1,500+
+$3.50
+$380
+$4.50
+$5.50+
+$780
+/ package
+/ pop
+/* --- Premium Dessert & Pastel Pink Palette --- */
+        :root, html[data-theme='light'] {
+            --color-background: #FFFDF9; /* Creamy warm off-white */
+            --color-primary-text: #3D271D; /* Rich dark chocolate cocoa */
+            --color-secondary-text: #7C6053; /* Warm taupe / milk chocolate */
+            --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary) */
+            --color-accent-light: #A87C00; /* Honey Pastry Gold (Secondary) */
+            --color-border: #F3ECE3; /* Soft crust beige */
+            --color-hover: #FFF5E6; /* Warm vanilla cream hover */
+            --color-footer-bg: #2A1A12; /* Deep cocoa brown footer */
+            --color-footer-text: #F5EBE6; 
+        }
+        html[data-theme='dark'] {
+            --color-background: #0E0F12; /* Premium dark charcoal grey */
+            --color-primary-text: #F3F4F6; /* Soft light grey / white */
+            --color-secondary-text: #9CA3AF; /* Muted light grey */
+            --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary Brand Color) */
+            --color-accent-light: #D4AF37; /* Honey Pastry Gold (Secondary Brand Color) */
+            --color-border: #23272E; /* Clean dark grey border */
+            --color-hover: #1A1C20; /* Alternate dark grey for sections */
+            --color-footer-bg: #07080A; /* Pitch dark footer */
+            --color-footer-text: #E5E7EB; 
+        }
+        
+        body {
+            background-color: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: 'Outfit', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        
+        .text-primary-text { color: var(--color-primary-text); }
+        .text-secondary-text { color: var(--color-secondary-text); }
+        .text-accent { color: var(--color-accent); }
+        .text-accent-light { color: var(--color-accent-light); }
+        .bg-background { background-color: var(--color-background); }
+        .bg-hover { background-color: var(--color-hover); }
+        .border-border { border-color: var(--color-border); }
+
+        /* ── Typography Size & Weight System ── */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 550 !important;
+        }
+        h1 {
+            font-size: 2.25rem !important; /* 36px */
+        }
+        @media (min-width: 640px) {
+            h1 {
+                font-size: 3.75rem !important; /* 60px */
+            }
+        }
+        h2 {
+            font-size: 1.875rem !important; /* 30px */
+        }
+        @media (min-width: 640px) {
+            h2 {
+                font-size: 2.25rem !important; /* 36px */
+            }
+        }
+        h3 {
+            font-size: 1.25rem !important; /* 20px */
+        }
+        @media (min-width: 640px) {
+            h3 {
+                font-size: 1.5rem !important; /* 24px */
+            }
+        }
+        p, .text-secondary-text {
+            font-weight: 400 !important;
+        }
+
+        /* Rich Gradient */
+        .bg-custom-gradient {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+        }
+
+        #main-footer {
+            background-color: var(--color-footer-bg);
+            color: var(--color-footer-text);
+        }
+        #main-footer .footer-heading {
+            color: var(--color-accent) !important; /* Rose Pink Heading */
+        }
+        #main-footer .footer-link:hover {
+            color: var(--color-accent-light);
+            padding-left: 4px;
+            transition: all 0.2s ease;
+        }
+
+        /* Nav Link Underline */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            white-space: nowrap;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* DROPDOWN */
+        .dropdown-wrapper { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            background-color: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            min-width: 220px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .dropdown-wrapper:hover .dropdown-menu {
+            opacity: 1; visibility: visible; transform: translateY(0);
+            display: block;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1.25rem;
+            color: var(--color-primary-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .dropdown-menu a:last-child { border-bottom: none; }
+        .dropdown-menu a:hover {
+            background-color: var(--color-hover);
+            color: var(--color-accent);
+            padding-left: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .dropdown-menu { position: static; display: none; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; }
+            .dropdown-wrapper:hover .dropdown-menu { display: block; }
+        }
+
+        /* ── Canonical Button System ── */
+        .btn-primary, .book-btn {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary:hover, .book-btn:hover {
+            opacity: 0.92;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 94, 134, 0.35);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: var(--color-accent);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 94, 134, 0.25);
+        .btn-cta-white {
+            background: white;
+            color: var(--color-accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-cta-white:hover {
+            background: #f3f4f6;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+100%
+12 Fresh Fruit Bowls
+12 Wellness Shots
+18 Cold-Pressed Juices
+24 Fresh Fruit Bowls
+36 Wellness Shots
+48 Luxury Decorated Cupcakes
+5-Star
+50+ Custom Bottled Juices
+6 Cold-Pressed Juices
+72 Premium Fresh Juices
+8+ Premium cake flavors
+About Us
+Amelia Miller
+Best Seller
+Bridal Shower Host
+Browse Gallery
+Catering Packages
+Catering Service
+Chocolate or Vanilla cake
+Choose the structure that fits your planning style.
+Citrus Burst Juice
+Classic sprinkles
+Cleanse Packages
+Cold-Pressed Juices
+Contact
+Contact Us
+Custom Tailored
+Custom display stand rentals and themed florals
+Custom marbled glaze
+Custom shape sculpting
+Decadent cupcakes with piped buttercream florets, edible flowers, and personalized toppers tailored to match your theme.
+Delicate French almond shells filled with rich buttercreams, white chocolate ganaches, and gourmet fruit compotes.
+Delivery and professional setup at the venue
+Delivery, complete styling, and pickup
+Dessert Selection
+Email Address
+Estimated Guests
+Event Date
+Event Theme / Color Palette
+Explore Catering Styles
+Explore Juices
+Explore Macaron Flavors
+Featured Catering
+Featured Creation
+Fill out our quick inquiry form and we'll design a custom catalog matching your colors and flavor notes.
+First and Last Name
+Flavor Preferences and Custom Notes
+Fresh Cold-Pressed Juices
+Fresh Fruit Bowls
+Fresh Juices
+Fresh Selection
+Full Dessert Buffet Table (All items)
+Full table setup and decoration styling
+Full-service setup of display stands, backdrops, custom labels, and a grand selection of sweets for events.
+Gallery
+Get Custom Quote
+Gold leaf and glitter details
+Gourmet Custom Pops
+Grand
+Handcrafted Custom Desserts
+Healthy Snacks
+Home
+Home 1
+Home 1 | Juicora
+Home 2
+Inquire Gourmet Custom
+Inquire Sculpted Themed
+Inquire Standard Pops
+Intricate hand-painted features
+Juice Bar Catering
+Juices + Shots
+Juices Only
+Juicora
+Login
+Markus Bennett
+Menu Offerings
+Menu display cards with allergen details
+Minimum order of 24 pops. Features metallic golds, edible flowers, custom drizzle, or simple sculpted shapes.
+Minimum order of 24 pops. Includes standard round shape, color glaze matching, and sprinkles.
+Minimum order of 24. Fully sculpted pops (animals, character shapes, logos) custom styled for kids' parties or brand launches.
+Moist cake centers fully customizable with gorgeous outer glazes, metallic foils, themed piping, and custom shapes.
+Newsletter
+Other / Custom
+Our Menu
+Our Mission
+Parent
+Per-Item Booking
+Petite Sweet Table
+Plan Your Dessert Table
+Planning an event? We don't just deliver juice in bottles; we can curate the entire juice bar experience, providing fresh fruit displays, wellness shot stations, and tailored blends to match your corporate gala, gym opening, or wellness retreat.
+Post-event pickup and display cleanup
+Pricing and Packages
+Quick Links
+Reserve Petite Table
+Reserve Royal Gala
+Reserve Soirée Grand
+Reviews
+Ribbon and custom tags
+Royal Galas and Weddings
+Sarah Carter
+Sculpted Themed Pops
+Serves 100+ guests. Premium custom designs with interactive table configurations.
+Serves 15-20 guests. Perfect for private baby showers or intimate birthdays.
+Serves 40-50 guests. Ideal for bridal showers, engagements, or corporate milestones.
+Serving fresh, delicious, and healthy smoothies, cold-pressed juices, and wholesome snacks. Fuel your day with our vibrant, nutrient-packed blends.
+Sign Up
+Signature Juice Offerings
+Single dip chocolate coating
+Smoothie Bowls
+Smoothies
+Soirée Grand Buffet
+Standard Cake Pops
+Standard stand rentals included
+Submit Catering Inquiry
+Subscribe
+Sweet Compliments
+TechCorp Event Planner
+The Ultimate 3-Day Green Juice Cleanse
+Theme
+Turn your day into a vibrant experience. We specialize in freshly squeezed juices, wellness shots, fruit bowls, and corporate juice bar setups tailored to your needs.
+Unique Flavors
+View Catering Packages
+View Cupcake Selection
+We Do the Delivery, Table Setup, and Styling
+We blend fresh, organic ingredients to create vibrant juices that energize and revitalize your day.
+Wellness Shots
+and Detox Blends
+document.addEventListener('DOMContentLoaded', () => {
+            const html = document.documentElement;
+
+            // Drawer Control
+            const menuDrawer = document.getElementById('mobile-menu-drawer');
+            const menuContent = document.getElementById('drawer-content');
+            const menuBackdrop = document.getElementById('drawer-backdrop');
+
+            const openDrawer = () => {
+                menuDrawer.classList.remove('pointer-events-none');
+                menuContent.classList.remove('translate-y-[-100%]');
+                menuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
+                document.body.style.overflow = 'hidden';
+            };
+            const closeDrawer = () => {
+                menuContent.classList.add('translate-y-[-100%]');
+                menuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
+                setTimeout(() => { menuDrawer.classList.add('pointer-events-none'); document.body.style.overflow = ''; }, 300);
+            };
+
+            document.getElementById('mobile-menu-open').addEventListener('click', openDrawer);
+            document.getElementById('mobile-menu-close').addEventListener('click', closeDrawer);
+            menuBackdrop.addEventListener('click', closeDrawer);
+
+            // Accordions
+            const setupAccordion = (toggleId, menuId, iconId) => {
+                const toggle = document.getElementById(toggleId);
+                toggle?.addEventListener('click', () => {
+                    const menu = document.getElementById(menuId);
+                    const icon = document.getElementById(iconId);
+                    menu.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            };
+            setupAccordion('mobile-homes-toggle', 'mobile-homes-menu', 'homes-icon');
+            setupAccordion('mobile-dashboard-toggle', 'mobile-dashboard-menu', 'dashboard-icon');
+
+            // Theme Switcher
+            const themeToggles = [
+                document.getElementById('theme-toggle'), 
+                document.getElementById('drawer-theme-toggle'),
+                document.getElementById('mobile-theme-toggle-quick')
+            ];
+            
+            const applyTheme = (theme) => {
+                html.setAttribute('data-theme', theme);
+                html.classList.toggle('dark', theme === 'dark');
+                document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+                document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+            };
+            
+            themeToggles.forEach(btn => {
+                btn?.addEventListener('click', () => {
+                    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                    localStorage.setItem('theme', next);
+                    applyTheme(next);
+                });
+            });
+            applyTheme(localStorage.getItem('theme') || 'light');
+
+            // Language RTL toggle
+            const langToggles = [document.getElementById('lang-icon'), document.getElementById('mobile-lang-icon-drawer')];
+            langToggles.forEach(btn => btn?.addEventListener('click', () => {
+                const current = localStorage.getItem('language') === 'ar' ? 'en' : 'ar';
+                localStorage.setItem('language', current);
+                html.setAttribute('dir', current === 'ar' ? 'rtl' : 'ltr');
+            }));
+            html.setAttribute('dir', localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr');
+
+            // Active Nav Styling
+            const setActiveNavLink = () => {
+                const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+                
+                // Desktop Links
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('active', 'text-accent', 'font-bold');
+                    } else {
+                        link.classList.remove('active', 'text-accent', 'font-bold');
+                    }
+                });
+
+                // Desktop Dropdowns active state
+                if (['index.html', 'home2.html'].includes(currentPath)) {
+                    document.getElementById('home-dropdown-btn')?.classList.add('active', 'text-accent', 'font-bold');
+                }
+                if (['admin.html', 'userdash.html'].includes(currentPath)) {
+                    document.getElementById('dashboard-dropdown-btn')?.classList.add('active', 'text-accent', 'font-bold');
+                }
+
+                // Mobile Drawer links
+                document.querySelectorAll('#drawer-content a').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === currentPath) {
+                        link.classList.add('text-accent', 'font-bold');
+                        link.classList.remove('text-primary-text', 'text-secondary-text');
+                    } else {
+                        if (link.closest('#mobile-homes-menu') || link.closest('#mobile-dashboard-menu')) {
+                            link.classList.add('text-secondary-text');
+                            link.classList.remove('text-accent', 'font-bold');
+                        } else {
+                            link.classList.add('text-primary-text');
+                            link.classList.remove('text-accent', 'font-bold');
+                        }
+                    }
+                });
+
+                // Mobile Toggles active state
+                if (['index.html', 'home2.html'].includes(currentPath)) {
+                    document.getElementById('mobile-homes-toggle')?.classList.add('text-accent', 'font-bold');
+                }
+                if (['admin.html', 'userdash.html'].includes(currentPath)) {
+                    document.getElementById('mobile-dashboard-toggle')?.classList.add('text-accent', 'font-bold');
+                }
+            };
+            setActiveNavLink();
+
+            // Inquiry pricing toggle
+            const btnMonthly = document.getElementById("btn-monthly");
+            const btnSeasonal = document.getElementById("btn-seasonal");
+            const monthlyPlans = document.getElementById("monthly-plans");
+            const seasonalPlans = document.getElementById("seasonal-plans");
+
+            if (btnMonthly && btnSeasonal && monthlyPlans && seasonalPlans) {
+                btnMonthly.addEventListener("click", () => {
+                    btnMonthly.classList.add("bg-custom-gradient", "text-white", "shadow-md");
+                    btnMonthly.classList.remove("text-primary-text", "hover:text-accent");
+
+                    btnSeasonal.classList.remove("bg-custom-gradient", "text-white", "shadow-md");
+                    btnSeasonal.classList.add("text-primary-text", "hover:text-accent");
+
+                    monthlyPlans.classList.remove("hidden");
+                    monthlyPlans.classList.add("grid");
+                    seasonalPlans.classList.remove("grid");
+                    seasonalPlans.classList.add("hidden");
+                });
+
+                btnSeasonal.addEventListener("click", () => {
+                    btnSeasonal.classList.add("bg-custom-gradient", "text-white", "shadow-md");
+                    btnSeasonal.classList.remove("text-primary-text", "hover:text-accent");
+
+                    btnMonthly.classList.remove("bg-custom-gradient", "text-white", "shadow-md");
+                    btnMonthly.classList.add("text-primary-text", "hover:text-accent");
+
+                    seasonalPlans.classList.remove("hidden");
+                    seasonalPlans.classList.add("grid");
+                    monthlyPlans.classList.remove("grid");
+                    monthlyPlans.classList.add("hidden");
+                });
+            }
+        
+            // Desktop dropdown click support for touch devices
+            document.querySelectorAll('.dropdown-wrapper').forEach(wrapper => {
+                const btn = wrapper.querySelector('button');
+                const menu = wrapper.querySelector('.dropdown-menu');
+                if (btn && menu) {
+                    btn.addEventListener('click', (e) => {
+                        if (window.innerWidth >= 1024) {
+                            e.stopPropagation();
+                            const isVisible = menu.style.opacity === '1';
+                            // Reset other menus
+                            document.querySelectorAll('.dropdown-menu').forEach(m => {
+                                m.style.opacity = '';
+                                m.style.visibility = '';
+                                m.style.transform = '';
+                            });
+                            if (!isVisible) {
+                                menu.style.opacity = '1';
+                                menu.style.visibility = 'visible';
+                                menu.style.transform = 'translateY(0)';
+                            }
+                        }
+                    });
+                }
+            });
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.dropdown-menu').forEach(m => {
+                    m.style.opacity = '';
+                    m.style.visibility = '';
+                    m.style.transform = '';
+                });
+            });
+});
+tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: 'var(--color-accent)',
+                        'accent-light': 'var(--color-accent-light)',
+                    }
+                }
+            }
+        };
+© 2026 Juicora. All rights reserved.

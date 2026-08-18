@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/fav.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+  <title>User Dashboard | Juicora</title>
+
+  <script src="tailwind.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: 'var(--color-accent)',
+            'accent-light': 'var(--color-accent-light)',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* --- Premium Dessert & Pastel Pink Palette --- */
+    :root, html[data-theme='light'] {
+      --color-background: #FFFDF9; /* Creamy warm off-white */
+      --color-primary-text: #3D271D; /* Rich dark chocolate cocoa */
+      --color-secondary-text: #7C6053; /* Warm taupe / milk chocolate */
+      --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary) */
+      --color-accent-light: #A87C00; /* Honey Pastry Gold (Secondary) */
+      --color-border: #F3ECE3; /* Soft crust beige */
+      --color-hover: #FFF5E6; /* Warm vanilla cream hover */
+      --color-footer-bg: #2A1A12; /* Deep cocoa brown footer */
+      --color-footer-text: #F5EBE6; 
+      --color-card-bg: #FFFFFF;
+    }
+    html[data-theme='dark'] {
+      --color-background: #0E0F12; /* Premium dark charcoal grey */
+      --color-primary-text: #F3F4F6; /* Soft light grey / white */
+      --color-secondary-text: #9CA3AF; /* Muted light grey */
+      --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary Brand Color) */
+      --color-accent-light: #D4AF37; /* Honey Pastry Gold (Secondary Brand Color) */
+      --color-border: #23272E; /* Clean dark grey border */
+      --color-hover: #1A1C20; /* Alternate dark grey for sections */
+      --color-footer-bg: #07080A; /* Pitch dark footer */
+      --color-footer-text: #E5E7EB; 
+      --color-card-bg: #16171A; /* Clean dark card background */
+    }
+    
+    body {
+      background-color: var(--color-background);
+      color: var(--color-primary-text);
+      font-family: 'Outfit', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+    
+    .text-primary-text { color: var(--color-primary-text); }
+    .text-secondary-text { color: var(--color-secondary-text); }
+    .text-accent { color: var(--color-accent); }
+    .text-accent-light { color: var(--color-accent-light); }
+    .bg-background { background-color: var(--color-background); }
+    .bg-hover { background-color: var(--color-hover); }
+    .border-border { border-color: var(--color-border); }
+    .bg-card-custom { background-color: var(--color-card-bg); }
+
+    /* ── Typography Size & Weight System ── */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 550 !important;
+    }
+    h1 {
+      font-size: 2.25rem !important; /* 36px */
+    }
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 3.75rem !important; /* 60px */
+      }
+    }
+    h2 {
+      font-size: 1.875rem !important; /* 30px */
+    }
+    @media (min-width: 640px) {
+      h2 {
+        font-size: 2.25rem !important; /* 36px */
+      }
+    }
+    h3 {
+      font-size: 1.25rem !important; /* 20px */
+    }
+    @media (min-width: 640px) {
+      h3 {
+        font-size: 1.5rem !important; /* 24px */
+      }
+    }
+    p, .text-secondary-text {
+      font-weight: 400 !important;
+    }
+
+    /* Rich Gradient */
+    .bg-custom-gradient {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    }
+
+    #main-footer {
+      background-color: var(--color-footer-bg);
+      color: var(--color-footer-text);
+    }
+    #main-footer .footer-heading {
+      color: var(--color-accent) !important;
+    }
+    #main-footer .footer-link:hover {
+      color: var(--color-accent-light);
+      padding-left: 4px;
+      transition: all 0.2s ease;
+    }
+
+    /* Nav Link Underline */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s;
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 2px;
+      background-color: var(--color-accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* DROPDOWN */
+    .dropdown-wrapper { position: relative; }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-border);
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      min-width: 220px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+    .dropdown-wrapper:hover .dropdown-menu {
+      opacity: 1; visibility: visible; transform: translateY(0);
+      display: block;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.25rem;
+      color: var(--color-primary-text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover {
+      background-color: var(--color-hover);
+      color: var(--color-accent);
+      padding-left: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .dropdown-menu { position: static; display: none; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; }
+      .dropdown-wrapper:hover .dropdown-menu { display: block; }
+    }
+
+    /* ── Canonical Button System ── */
+    .btn-primary, .book-btn {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+      color: white;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn-primary:hover, .book-btn:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 94, 134, 0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-accent);
+      border: 2px solid var(--color-accent);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      background: var(--color-accent);
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 94, 134, 0.25);
+    }
+
+    /* ── Sidebar & Mobile Layout ── */
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1rem;
+      border-radius: 1rem;
+      color: var(--color-secondary-text);
+      transition: all 0.2s ease;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      cursor: pointer;
+      direction: ltr !important;
+      justify-content: flex-start !important;
+    }
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+      color: white;
+    }
+
+    #mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 55;
+    }
+    #mobile-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* CSS Cake Pop Visualizer */
+    .pop-container {
+      position: relative;
+      width: 150px;
+      height: 250px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .pop-ball {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: inset -12px -12px 20px rgba(0,0,0,0.18), 0 8px 20px rgba(0,0,0,0.12);
+      transition: background 0.4s ease;
+      z-index: 10;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.25);
+    }
+    .pop-stick {
+      width: 8px;
+      height: 130px;
+      background: #F4F1EA;
+      border: 1px solid #E3DFD5;
+      border-radius: 0 0 6px 6px;
+      box-shadow: 2px 3px 6px rgba(0,0,0,0.06);
+      z-index: 5;
+      position: relative;
+      top: -4px;
+    }
+    .pop-drizzle-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 11;
+    }
+    .pop-drizzle-layer.active {
+      opacity: 0.9;
+    }
+    .pop-topping-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 12;
+    }
+    .pop-topping-layer.active {
+      opacity: 1;
+    }
+
+    /* Custom design proof grid card hover */
+    .proof-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .proof-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(255, 94, 134, 0.15);
+    }
+
+    /* Progress Steps */
+    .progress-step {
+      transition: all 0.4s ease;
+    }
+    .progress-step.active .step-icon {
+      background-color: var(--color-accent);
+      border-color: var(--color-accent);
+      color: white;
+      box-shadow: 0 0 0 4px rgba(255, 94, 134, 0.25);
+    }
+    .progress-step.completed .step-icon {
+      background-color: var(--color-accent-light);
+      border-color: var(--color-accent-light);
+      color: white;
+    }
+
+    /* Drag & Drop uploader zone */
+    .dropzone {
+      border: 2px dashed var(--color-border);
+      transition: all 0.3s ease;
+    }
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--color-accent);
+      background-color: var(--color-hover);
+    }
+
+    @media (min-width: 1280px) {
+      #sidebar {
+        transform: translateX(0) !important;
+      }
+    }
+
+    /* Dynamic logical text alignment for internationalized layouts */
+    p, h1, h2, h3, h4, h5, h6, span, li, td, th, input, select, textarea {
+      unicode-bidi: plaintext;
+      text-align: start;
+    }
+  </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+  <!-- TOP HEADER -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-background border-b border-border h-[73px]">
+    <div class="px-3 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+      <div class="flex items-center gap-2 sm:gap-4">
+        <button id="mobile-menu-toggle" class="xl:hidden p-2 rounded-xl hover:bg-hover transition text-primary-text">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <a href="index.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cup Body -->
+            <path d="M 25 35 L 35 85 C 36 90 40 92 45 92 L 55 92 C 60 92 64 90 65 85 L 75 35 Z" fill="url(#juiceGrad)" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Cup Lid -->
+            <path d="M 20 35 C 20 25 80 25 80 35 Z" fill="#ffffff" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Straw -->
+            <path d="M 50 25 L 50 10 L 65 10" stroke="var(--color-accent-light)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Fruit Slice -->
+            <circle cx="25" cy="45" r="12" fill="#FFA726" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="25" cy="45" r="9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- Highlights -->
+            <path d="M 32 40 L 40 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+            <defs>
+              <linearGradient id="juiceGrad" x1="50" y1="90" x2="50" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF9800"/>
+                <stop offset="100%" stop-color="var(--color-accent)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+          <span class="text-xl sm:text-2xl font-medium tracking-tight whitespace-nowrap" style="color: var(--color-accent);">Juicora</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-4">
+        <button id="lang-toggle" class="p-2 rounded-full hover:bg-hover transition text-primary-text" title="Toggle Language Direction">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+          </svg>
+        </button>
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-hover transition text-primary-text" title="Toggle Theme Mode">
+          <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+        <div class="flex items-center gap-2 ps-2 sm:ps-3 border-s border-border">
+          <div class="w-9 h-9 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium">SJ</div>
+          <div class="hidden sm:block text-start">
+            <p class="text-sm font-medium" id="header-user-name">Sarah Jenkins</p>
+            <p class="text-xs text-secondary-text">Gold Pastry Member</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="mobile-overlay" class="xl:hidden"></div>
+
+  <div class="flex min-h-screen pt-[73px]">
+    <!-- USER SIDEBAR -->
+    <aside id="sidebar"
+      class="fixed top-0 xl:top-[73px] start-0 w-72 xl:w-64 h-full xl:h-[calc(100vh-73px)] z-[60] transform -translate-x-full rtl:translate-x-full xl:translate-x-0 transition-transform duration-300 bg-background border-e border-border overflow-y-auto shrink-0">
+      <div class="p-5">
+        <div class="flex xl:hidden justify-between items-center mb-6">
+          <span class="font-medium text-accent">User Menu</span>
+          <button id="close-sidebar" class="p-2 hover:bg-hover rounded-lg text-primary-text">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-1">
+          <p class="text-xs uppercase tracking-wider text-secondary-text px-3 mb-2">Operations</p>
+          <a href="#" data-section="user-overview" class="sidebar-link active">
+            <i class="fa-solid fa-house-user w-5"></i>
+            <span>Overview</span>
+          </a>
+          <a href="#" data-section="user-flavors" class="sidebar-link">
+            <i class="fa-solid fa-palette w-5"></i>
+            <span>Flavor Matrix</span>
+          </a>
+          <a href="#" data-section="user-inspirations" class="sidebar-link">
+            <i class="fa-solid fa-wand-magic-sparkles w-5"></i>
+            <span>Theme Inspiration</span>
+          </a>
+          <a href="#" data-section="user-proofs" class="sidebar-link relative">
+            <i class="fa-solid fa-file-signature w-5"></i>
+            <span>Design Proofs</span>
+            <span id="proofs-badge" class="hidden absolute end-3 w-2.5 h-2.5 bg-accent rounded-full"></span>
+          </a>
+          <a href="#" data-section="user-logistics" class="sidebar-link">
+            <i class="fa-solid fa-calendar-days w-5"></i>
+            <span>Delivery Schedule</span>
+          </a>
+          <a href="#" data-section="user-estimator" class="sidebar-link">
+            <i class="fa-solid fa-calculator w-5"></i>
+            <span>Quote Estimator</span>
+          </a>
+          <a href="#" data-section="user-chat" class="sidebar-link relative">
+            <i class="fa-solid fa-comments w-5"></i>
+            <span>Chef Messages</span>
+            <span id="chat-badge" class="hidden absolute end-3 w-2.5 h-2.5 bg-accent rounded-full"></span>
+          </a>
+          <a href="#" data-section="user-invoices" class="sidebar-link">
+            <i class="fa-solid fa-receipt w-5"></i>
+            <span>Invoices and History</span>
+          </a>
+          <a href="#" data-section="user-settings" class="sidebar-link">
+            <i class="fa-solid fa-user-gear w-5"></i>
+            <span>Settings and Profile</span>
+          </a>
+          
+          <p class="text-xs uppercase tracking-wider text-secondary-text px-3 mt-4 mb-2">Navigation</p>
+          <a href="index.html" class="sidebar-link">
+            <i class="fa-solid fa-house w-5"></i>
+            <span>Back to Website</span>
+          </a>
+
+          <a href="#" id="logoutBtn"
+            class="sidebar-link mt-6 border-t border-border pt-4 text-red-600 hover:text-white hover:bg-red-600">
+            <i class="fa-solid fa-right-from-bracket w-5"></i>
+            <span>Logout</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- MAIN PANEL -->
+    <main class="flex-grow min-w-0 space-y-6 xl:ms-64 px-4 sm:px-6 lg:px-8 py-6">
+      
+      <!-- SECTION 1: Overview -->
+      <section id="user-overview" class="admin-section">
+        <!-- User Welcome Banner -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 border-b border-border pb-6">
+          <div>
+            <h1 class="text-4xl sm:text-5xl font-medium text-primary-text">Welcome back, <span id="welcome-name">Sarah</span>!</h1>
+            <p class="text-sm text-secondary-text mt-1">Check order updates, approve design proofs, or customize your catering flavor profiles.</p>
+          </div>
+          <div class="mt-4 md:mt-0 flex items-center gap-3">
+            <span class="text-xs font-medium px-3 py-1.5 bg-hover rounded-xl border border-border text-secondary-text" id="overview-client-id">Client ID: #58102</span>
+            <a href="index.html#booking-form" class="btn-primary mt-auto px-5 py-2.5 rounded-xl font-bold text-sm text-white shadow-md">New Inquiry</a>
+          </div>
+        </div>
+
+        <!-- Live Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm hover:border-accent transition duration-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-secondary-text text-xs uppercase tracking-wider">Active Package</p>
+                <h4 class="text-lg font-medium mt-1 text-primary-text" id="stat-package">Custom Buffet</h4>
+              </div>
+              <div class="w-10 h-10 bg-accent/10 text-accent rounded-xl flex items-center justify-center">
+                <i class="fas fa-apple-whole text-lg"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm hover:border-accent transition duration-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-secondary-text text-xs uppercase tracking-wider">Next Delivery Date</p>
+                <h4 class="text-lg font-medium mt-1 text-primary-text" id="stat-delivery-date">June 20, 2026</h4>
+              </div>
+              <div class="w-10 h-10 bg-accent-light/10 text-accent-light rounded-xl flex items-center justify-center">
+                <i class="fas fa-truck text-lg"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm hover:border-accent transition duration-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-secondary-text text-xs uppercase tracking-wider">Design Proof Status</p>
+                <h4 class="text-lg font-medium mt-1 text-primary-text" id="stat-proof-status">Pending Review</h4>
+              </div>
+              <div class="w-10 h-10 bg-pink-100 text-pink-500 rounded-xl flex items-center justify-center" id="stat-proof-icon">
+                <i class="fas fa-file-signature text-lg"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Order Tracking -->
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm mb-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border pb-4 mb-6 gap-3">
+            <div>
+              <h3 class="text-2xl sm:text-3xl font-medium text-primary-text">Active Order Progress</h3>
+              <p class="text-xs text-secondary-text" id="order-items-summary">Custom Dessert Catering Table</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-medium px-3 py-1.5 bg-accent/15 text-accent rounded-full" id="est-delivery-badge">Est. Delivery: June 20</span>
+            </div>
+          </div>
+
+          <!-- Progress Bar Visual -->
+          <div class="grid grid-cols-2 md:grid-cols-6 gap-4 text-center text-xs relative pt-2">
+            <!-- Connecting lines on desktop -->
+            <div class="hidden md:block absolute top-[28px] start-[8%] end-[8%] h-1 bg-[#F3ECE3] dark:bg-[#2E221C] -z-0"></div>
+            <div id="progress-line-fill" class="hidden md:block absolute top-[28px] start-[8%] w-[50%] h-1 bg-accent -z-0 transition-all duration-500"></div>
+
+            <div class="progress-step flex flex-col items-center z-10" id="step-inquiry">
+              <div class="step-icon w-10 h-10 rounded-full bg-background border-2 border-border text-secondary-text flex items-center justify-center font-medium mb-2">
+                <i class="fas fa-file-invoice"></i>
+              </div>
+              <span class="font-medium text-primary-text">Inquiry</span>
+              <span class="text-[10px] text-secondary-text">Created</span>
+            </div>
+            <div class="progress-step flex flex-col items-center z-10" id="step-tasting">
+              <div class="step-icon w-10 h-10 rounded-full bg-background border-2 border-border text-secondary-text flex items-center justify-center font-medium mb-2">
+                <i class="fas fa-utensils"></i>
+              </div>
+              <span class="font-medium text-primary-text">Tasting</span>
+              <span class="text-[10px] text-secondary-text">Completed</span>
+            </div>
+            <div class="progress-step flex flex-col items-center z-10" id="step-proofing">
+              <div class="step-icon w-10 h-10 rounded-full bg-background border-2 border-border text-secondary-text flex items-center justify-center font-medium mb-2">
+                <i class="fas fa-stamp"></i>
+              </div>
+              <span class="font-medium text-primary-text">Proofing</span>
+              <span class="text-[10px] text-secondary-text" id="proofing-sub-text">Pending</span>
+            </div>
+            <div class="progress-step flex flex-col items-center z-10" id="step-baking">
+              <div class="step-icon w-10 h-10 rounded-full bg-background border-2 border-border text-secondary-text flex items-center justify-center font-medium mb-2">
+                <i class="fas fa-apple-whole"></i>
+              </div>
+              <span class="font-medium text-primary-text">Baking</span>
+              <span class="text-[10px] text-secondary-text">In Kitchen</span>
+            </div>
+            <div class="progress-step flex flex-col items-center z-10" id="step-delivery">
+              <div class="step-icon w-10 h-10 rounded-full bg-background border-2 border-border text-secondary-text flex items-center justify-center font-medium mb-2">
+                <i class="fas fa-truck"></i>
+              </div>
+              <span class="font-medium text-primary-text">Delivery</span>
+              <span class="text-[10px] text-secondary-text">En Route</span>
+            </div>
+            <div class="progress-step flex flex-col items-center z-10" id="step-delivered">
+              <div class="step-icon w-10 h-10 rounded-full bg-background border-2 border-border text-secondary-text flex items-center justify-center font-medium mb-2">
+                <i class="fas fa-check-double"></i>
+              </div>
+              <span class="font-medium text-primary-text">Setup</span>
+              <span class="text-[10px] text-secondary-text">Completed</span>
+            </div>
+          </div>
+
+          <!-- Current Status Description Alert -->
+          <div class="mt-8 p-4 bg-hover border border-border rounded-xl flex items-start gap-3">
+            <span class="text-accent text-lg"><i class="fas fa-info-circle"></i></span>
+            <div>
+              <p class="text-sm font-medium text-primary-text">Chef Penelope's Status Note:</p>
+              <p class="text-xs text-secondary-text mt-1" id="status-note-text">Initializing details...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: Flavor Matrix -->
+      <section id="user-flavors" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Interactive Flavor Matrix and Custom Pop Builder</h3>
+          <p class="text-sm text-secondary-text mb-6">Experiment with artisanal combinations. Check how it looks in the live preview below and save your final request directly to the chef's order queue.</p>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Configuration Matrix -->
+            <div class="lg:col-span-7 space-y-6">
+              
+              <!-- Cake Base -->
+              <div>
+                <label class="block font-medium text-sm text-primary-text mb-2"><i class="fas fa-birthday-cake text-accent me-1"></i> 1. Select Cake Base</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="flavor-matrix-bases">
+                  <!-- Dynamic bases -->
+                </div>
+              </div>
+
+              <!-- Fillings -->
+              <div>
+                <label class="block font-medium text-sm text-primary-text mb-2"><i class="fas fa-fill text-accent-light me-1"></i> 2. Select Filling Core</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="flavor-matrix-fillings">
+                  <!-- Dynamic fillings -->
+                </div>
+              </div>
+
+              <!-- Glazes -->
+              <div>
+                <label class="block font-medium text-sm text-primary-text mb-2"><i class="fas fa-fill-drip text-accent me-1"></i> 3. Select Outer Glaze Coating</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="flavor-matrix-glazes">
+                  <!-- Dynamic glazes -->
+                </div>
+              </div>
+
+              <!-- Toppings -->
+              <div>
+                <label class="block font-medium text-sm text-primary-text mb-2"><i class="fas fa-sparkles text-accent-light me-1"></i> 4. Select Artisanal Topping</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="flavor-matrix-toppings">
+                  <!-- Dynamic toppings -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Pop Preview -->
+            <div class="lg:col-span-5 flex flex-col justify-between p-6 bg-hover border border-border rounded-2xl">
+              <div class="text-center">
+                <h4 class="font-medium text-primary-text">Visual Pop Preview</h4>
+                <p class="text-xs text-secondary-text mb-4">Interactive 3D Render Styling</p>
+                
+                <div class="pop-container mt-6">
+                  <div class="pop-ball" id="preview-pop-ball">
+                    <!-- Absolute layers for drizzle & toppings -->
+                    <div class="pop-drizzle-layer" id="preview-pop-drizzle"></div>
+                    <div class="pop-topping-layer" id="preview-pop-topping"></div>
+                  </div>
+                  <div class="pop-stick"></div>
+                </div>
+              </div>
+
+              <div class="space-y-3 mt-6 border-t border-border pt-4">
+                <div class="text-xs space-y-1">
+                  <p class="text-secondary-text">Current Selection:</p>
+                  <p class="font-medium text-primary-text" id="selection-summary">Vanilla Bean + Cream Cheese + White Chocolate</p>
+                </div>
+                <button id="btn-save-flavor-selection" class="w-full btn-primary py-3 rounded-xl font-bold text-xs text-white shadow-md">
+                  Save Flavor Selection to Order
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: Theme Inspiration -->
+      <section id="user-inspirations" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Theme Inspiration and Moodboard</h3>
+          <p class="text-sm text-secondary-text mb-6">Upload your event's Pinterest details, color swatches, and theme sketches to help our decorators tailor your cake pops perfectly.</p>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Form -->
+            <div class="lg:col-span-1 space-y-4">
+              <h4 class="font-medium text-sm text-primary-text mb-2 border-b border-border pb-2">Add Inspiration File</h4>
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Inspiration Title</label>
+                <input type="text" id="inspirational-title" placeholder="e.g. Whimsical Pastel Arch" class="w-full p-3 bg-hover rounded-xl border border-border text-xs text-primary-text focus:outline-none focus:ring-1 focus:ring-accent" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Moodboard Details / Notes</label>
+                <textarea id="inspirational-notes" rows="4" placeholder="Mention color palette details, specific gold shapes, floral request..." class="w-full p-3 bg-hover rounded-xl border border-border text-xs text-primary-text focus:outline-none focus:ring-1 focus:ring-accent"></textarea>
+              </div>
+              
+              <!-- Drag / Drop or File Upload Simulation -->
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Visual Inspiration Image (Simulated File)</label>
+                <div id="insp-dropzone" class="dropzone p-6 rounded-xl flex flex-col items-center justify-center cursor-pointer text-center">
+                  <span class="text-accent text-2xl mb-2"><i class="fas fa-cloud-upload-alt"></i></span>
+                  <p class="text-xs font-medium text-primary-text">Select a mock file</p>
+                  <p class="text-[10px] text-secondary-text mt-1">PNG, JPG up to 5MB</p>
+                  <select id="insp-mock-image" class="mt-3 p-1 text-[10px] rounded border border-border bg-background focus:outline-none">
+                    <option value="rose_gold_theme">Rose Gold Wedding Palette</option>
+                    <option value="woodland_baby">Woodland Greenery and Animals</option>
+                    <option value="starry_night">Starry Night Galaxy Theme</option>
+                  </select>
+                </div>
+              </div>
+
+              <button id="btn-submit-inspiration" class="w-full btn-primary py-3 rounded-xl font-bold text-xs text-white shadow-md">
+                Add to Inspiration Board
+              </button>
+            </div>
+
+            <!-- Current Inspirations Board -->
+            <div class="lg:col-span-2">
+              <h4 class="font-medium text-sm text-primary-text mb-4 border-b border-border pb-2">Your Inspiration Board</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="user-inspirations-grid">
+                <!-- Dynamic inspirations -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: Design Proofs -->
+      <section id="user-proofs" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Chef Design Proof Approval</h3>
+          <p class="text-sm text-secondary-text mb-6">Review drawings or photo prototypes crafted by the decorating team. Once approved, the kitchen will begin the final styling phase.</p>
+
+          <div class="space-y-6" id="user-proofs-container">
+            <!-- Dynamic Proofs -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: Delivery Schedule & Logistics -->
+      <section id="user-logistics" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Delivery Schedule and Setup Logistics</h3>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Delivery settings form -->
+            <div class="space-y-5">
+              <h4 class="font-medium text-sm text-primary-text border-b border-border pb-2"><i class="fas fa-truck-ramp-box text-accent me-1"></i> Setup Details</h4>
+              
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-medium text-secondary-text mb-1">Target Setup Date</label>
+                  <input type="date" id="logistics-date" class="w-full p-3 bg-hover rounded-xl border border-border text-xs text-primary-text focus:outline-none" />
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-secondary-text mb-1">Target Delivery Slot</label>
+                  <select id="logistics-slot" class="w-full p-3 bg-hover rounded-xl border border-border text-xs text-primary-text focus:outline-none">
+                    <option value="08:00 AM - 10:00 AM">08:00 AM - 10:00 AM</option>
+                    <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
+                    <option value="12:00 PM - 02:00 PM">12:00 PM - 02:00 PM</option>
+                    <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Delivery Address</label>
+                <input type="text" id="logistics-address" placeholder="Venue Address..." class="w-full p-3 bg-hover rounded-xl border border-border text-xs text-primary-text focus:outline-none" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Venue Specific Rules / Loading Instructions</label>
+                <textarea id="logistics-rules" rows="3" placeholder="Patio access, catering loading docks, restrictions on outdoor display setups..." class="w-full p-3 bg-hover rounded-xl border border-border text-xs text-primary-text focus:outline-none"></textarea>
+              </div>
+
+              <button id="btn-save-logistics" class="w-full btn-primary py-3 rounded-xl font-bold text-xs text-white shadow-md">
+                Save Delivery and Setup Schedule
+              </button>
+            </div>
+
+            <!-- Logistics Status Board -->
+            <div class="p-6 bg-hover rounded-2xl border border-border flex flex-col justify-between">
+              <div>
+                <h4 class="font-medium text-sm text-primary-text border-b border-border pb-2 mb-4"><i class="fas fa-satellite-dish text-accent-light me-1"></i> Logistics Status Monitor</h4>
+                
+                <div class="space-y-4 text-xs">
+                  <div class="flex justify-between py-2 border-b border-border">
+                    <span class="text-secondary-text">Courier Status:</span>
+                    <span class="font-medium text-accent" id="logistics-status-tag">Scheduled</span>
+                  </div>
+                  <div class="flex justify-between py-2 border-b border-border">
+                    <span class="text-secondary-text">Assigned Delivery Head:</span>
+                    <span class="font-medium text-primary-text">Courier: John Doe</span>
+                  </div>
+                  <div class="flex justify-between py-2 border-b border-border">
+                    <span class="text-secondary-text">Courier Contact:</span>
+                    <span class="font-medium text-primary-text">+1 (303) 555-0199</span>
+                  </div>
+                  <div class="flex justify-between py-2 border-b border-border">
+                    <span class="text-secondary-text">Setup Equipment Rentals:</span>
+                    <span class="font-medium text-accent-light">Riser stands, themed tier trays</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-4 bg-card-custom border border-border rounded-xl mt-6 text-center">
+                <span class="text-accent text-2xl"><i class="fas fa-shield-alt"></i></span>
+                <h5 class="font-medium text-xs mt-2 text-primary-text">Secure Temperature-Controlled Transit</h5>
+                <p class="text-[10px] text-secondary-text mt-1">All cake pops are transported in refrigeration vans at 38°F to guarantee glaze perfection upon arrival.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: Quote Estimator -->
+      <section id="user-estimator" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Interactive Catering Quote Calculator</h3>
+          
+          <div class="space-y-6">
+            <div>
+              <div class="flex justify-between text-sm font-medium text-primary-text mb-2">
+                <span>Guest Count</span>
+                <span id="lbl-guests" class="text-accent">60 Guests</span>
+              </div>
+              <input type="range" id="rng-guests" min="20" max="250" step="5" value="60" class="w-full accent-accent bg-hover" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-primary-text mb-3">Custom Add-Ons</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                <label class="flex items-center gap-3 p-3 bg-hover rounded-xl border border-border cursor-pointer hover:border-accent transition">
+                  <input type="checkbox" id="chk-gourmet" class="w-4 h-4 accent-accent" checked />
+                  <div>
+                    <div class="font-medium text-primary-text">Upgrade Gourmet Flavors</div>
+                    <div class="text-xs text-secondary-text">+$1.00 per item</div>
+                  </div>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-hover rounded-xl border border-border cursor-pointer hover:border-accent transition">
+                  <input type="checkbox" id="chk-foil" class="w-4 h-4 accent-accent" />
+                  <div>
+                    <div class="font-medium text-primary-text">Gold Leaf and Foils</div>
+                    <div class="text-xs text-secondary-text">+$0.50 per item</div>
+                  </div>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-hover rounded-xl border border-border cursor-pointer hover:border-accent transition">
+                  <input type="checkbox" id="chk-stands" class="w-4 h-4 accent-accent" checked />
+                  <div>
+                    <div class="font-medium text-primary-text">Premium Riser Stands Rental</div>
+                    <div class="text-xs text-secondary-text">Flat +$50.00</div>
+                  </div>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-hover rounded-xl border border-border cursor-pointer hover:border-accent transition">
+                  <input type="checkbox" id="chk-setup" class="w-4 h-4 accent-accent" checked />
+                  <div>
+                    <div class="font-medium text-primary-text">Delivery and Buffet Table Styling</div>
+                    <div class="text-xs text-secondary-text">Flat +$80.00</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="p-6 bg-hover rounded-2xl border-2 border-dashed border-accent flex flex-col sm:flex-row items-center justify-between">
+              <div class="text-center sm:text-start mb-4 sm:mb-0">
+                <h4 class="font-medium text-primary-text">Catering Cost Estimate</h4>
+                <p class="text-xs text-secondary-text">Calculated assuming 2 items per guest.</p>
+              </div>
+              <div class="text-center sm:text-end">
+                <span class="text-3xl font-medium text-accent" id="lbl-total">$670.00</span>
+                <button onclick="alert('Inquiry sent to planner with calculated quote details!')" class="block mt-2 px-4 py-2 bg-custom-gradient text-white text-xs font-bold rounded-lg shadow-sm">Save Estimate</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7: Messaging Chat -->
+      <section id="user-chat" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm flex flex-col justify-between h-[480px]">
+          <div>
+            <div class="flex items-center justify-between border-b border-border pb-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center font-medium text-accent">CP</div>
+                <div>
+                  <h4 class="font-medium text-sm text-primary-text">Chef Penelope</h4>
+                  <p class="text-xs text-[#2E7D32] dark:text-[#81C784] font-medium flex items-center"><i class="fas fa-circle text-[9px] me-1 animate-pulse"></i> Online</p>
+                </div>
+              </div>
+              <button id="btn-clear-chat" class="text-[10px] text-red-500 font-bold hover:underline">Clear History</button>
+            </div>
+            
+            <!-- Messages Body -->
+            <div class="space-y-4 h-[280px] overflow-y-auto pe-1 text-xs" id="chat-messages-container">
+              <!-- Dynamic messages -->
+            </div>
+          </div>
+
+          <div class="flex gap-2 pt-4 border-t border-border mt-2">
+            <input type="text" id="chat-input-text" placeholder="Type a message to Chef Penelope..." class="flex-grow p-3 bg-hover rounded-xl border border-border text-xs text-primary-text focus:outline-none focus:ring-1 focus:ring-accent" />
+            <button id="chat-send-btn" class="p-3 bg-custom-gradient text-white rounded-xl shadow-md"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 8: Invoices & Past Order History -->
+      <section id="user-invoices" class="admin-section hidden">
+        <div class="bg-card-custom border border-border rounded-2xl shadow-sm overflow-hidden">
+          <div class="p-6 border-b border-border">
+            <h3 class="text-2xl sm:text-3xl font-medium text-primary-text">Past Bookings and Invoices</h3>
+            <p class="text-xs text-secondary-text">Download receipts and check summary details of your previous catering events.</p>
+          </div>
+          <div class="overflow-x-auto text-sm text-primary-text">
+            <table class="w-full text-start border-collapse">
+              <thead>
+                <tr class="bg-hover text-secondary-text text-xs uppercase border-b border-border">
+                  <th class="p-4 font-bold">Event Type</th>
+                  <th class="p-4 font-bold">Date Completed</th>
+                  <th class="p-4 font-bold">Total Items</th>
+                  <th class="p-4 font-bold">Amount Paid</th>
+                  <th class="p-4 font-bold text-end">Receipt</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr class="hover:bg-hover/30 transition">
+                  <td class="p-4 font-bold">Wedding Dessert Buffet</td>
+                  <td class="p-4">October 12, 2025</td>
+                  <td class="p-4">250 pieces (Catering)</td>
+                  <td class="p-4 font-bold">$1,500.00</td>
+                  <td class="p-4 text-end">
+                    <button onclick="alert('Downloading Receipt PDF...')" class="text-accent hover:underline text-xs"><i class="fas fa-file-pdf me-1"></i> Download</button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-hover/30 transition">
+                  <td class="p-4 font-bold">Corporate Gala Table</td>
+                  <td class="p-4">December 05, 2025</td>
+                  <td class="p-4">120 pieces (Macarons/Pops)</td>
+                  <td class="p-4 font-bold">$780.00</td>
+                  <td class="p-4 text-end">
+                    <button onclick="alert('Downloading Receipt PDF...')" class="text-accent hover:underline text-xs"><i class="fas fa-file-pdf me-1"></i> Download</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 9: USER SETTINGS & PROFILE -->
+      <section id="user-settings" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text mb-2">My Client Profile and Preferences</h3>
+          <p class="text-xs text-secondary-text mb-6">Update your secure delivery address, notification preferences, and password details.</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Profile Card -->
+            <div class="p-5 bg-hover rounded-xl border border-border">
+              <h4 class="font-medium text-sm text-primary-text mb-4"><i class="fa-solid fa-address-card me-2 text-accent"></i>Delivery and Contact Details</h4>
+              <div class="space-y-3">
+                <div>
+                  <label class="block text-xs font-medium text-secondary-text mb-1">Full Name</label>
+                  <input type="text" id="settings-name" class="w-full p-2.5 bg-background border border-border rounded-lg text-sm text-primary-text focus:outline-none" />
+                </div>
+                <div>
+                  <label class="block text-xs font-medium text-secondary-text mb-1">Default Delivery Address</label>
+                  <input type="text" id="settings-address" class="w-full p-2.5 bg-background border border-border rounded-lg text-sm text-primary-text focus:outline-none" />
+                </div>
+              </div>
+            </div>
+            
+            <!-- Preferences -->
+            <div class="p-5 bg-hover rounded-xl border border-border">
+              <h4 class="font-medium text-sm text-primary-text mb-4"><i class="fa-solid fa-bell me-2 text-accent-light"></i>Preferences</h4>
+              <div class="space-y-3">
+                <label class="flex items-center gap-2 text-secondary-text text-sm cursor-pointer mt-2">
+                  <input type="checkbox" checked class="accent-accent" /> Email alerts for baking stage changes
+                </label>
+                <label class="flex items-center gap-2 text-secondary-text text-sm cursor-pointer">
+                  <input type="checkbox" checked class="accent-accent" /> Subscribe to seasonal pop releases
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 flex justify-end">
+            <button id="btn-update-profile" class="btn-primary mt-auto px-6 py-2.5 rounded-xl text-sm font-bold shadow-md">
+              Update Profile
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="text-center text-xs text-secondary-text border-t border-border pt-8 pb-4 mt-6">
+        <p>© 2026 Juicora — Handcrafted Edible Art and Table Installations</p>
+        <div class="flex justify-center gap-6 mt-3">
+          <a href="index.html" class="hover:text-accent font-bold">Home</a>
+          <a href="about.html" class="hover:text-accent font-bold">About Us</a>
+          <a href="juices.html" class="hover:text-accent font-bold">Catering Details</a>
+          <a href="contact.html" class="hover:text-accent font-bold">Contact Support</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const html = document.documentElement;
+
+      // Shared State Initialization & Fetching
+      const defaultState = {
+       order: {
+        id: "#58102",
+        clientName: "Sarah Jenkins",
+        packageName: "Premium Custom Baby Shower Buffet",
+        status: "Baking", // "Inquiry", "Tasting", "Proofing", "Baking", "Delivery", "Delivered"
+        statusNotes: "Cake pops are in the oven! Chef Penelope is supervising the custom rose gold coating.",
+        items: "120 Custom Cake Pops (Rose Gold and Soft Pink Theme), 40 Fresh Juices, 24 Velvet Cupcakes",
+        guests: 60,
+        price: 670.00,
+        deliveryDate: "2026-06-20",
+        deliveryTime: "10:00 AM - 12:00 PM",
+        venueDetails: "Gourmet Hall Room 3, Denver, CO",
+        venueRules: "Venue opens at 9:00 AM. Requires table linen setup. Outdoor patio loading dock.",
+        flavorCombo: {
+         base: "Strawberry Cheesecake",
+         filling: "Cream Cheese Fudge",
+         glaze: "White Chocolate Vanilla",
+         topping: "Gold leaf sparkles"
+        },
+        inspirations: [
+         { id: 1, name: "Baby Shower Moodboard", note: "Soft pastel pinks, rose gold details, and floral accents.", date: "2026-06-12", isPinterest: false, img: "rose_gold_theme" },
+         { id: 2, name: "Table Setup Reference", note: "Riser stands arranged symmetrically.", date: "2026-06-13", isPinterest: false, img: "woodland_baby" }
+        ],
+        proofs: [
+         {
+          id: 1,
+          title: "Rose Gold Glitter Pop Design Draft",
+          image: "rose_gold_theme",
+          notes: "Here is the visual design for the main cake pops. We will use edible rose gold glitter and premium white chocolate drizzle.",
+          status: "Pending", // "Pending", "Approved", "Changes Requested"
+          feedback: "",
+          date: "2026-06-14"
+         }
+        ],
+        messages: [
+         { sender: "chef", text: "Hi Sarah! I received your inquiry for the pink baby shower cake pops. Have you finalized the gold leaf details?", time: "10:30 AM", date: "2026-06-14" },
+         { sender: "client", text: "Yes! I updated my profile to include gold leaf flakes.", time: "10:45 AM", date: "2026-06-14" }
+        ]
+       },
+       availableFlavors: {
+        bases: [
+         { id: "red-velvet", name: "Red Velvet Meringue", desc: "Rich and cocoa-flavored cake with subtle tang.", active: true },
+         { id: "strawberry-cheesecake", name: "Strawberry Cheesecake", desc: "Sweet strawberry cake blended with real cream cheese.", active: true },
+         { id: "chocolate-fudge", name: "Double Chocolate Fudge", desc: "Decadent dark chocolate cake for cocoa lovers.", active: true },
+         { id: "lavender-lemon", name: "Lavender Lemoncurd", desc: "Floral lavender infused cake with zesty lemon curd fill.", active: true },
+         { id: "vanilla-bean", name: "Classic Vanilla Bean", desc: "Fluffy vanilla bean cake with gourmet buttercream.", active: true }
+        ],
+        fillings: [
+         { id: "cream-cheese", name: "Cream Cheese Fudge", active: true },
+         { id: "lemon-curd", name: "Lemon Curd Tang", active: true },
+         { id: "chocolate-ganache", name: "Dark Chocolate Ganache", active: true },
+         { id: "caramel-drizzle", name: "Salted Caramel Drizzle", active: true }
+        ],
+        glazes: [
+         { id: "white-chocolate", name: "White Chocolate Vanilla", active: true, color: "#FFFDF0" },
+         { id: "dark-chocolate", name: "Premium Dark Chocolate", active: true, color: "#301B10" },
+         { id: "milk-chocolate", name: "Milk Chocolate Caramel", active: true, color: "#8B5A2B" },
+         { id: "ruby-chocolate", name: "Velvet Ruby Berry Chocolate", active: true, color: "#D0506A" }
+        ],
+        toppings: [
+         { id: "gold-leaf", name: "Gold leaf sparkles", active: true },
+         { id: "custom-drizzle", name: "Custom color drizzle", active: true },
+         { id: "sprinkles", name: "Handcrafted sugar pearls", active: true },
+         { id: "edible-glitter", name: "Edible silver glitter", active: true }
+        ]
+       }
+      };
+
+      function getDashboardState() {
+        let stateStr = localStorage.getItem('sweet_pops_dashboard_state');
+        if (!stateStr) {
+          localStorage.setItem('sweet_pops_dashboard_state', JSON.stringify(defaultState));
+          return defaultState;
+        }
+        return JSON.parse(stateStr);
+      }
+
+      function saveDashboardState(state) {
+        localStorage.setItem('sweet_pops_dashboard_state', JSON.stringify(state));
+      }
+
+      // Theme Switcher
+      const applyTheme = (theme) => {
+        html.setAttribute('data-theme', theme);
+        html.classList.toggle('dark', theme === 'dark');
+        document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+        document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+      };
+      
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+      applyTheme(localStorage.getItem('theme') || 'light');
+
+      // Language direction
+      const setDirection = (dir) => {
+        html.setAttribute('dir', dir);
+        localStorage.setItem('language', dir === 'rtl' ? 'ar' : 'en');
+        
+        // Align closed sidebar translation to new direction
+        const isSidebarOpen = sidebar && sidebar.classList.contains('translate-x-0');
+        if (sidebar && !isSidebarOpen) {
+          if (dir === 'rtl') {
+            sidebar.classList.add('translate-x-full');
+            sidebar.classList.remove('-translate-x-full');
+          } else {
+            sidebar.classList.add('-translate-x-full');
+            sidebar.classList.remove('translate-x-full');
+          }
+        }
+      };
+
+      // Mobile menu toggling
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('mobile-overlay');
+      const menuToggle = document.getElementById('mobile-menu-toggle');
+      const closeSidebar = document.getElementById('close-sidebar');
+
+      const toggleMobile = (open) => {
+        const isRtl = html.getAttribute('dir') === 'rtl';
+        if (open) {
+          sidebar.classList.add('translate-x-0');
+          sidebar.classList.remove('-translate-x-full', 'translate-x-full', 'rtl:translate-x-full');
+        } else {
+          sidebar.classList.remove('translate-x-0');
+          if (isRtl) {
+            sidebar.classList.add('translate-x-full');
+          } else {
+            sidebar.classList.add('-translate-x-full');
+          }
+        }
+        overlay.classList.toggle('active', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+      };
+
+      setDirection(localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr');
+      document.getElementById('lang-toggle')?.addEventListener('click', () => {
+        setDirection(html.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr');
+      });
+
+      menuToggle?.addEventListener('click', () => toggleMobile(true));
+      closeSidebar?.addEventListener('click', () => toggleMobile(false));
+      overlay?.addEventListener('click', () => toggleMobile(false));
+
+      // Section Toggling (Sidebar tabs)
+      const sections = [
+        'user-overview', 
+        'user-flavors', 
+        'user-inspirations', 
+        'user-proofs', 
+        'user-logistics', 
+        'user-estimator', 
+        'user-chat', 
+        'user-invoices', 
+        'user-settings'
+      ];
+      const links = document.querySelectorAll('.sidebar-link');
+      
+      window.activateUserSection = function (sectionId) {
+        sections.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('hidden');
+        });
+        const activeEl = document.getElementById(sectionId);
+        if (activeEl) activeEl.classList.remove('hidden');
+
+        links.forEach(link => {
+          link.classList.remove('active');
+          if (link.dataset.section === sectionId) {
+            link.classList.add('active');
+          }
+        });
+
+        // Clear badges if clicked
+        if (sectionId === 'user-proofs') document.getElementById('proofs-badge')?.classList.add('hidden');
+        if (sectionId === 'user-chat') document.getElementById('chat-badge')?.classList.add('hidden');
+        
+        if (window.innerWidth < 1024) toggleMobile(false);
+        refreshUI(); // Re-render state data whenever a tab is switched
+      };
+
+      links.forEach(link => {
+        if (link.dataset.section) {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            activateUserSection(link.dataset.section);
+          });
+        }
+      });
+
+      // Logout Btn
+      document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = "login.html";
+      });
+
+      // MOCK PHOTO SOURCES
+      const mockImages = {
+        rose_gold_theme: 'https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?auto=format&fit=crop&w=500&q=80', // Soft gold & lights
+        woodland_baby: 'https://images.unsplash.com/photo-1545048702-79362596cdc9?auto=format&fit=crop&w=500&q=80', // Pastel green dessert setup
+        starry_night: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=500&q=80' // Cosmic background
+      };
+
+      // RENDER CORE STATE TO UI
+      function refreshUI() {
+        const state = getDashboardState();
+        const ord = state.order;
+
+        // Overview elements
+        document.getElementById('welcome-name').innerText = ord.clientName.split(' ')[0];
+        document.getElementById('header-user-name').innerText = ord.clientName;
+        document.getElementById('stat-package').innerText = ord.packageName;
+        document.getElementById('stat-delivery-date').innerText = ord.deliveryDate;
+        document.getElementById('order-items-summary').innerText = ord.items;
+        document.getElementById('est-delivery-badge').innerText = `Est. Delivery: ${ord.deliveryDate}`;
+        document.getElementById('status-note-text').innerText = ord.statusNotes;
+
+        // Settings elements
+        document.getElementById('settings-name').value = ord.clientName;
+        document.getElementById('settings-address').value = ord.venueDetails;
+
+        // Logistics elements
+        document.getElementById('logistics-date').value = ord.deliveryDate;
+        document.getElementById('logistics-slot').value = ord.deliveryTime;
+        document.getElementById('logistics-address').value = ord.venueDetails;
+        document.getElementById('logistics-rules').value = ord.venueRules;
+
+        // Progress timelines fill & active styles
+        const stages = ["Inquiry", "Tasting", "Proofing", "Baking", "Delivery", "Delivered"];
+        const currentStageIdx = stages.indexOf(ord.status);
+        
+        stages.forEach((stage, idx) => {
+          const stepEl = document.getElementById(`step-${stage.toLowerCase()}`);
+          if (stepEl) {
+            stepEl.classList.remove('active', 'completed');
+            if (idx < currentStageIdx) {
+              stepEl.classList.add('completed');
+            } else if (idx === currentStageIdx) {
+              stepEl.classList.add('active');
+              // Add pulsating/animate class to current icon
+              stepEl.querySelector('.step-icon').classList.add('animate-pulse');
+            } else {
+              stepEl.querySelector('.step-icon').classList.remove('animate-pulse');
+            }
+          }
+        });
+
+        // Line fill calculation
+        const lineFill = document.getElementById('progress-line-fill');
+        if (lineFill) {
+          const percentage = currentStageIdx >= 0 ? (currentStageIdx / (stages.length - 1)) * 100 : 0;
+          lineFill.style.width = `${percentage}%`;
+        }
+
+        // Proof elements in Overview & Tab
+        let pendingProofs = ord.proofs.filter(p => p.status === 'Pending').length;
+        const statProofStatus = document.getElementById('stat-proof-status');
+        const statProofIcon = document.getElementById('stat-proof-icon');
+        const proofsBadge = document.getElementById('proofs-badge');
+
+        if (pendingProofs > 0) {
+          statProofStatus.innerText = `${pendingProofs} Pending Review`;
+          statProofStatus.classList.add('text-accent');
+          statProofIcon.innerHTML = `<i class="fas fa-exclamation-circle text-lg"></i>`;
+          proofsBadge?.classList.remove('hidden');
+        } else {
+          const lastStatus = ord.proofs.length > 0 ? ord.proofs[ord.proofs.length - 1].status : "None";
+          statProofStatus.innerText = lastStatus;
+          statProofStatus.classList.remove('text-accent');
+          statProofIcon.innerHTML = `<i class="fas fa-check-double text-lg text-emerald-500"></i>`;
+          proofsBadge?.classList.add('hidden');
+        }
+
+        // Render Proofs List
+        renderProofs(ord.proofs);
+
+        // Render Inspirations
+        renderInspirations(ord.inspirations);
+
+        // Render Chat
+        renderChat(ord.messages);
+
+        // Render Flavor Selector Grid
+        renderFlavorMatrixOptions(state.availableFlavors, ord.flavorCombo);
+      }
+
+      // 1. RENDER FLAVOR OPTIONS
+      function renderFlavorMatrixOptions(flavors, currentCombo) {
+        // Bases
+        const basesGrid = document.getElementById('flavor-matrix-bases');
+        basesGrid.innerHTML = flavors.bases.map(b => {
+          const checked = currentCombo.base === b.name ? 'border-accent bg-hover text-accent' : 'border-border';
+          return `
+            <div onclick="selectMatrixItem('base', '${b.name}')" class="p-3 border rounded-xl cursor-pointer hover:border-accent transition flex flex-col justify-between ${checked}">
+              <span class="font-medium text-xs">${b.name}</span>
+              <span class="text-[9px] text-secondary-text mt-1">${b.desc}</span>
+            </div>
+          `;
+        }).join('');
+
+        // Fillings
+        const fillingsGrid = document.getElementById('flavor-matrix-fillings');
+        fillingsGrid.innerHTML = flavors.fillings.map(f => {
+          const checked = currentCombo.filling === f.name ? 'border-accent bg-hover text-accent' : 'border-border';
+          return `
+            <div onclick="selectMatrixItem('filling', '${f.name}')" class="p-2.5 border rounded-xl cursor-pointer hover:border-accent transition text-center ${checked}">
+              <span class="font-medium text-xs">${f.name}</span>
+            </div>
+          `;
+        }).join('');
+
+        // Glazes
+        const glazesGrid = document.getElementById('flavor-matrix-glazes');
+        glazesGrid.innerHTML = flavors.glazes.map(g => {
+          const checked = currentCombo.glaze === g.name ? 'border-accent bg-hover text-accent' : 'border-border';
+          return `
+            <div onclick="selectMatrixItem('glaze', '${g.name}')" class="p-2.5 border rounded-xl cursor-pointer hover:border-accent transition flex items-center justify-center gap-2 ${checked}">
+              <span class="w-3.5 h-3.5 rounded-full border border-border shadow-sm" style="background-color: ${g.color || '#ccc'}"></span>
+              <span class="font-medium text-xs">${g.name}</span>
+            </div>
+          `;
+        }).join('');
+
+        // Toppings
+        const toppingsGrid = document.getElementById('flavor-matrix-toppings');
+        toppingsGrid.innerHTML = flavors.toppings.map(t => {
+          const checked = currentCombo.topping === t.name ? 'border-accent bg-hover text-accent' : 'border-border';
+          return `
+            <div onclick="selectMatrixItem('topping', '${t.name}')" class="p-2.5 border rounded-xl cursor-pointer hover:border-accent transition text-center ${checked}">
+              <span class="font-medium text-xs">${t.name}</span>
+            </div>
+          `;
+        }).join('');
+
+        // Update visual summary & pop graphics
+        document.getElementById('selection-summary').innerText = `${currentCombo.base} + ${currentCombo.filling} + ${currentCombo.glaze} + ${currentCombo.topping}`;
+        
+        // Color pop ball based on glaze selection
+        const popBall = document.getElementById('preview-pop-ball');
+        const selectedGlaze = flavors.glazes.find(g => g.name === currentCombo.glaze);
+        if (popBall && selectedGlaze) {
+          popBall.style.backgroundColor = selectedGlaze.color;
+        }
+
+        // Drizzle Layer styles
+        const popDrizzle = document.getElementById('preview-pop-drizzle');
+        if (popDrizzle) {
+          if (currentCombo.topping === 'Custom color drizzle') {
+            popDrizzle.style.setProperty('--drizzle-color', '#FF5E86');
+            popDrizzle.className = 'pop-drizzle-layer active';
+          } else if (currentCombo.glaze === 'Premium Dark Chocolate') {
+            popDrizzle.style.setProperty('--drizzle-color', '#FFFDF0');
+            popDrizzle.className = 'pop-drizzle-layer active';
+          } else {
+            popDrizzle.className = 'pop-drizzle-layer';
+          }
+        }
+
+        // Sprinkles / Toppings Layer
+        const popTopping = document.getElementById('preview-pop-topping');
+        if (popTopping) {
+          popTopping.innerHTML = '';
+          if (currentCombo.topping === 'Gold leaf sparkles' || currentCombo.topping === 'Handcrafted sugar pearls' || currentCombo.topping === 'Edible silver glitter') {
+            popTopping.className = 'pop-topping-layer active';
+            const dotColor = currentCombo.topping === 'Gold leaf sparkles' ? '#D4AF37' : (currentCombo.topping === 'Edible silver glitter' ? '#EAEAEA' : '#FFFDF9');
+            // Generate absolute sprinkles dots
+            for (let i = 0; i < 15; i++) {
+              const x = Math.floor(Math.random() * 80) + 10;
+              const y = Math.floor(Math.random() * 80) + 10;
+              const size = Math.floor(Math.random() * 4) + 3;
+              const dot = document.createElement('div');
+              dot.style.position = 'absolute';
+              dot.style.left = `${x}px`;
+              dot.style.top = `${y}px`;
+              dot.style.width = `${size}px`;
+              dot.style.height = `${size}px`;
+              dot.style.borderRadius = '50%';
+              dot.style.backgroundColor = dotColor;
+              popTopping.appendChild(dot);
+            }
+          } else {
+            popTopping.className = 'pop-topping-layer';
+          }
+        }
+      }
+
+      window.selectMatrixItem = function(type, value) {
+        const state = getDashboardState();
+        state.order.flavorCombo[type] = value;
+        saveDashboardState(state);
+        refreshUI();
+      };
+
+      // Save selection trigger
+      document.getElementById('btn-save-flavor-selection')?.addEventListener('click', () => {
+        alert('Success! Your customized flavor matrix has been saved to your catering package.');
+      });
+
+      // 2. RENDER INSPIRATIONS
+      function renderInspirations(inspirations) {
+        const grid = document.getElementById('user-inspirations-grid');
+        if (!grid) return;
+
+        if (inspirations.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-2 border border-border p-12 rounded-xl text-center">
+              <span class="text-secondary-text text-3xl"><i class="fas fa-images"></i></span>
+              <p class="text-xs text-secondary-text mt-3">No theme inspirations added yet. Upload files or reference links to align with our team.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = inspirations.map(insp => {
+          const imgSrc = mockImages[insp.img] || 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80';
+          return `
+            <div class="bg-card-custom border border-border rounded-xl overflow-hidden hover:shadow-md transition">
+              <img src="${imgSrc}" class="w-full h-36 object-cover" alt="Inspiration" />
+              <div class="p-3 space-y-1 relative">
+                <button onclick="deleteInspiration(${insp.id})" class="absolute top-2 end-2 text-red-500 hover:text-red-700 bg-background/80 p-1.5 rounded-full"><i class="fas fa-trash text-xs"></i></button>
+                <h5 class="font-medium text-xs text-primary-text">${insp.name}</h5>
+                <p class="text-[10px] text-secondary-text leading-relaxed">${insp.note}</p>
+                <div class="text-[9px] text-secondary-text pt-2 flex justify-between">
+                  <span>Date Added: ${insp.date}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Add new inspiration
+      document.getElementById('btn-submit-inspiration')?.addEventListener('click', () => {
+        const titleVal = document.getElementById('inspirational-title').value.trim();
+        const notesVal = document.getElementById('inspirational-notes').value.trim();
+        const mockImgSelect = document.getElementById('insp-mock-image').value;
+
+        if (!titleVal) {
+          alert('Please enter an inspiration title.');
+          return;
+        }
+
+        const state = getDashboardState();
+        const newInsp = {
+          id: Date.now(),
+          name: titleVal,
+          note: notesVal || 'No additional notes.',
+          date: new Date().toISOString().split('T')[0],
+          isPinterest: false,
+          img: mockImgSelect
+        };
+
+        state.order.inspirations.push(newInsp);
+        saveDashboardState(state);
+        refreshUI();
+
+        // Reset inputs
+        document.getElementById('inspirational-title').value = '';
+        document.getElementById('inspirational-notes').value = '';
+        alert('Success! Inspiration uploaded. The decorating team has been notified.');
+      });
+
+      window.deleteInspiration = function(id) {
+        if (confirm('Are you sure you want to remove this inspiration card?')) {
+          const state = getDashboardState();
+          state.order.inspirations = state.order.inspirations.filter(insp => insp.id !== id);
+          saveDashboardState(state);
+          refreshUI();
+        }
+      };
+
+      // 3. RENDER PROOFS
+      function renderProofs(proofs) {
+        const container = document.getElementById('user-proofs-container');
+        if (!container) return;
+
+        if (proofs.length === 0) {
+          container.innerHTML = `
+            <div class="border border-border p-12 rounded-xl text-center">
+              <span class="text-secondary-text text-3xl"><i class="fas fa-drafting-compass"></i></span>
+              <p class="text-xs text-secondary-text mt-3">Design proofs will be uploaded by the chef as styling begins. Check back soon!</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = proofs.map(p => {
+          const imgSrc = mockImages[p.image] || 'https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?auto=format&fit=crop&w=500&q=80';
+          let actionPanel = '';
+          let statusBadge = '';
+
+          if (p.status === 'Pending') {
+            statusBadge = '<span class="bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-xs font-medium uppercase">Pending Approval</span>';
+            actionPanel = `
+              <div class="border-t border-border pt-4 mt-4 space-y-4">
+                <p class="text-xs font-medium text-primary-text">Review Decision:</p>
+                <textarea id="feedback-${p.id}" rows="2" placeholder="If requesting changes, describe adjustments here..." class="w-full p-2.5 bg-background border border-border rounded-xl text-xs focus:outline-none"></textarea>
+                <div class="flex gap-3">
+                  <button onclick="approveProof(${p.id})" class="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg text-xs font-bold shadow-md hover:bg-emerald-600">Approve Design</button>
+                  <button onclick="rejectProof(${p.id})" class="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg text-xs font-bold shadow-md hover:bg-red-600">Request Changes</button>
+                </div>
+              </div>
+            `;
+          } else if (p.status === 'Approved') {
+            statusBadge = '<span class="bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full text-xs font-medium uppercase">Approved</span>';
+            actionPanel = `
+              <div class="border-t border-border pt-3 mt-3 text-xs text-emerald-600 font-medium">
+                <i class="fas fa-check-circle me-1"></i> You approved this proof. Chef Penelope is working based on this layout!
+              </div>
+            `;
+          } else {
+            statusBadge = '<span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-medium uppercase">Revision Requested</span>';
+            actionPanel = `
+              <div class="border-t border-border pt-3 mt-3 text-xs text-red-500">
+                <p class="font-medium">Your Revision Request Notes:</p>
+                <p class="mt-1 bg-red-50/50 p-2.5 rounded-lg border border-red-100">"${p.feedback}"</p>
+              </div>
+            `;
+          }
+
+          return `
+            <div class="proof-card bg-card-custom border border-border rounded-2xl overflow-hidden p-6 flex flex-col md:flex-row gap-6">
+              <div class="md:w-1/3">
+                <img src="${imgSrc}" class="w-full h-48 object-cover rounded-xl border border-border" alt="Design Sketch" />
+              </div>
+              <div class="md:w-2/3 flex flex-col justify-between">
+                <div>
+                  <div class="flex justify-between items-start flex-wrap gap-2">
+                    <h4 class="font-medium text-base text-primary-text">${p.title}</h4>
+                    ${statusBadge}
+                  </div>
+                  <p class="text-xs text-secondary-text mt-3">${p.notes}</p>
+                  <p class="text-[10px] text-secondary-text mt-1">Uploaded Date: ${p.date}</p>
+                </div>
+                ${actionPanel}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      window.approveProof = function(id) {
+        const state = getDashboardState();
+        const proof = state.order.proofs.find(p => p.id === id);
+        if (proof) {
+          proof.status = 'Approved';
+          proof.feedback = '';
+          saveDashboardState(state);
+          alert('Fantastic! Proof has been officially approved. The decorating kitchen has been notified.');
+          refreshUI();
+        }
+      };
+
+      window.rejectProof = function(id) {
+        const text = document.getElementById(`feedback-${id}`).value.trim();
+        if (!text) {
+          alert('Please input your revision request notes first.');
+          return;
+        }
+        const state = getDashboardState();
+        const proof = state.order.proofs.find(p => p.id === id);
+        if (proof) {
+          proof.status = 'Rejected';
+          proof.feedback = text;
+          saveDashboardState(state);
+          alert('Notes submitted! The decorating chef will review your revision details.');
+          refreshUI();
+        }
+      };
+
+      // 4. LOGISTICS CONTROLLER
+      document.getElementById('btn-save-logistics')?.addEventListener('click', () => {
+        const state = getDashboardState();
+        const dateVal = document.getElementById('logistics-date').value;
+        const slotVal = document.getElementById('logistics-slot').value;
+        const addrVal = document.getElementById('logistics-address').value.trim();
+        const rulesVal = document.getElementById('logistics-rules').value.trim();
+
+        if (!dateVal || !addrVal) {
+          alert('Please specify delivery setup date and address.');
+          return;
+        }
+
+        state.order.deliveryDate = dateVal;
+        state.order.deliveryTime = slotVal;
+        state.order.venueDetails = addrVal;
+        state.order.venueRules = rulesVal;
+
+        saveDashboardState(state);
+        alert('Success! Setup scheduling and venue configurations updated.');
+        refreshUI();
+      });
+
+      // 5. CHAT MESSENGER
+      function renderChat(messages) {
+        const container = document.getElementById('chat-messages-container');
+        if (!container) return;
+
+        if (messages.length === 0) {
+          container.innerHTML = `
+            <div class="h-full flex flex-col justify-center items-center text-center">
+              <span class="text-secondary-text text-2xl"><i class="far fa-comment-alt"></i></span>
+              <p class="text-xs text-secondary-text mt-2">Chat directly with Chef Penelope here. Ask custom questions or submit changes.</p>
+            </div>
+          `;
+          return;
+        }
+
+        // Keep badge hidden on active section
+        const activeSec = document.querySelector('.sidebar-link.active');
+        if (activeSec && activeSec.dataset.section === 'user-chat') {
+          document.getElementById('chat-badge')?.classList.add('hidden');
+        }
+
+        container.innerHTML = messages.map(msg => {
+          const isChef = msg.sender === 'chef';
+          const bgClass = isChef ? 'bg-hover me-auto text-start' : 'bg-accent/10 ms-auto text-end';
+          const senderLabel = isChef ? 'Chef Penelope' : 'You';
+          return `
+            <div class="p-3 rounded-xl max-w-[85%] ${bgClass}">
+              <p class="font-medium text-[10px] text-accent-light mb-1">${senderLabel}</p>
+              <p class="text-primary-text leading-relaxed">${msg.text}</p>
+              <span class="text-[8px] text-secondary-text block mt-1">${msg.time}</span>
+            </div>
+          `;
+        }).join('');
+
+        // Scroll to bottom
+        container.scrollTop = container.scrollHeight;
+      }
+
+      // Send Chat Message
+      document.getElementById('chat-send-btn')?.addEventListener('click', () => {
+        const input = document.getElementById('chat-input-text');
+        const text = input.value.trim();
+        if (!text) return;
+
+        const state = getDashboardState();
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        const newMsg = {
+          sender: "client",
+          text: text,
+          time: timeStr,
+          date: now.toISOString().split('T')[0]
+        };
+
+        state.order.messages.push(newMsg);
+        saveDashboardState(state);
+        input.value = '';
+        refreshUI();
+      });
+
+      // Handle enter key on chat
+      document.getElementById('chat-input-text')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          document.getElementById('chat-send-btn').click();
+        }
+      });
+
+      // Clear Chat
+      document.getElementById('btn-clear-chat')?.addEventListener('click', () => {
+        if (confirm('Clear message history with Chef Penelope?')) {
+          const state = getDashboardState();
+          state.order.messages = [];
+          saveDashboardState(state);
+          refreshUI();
+        }
+      });
+
+      // 6. PROFILE SETTINGS
+      document.getElementById('btn-update-profile')?.addEventListener('click', () => {
+        const state = getDashboardState();
+        const nameVal = document.getElementById('settings-name').value.trim();
+        const addrVal = document.getElementById('settings-address').value.trim();
+
+        if (!nameVal) {
+          alert('Please enter your full name.');
+          return;
+        }
+
+        state.order.clientName = nameVal;
+        state.order.venueDetails = addrVal;
+        saveDashboardState(state);
+        alert('Success! Client profile details updated.');
+        refreshUI();
+      });
+
+      // 7. ESTIMATOR CALCULATION INTERACTIVE LOGIC
+      const rngGuests = document.getElementById('rng-guests');
+      const lblGuests = document.getElementById('lbl-guests');
+      const chkGourmet = document.getElementById('chk-gourmet');
+      const chkFoil = document.getElementById('chk-foil');
+      const chkStands = document.getElementById('chk-stands');
+      const chkSetup = document.getElementById('chk-setup');
+      const lblTotal = document.getElementById('lbl-total');
+
+      function calculateQuote() {
+        if (!rngGuests) return;
+        const guests = parseInt(rngGuests.value);
+        lblGuests.innerText = `${guests} Guests`;
+        
+        const baseItemCost = 3.50;
+        let itemCost = baseItemCost;
+        if (chkGourmet.checked) itemCost += 1.00;
+        if (chkFoil.checked) itemCost += 0.50;
+
+        let total = guests * 2 * itemCost;
+
+        if (chkStands.checked) total += 50.00;
+        if (chkSetup.checked) total += 80.00;
+
+        lblTotal.innerText = `$${total.toFixed(2)}`;
+      }
+
+      if (rngGuests && chkGourmet && chkFoil && chkStands && chkSetup) {
+        rngGuests.addEventListener('input', calculateQuote);
+        chkGourmet.addEventListener('change', calculateQuote);
+        chkFoil.addEventListener('change', calculateQuote);
+        chkStands.addEventListener('change', calculateQuote);
+        chkSetup.addEventListener('change', calculateQuote);
+        calculateQuote();
+      }
+
+      // Sync listener for cross-tab changes
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'sweet_pops_dashboard_state') {
+          // Check if new message or proof has arrived
+          const oldState = JSON.parse(e.oldValue);
+          const newState = JSON.parse(e.newValue);
+          
+          if (newState.order.messages.length > oldState.order.messages.length) {
+            const activeLink = document.querySelector('.sidebar-link.active');
+            if (!activeLink || activeLink.dataset.section !== 'user-chat') {
+              document.getElementById('chat-badge')?.classList.remove('hidden');
+            }
+          }
+          if (newState.order.proofs.length > oldState.order.proofs.length) {
+            const activeLink = document.querySelector('.sidebar-link.active');
+            if (!activeLink || activeLink.dataset.section !== 'user-proofs') {
+              document.getElementById('proofs-badge')?.classList.remove('hidden');
+            }
+          }
+          
+          refreshUI();
+        }
+      });
+
+      // Run first UI draw
+      refreshUI();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/fav.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+  <title>Admin Dashboard | Juicora</title>
+
+  <script src="tailwind.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: 'var(--color-accent)',
+            'accent-light': 'var(--color-accent-light)',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* --- Premium Dessert & Pastel Pink Palette --- */
+    :root, html[data-theme='light'] {
+      --color-background: #FFFDF9;
+      --color-primary-text: #3D271D;
+      --color-secondary-text: #7C6053;
+      --color-accent: #FF5E86;
+      --color-accent-light: #A87C00;
+      --color-border: #F3ECE3;
+      --color-hover: #FFF5E6;
+      --color-footer-bg: #2A1A12;
+      --color-footer-text: #F5EBE6; 
+      --color-card-bg: #FFFFFF;
+    }
+    html[data-theme='dark'] {
+      --color-background: #0E0F12; /* Premium dark charcoal grey */
+      --color-primary-text: #F3F4F6; /* Soft light grey / white */
+      --color-secondary-text: #9CA3AF; /* Muted light grey */
+      --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary Brand Color) */
+      --color-accent-light: #D4AF37; /* Honey Pastry Gold (Secondary Brand Color) */
+      --color-border: #23272E; /* Clean dark grey border */
+      --color-hover: #1A1C20; /* Alternate dark grey for sections */
+      --color-footer-bg: #07080A; /* Pitch dark footer */
+      --color-footer-text: #E5E7EB; 
+      --color-card-bg: #16171A; /* Clean dark card background */
+    }
+    
+    body {
+      background-color: var(--color-background);
+      color: var(--color-primary-text);
+      font-family: 'Outfit', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+    
+    .text-primary-text { color: var(--color-primary-text); }
+    .text-secondary-text { color: var(--color-secondary-text); }
+    .text-accent { color: var(--color-accent); }
+    .text-accent-light { color: var(--color-accent-light); }
+    .bg-background { background-color: var(--color-background); }
+    .bg-hover { background-color: var(--color-hover); }
+    .border-border { border-color: var(--color-border); }
+    .bg-card-custom { background-color: var(--color-card-bg); }
+
+    /* ── Typography Size & Weight System ── */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 550 !important;
+    }
+    h1 {
+      font-size: 2.25rem !important; /* 36px */
+    }
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 3.75rem !important; /* 60px */
+      }
+    }
+    h2 {
+      font-size: 1.875rem !important; /* 30px */
+    }
+    @media (min-width: 640px) {
+      h2 {
+        font-size: 2.25rem !important; /* 36px */
+      }
+    }
+    h3 {
+      font-size: 1.25rem !important; /* 20px */
+    }
+    @media (min-width: 640px) {
+      h3 {
+        font-size: 1.5rem !important; /* 24px */
+      }
+    }
+    p, .text-secondary-text {
+      font-weight: 400 !important;
+    }
+
+    .bg-custom-gradient {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    }
+
+    /* Nav Link Underline */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s;
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 2px;
+      background-color: var(--color-accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* DROPDOWN */
+    .dropdown-wrapper { position: relative; }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-border);
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      min-width: 220px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+    .dropdown-wrapper:hover .dropdown-menu {
+      opacity: 1; visibility: visible; transform: translateY(0);
+      display: block;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.25rem;
+      color: var(--color-primary-text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover {
+      background-color: var(--color-hover);
+      color: var(--color-accent);
+      padding-left: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .dropdown-menu { position: static; display: none; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; }
+      .dropdown-wrapper:hover .dropdown-menu { display: block; }
+    }
+
+    .btn-primary, .book-btn {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+      color: white;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn-primary:hover, .book-btn:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 94, 134, 0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-accent);
+      border: 2px solid var(--color-accent);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      background: var(--color-accent);
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 94, 134, 0.25);
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1rem;
+      border-radius: 1rem;
+      color: var(--color-secondary-text);
+      transition: all 0.2s ease;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      cursor: pointer;
+      direction: ltr !important;
+      justify-content: flex-start !important;
+    }
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+      color: white;
+    }
+
+    #mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 55;
+    }
+    #mobile-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (min-width: 1280px) {
+      #sidebar {
+        transform: translateX(0) !important;
+      }
+    }
+
+    /* Dynamic logical text alignment for internationalized layouts */
+    p, h1, h2, h3, h4, h5, h6, span, li, td, th, input, select, textarea {
+      unicode-bidi: plaintext;
+      text-align: start;
+    }
+  </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+  <!-- TOP HEADER -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-background border-b border-border h-[73px]">
+    <div class="px-3 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+      <div class="flex items-center gap-2 sm:gap-4">
+        <button id="mobile-menu-toggle" class="xl:hidden p-2 rounded-xl hover:bg-hover transition text-primary-text">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <a href="index.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cup Body -->
+            <path d="M 25 35 L 35 85 C 36 90 40 92 45 92 L 55 92 C 60 92 64 90 65 85 L 75 35 Z" fill="url(#juiceGrad)" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Cup Lid -->
+            <path d="M 20 35 C 20 25 80 25 80 35 Z" fill="#ffffff" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Straw -->
+            <path d="M 50 25 L 50 10 L 65 10" stroke="var(--color-accent-light)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Fruit Slice -->
+            <circle cx="25" cy="45" r="12" fill="#FFA726" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="25" cy="45" r="9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- Highlights -->
+            <path d="M 32 40 L 40 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+            <defs>
+              <linearGradient id="juiceGrad" x1="50" y1="90" x2="50" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF9800"/>
+                <stop offset="100%" stop-color="var(--color-accent)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+          <span class="text-xl sm:text-2xl font-medium tracking-tight whitespace-nowrap" style="color: var(--color-accent);">Juicora</span>
+          <span class="text-xs uppercase tracking-widest font-medium px-2 py-0.5 rounded bg-hover text-accent-light hidden sm:inline-block">Admin Suite</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-4">
+        <button id="lang-toggle" class="p-2 rounded-full hover:bg-hover transition text-primary-text" title="Toggle Language Direction">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+          </svg>
+        </button>
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-hover transition text-primary-text" title="Toggle Theme Mode">
+          <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+        <div class="flex items-center gap-2 ps-2 sm:ps-3 border-s border-border">
+          <div class="w-9 h-9 rounded-full bg-accent-light/20 flex items-center justify-center text-accent-light font-medium">CP</div>
+          <div class="hidden sm:block text-start">
+            <p class="text-sm font-medium">Chef Penelope</p>
+            <p class="text-xs text-secondary-text">Executive Kitchen Admin</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="mobile-overlay" class="xl:hidden"></div>
+
+  <div class="flex min-h-screen pt-[73px]">
+    <!-- ADMIN SIDEBAR -->
+    <aside id="sidebar"
+      class="fixed top-0 xl:top-[73px] start-0 w-72 xl:w-64 h-full xl:h-[calc(100vh-73px)] z-[60] transform -translate-x-full rtl:translate-x-full xl:translate-x-0 transition-transform duration-300 bg-background border-e border-border overflow-y-auto shrink-0">
+      <div class="p-5">
+        <div class="flex xl:hidden justify-between items-center mb-6">
+          <span class="font-medium text-accent">Admin Menu</span>
+          <button id="close-sidebar" class="p-2 hover:bg-hover rounded-lg text-primary-text">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-1">
+          <p class="text-xs uppercase tracking-wider text-secondary-text px-3 mb-2">Operations</p>
+          <a href="#" data-section="admin-overview" class="sidebar-link active">
+            <i class="fa-solid fa-chart-line w-5"></i>
+            <span>Overview</span>
+          </a>
+          <a href="#" data-section="admin-orders" class="sidebar-link">
+            <i class="fa-solid fa-list-check w-5"></i>
+            <span>Order Manager</span>
+          </a>
+          <a href="#" data-section="admin-proofs" class="sidebar-link">
+            <i class="fa-solid fa-stamp w-5"></i>
+            <span>Design Proofs</span>
+          </a>
+          <a href="#" data-section="admin-inspirations" class="sidebar-link">
+            <i class="fa-solid fa-images w-5"></i>
+            <span>Inspirations Queue</span>
+          </a>
+          <a href="#" data-section="admin-logistics" class="sidebar-link">
+            <i class="fa-solid fa-truck-ramp-box w-5"></i>
+            <span>Delivery and Logistics</span>
+          </a>
+          <a href="#" data-section="admin-flavors" class="sidebar-link">
+            <i class="fa-solid fa-table-cells w-5"></i>
+            <span>Flavor Matrix Editor</span>
+          </a>
+          <a href="#" data-section="admin-chat" class="sidebar-link">
+            <i class="fa-solid fa-inbox w-5"></i>
+            <span>Chef Inbox</span>
+            <span id="admin-chat-badge" class="hidden ms-auto w-2.5 h-2.5 bg-accent rounded-full"></span>
+          </a>
+          
+          <p class="text-xs uppercase tracking-wider text-secondary-text px-3 mt-4 mb-2">Navigation</p>
+          <a href="index.html" class="sidebar-link">
+            <i class="fa-solid fa-house w-5"></i>
+            <span>Back to Website</span>
+          </a>
+          <a href="userdash.html" class="sidebar-link">
+            <i class="fa-solid fa-circle-user w-5"></i>
+            <span>Go to User Dash</span>
+          </a>
+
+          <a href="#" id="logoutBtn"
+            class="sidebar-link mt-6 border-t border-border pt-4 text-red-600 hover:text-white hover:bg-red-600">
+            <i class="fa-solid fa-right-from-bracket w-5"></i>
+            <span>Logout</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- MAIN PANEL -->
+    <main class="flex-grow min-w-0 space-y-6 xl:ms-64 px-4 sm:px-6 lg:px-8 py-6">
+      
+      <!-- SECTION 1: Admin Overview -->
+      <section id="admin-overview" class="admin-section">
+        <div class="mb-8">
+          <h1 class="text-4xl sm:text-5xl font-medium text-primary-text">Kitchen Control Center</h1>
+          <p class="text-sm text-secondary-text mt-1">Manage active custom caterings, schedule deliveries, edit flavor menus, and review design approvals.</p>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+            <p class="text-xs uppercase tracking-wider text-secondary-text font-medium">Active Custom Orders</p>
+            <h3 class="text-2xl sm:text-3xl font-medium text-accent mt-2" id="stat-active-orders">1 Order</h3>
+            <span class="text-[10px] text-emerald-600 font-medium"><i class="fas fa-caret-up me-1"></i> Synchronized Live</span>
+          </div>
+          <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+            <p class="text-xs uppercase tracking-wider text-secondary-text font-medium">Today's Setup Deliveries</p>
+            <h3 class="text-2xl sm:text-3xl font-medium text-primary-text mt-2">1 Location</h3>
+            <span class="text-[10px] text-secondary-text">Denver Area Corridor</span>
+          </div>
+          <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+            <p class="text-xs uppercase tracking-wider text-secondary-text font-medium">Pending Design Approvals</p>
+            <h3 class="text-2xl sm:text-3xl font-medium text-accent-light mt-2" id="stat-pending-proofs">0 Pending</h3>
+            <span class="text-[10px] text-secondary-text">Awaiting client response</span>
+          </div>
+          <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+            <p class="text-xs uppercase tracking-wider text-secondary-text font-medium">Catering Revenue (Monthly)</p>
+            <h3 class="text-2xl sm:text-3xl font-medium text-emerald-600 mt-2">$2,950.00</h3>
+            <span class="text-[10px] text-emerald-600 font-medium"><i class="fas fa-arrow-trend-up me-1"></i> +12% vs last month</span>
+          </div>
+        </div>
+
+        <!-- Visual Chart Simulation & Logistics Agenda -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 bg-card-custom border border-border p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+            <div>
+              <h4 class="font-medium text-base text-primary-text border-b border-border pb-2 mb-4">Monthly Booking Projections</h4>
+              
+              <!-- Mock chart container -->
+              <div class="h-48 flex items-end justify-between gap-2 pt-4 px-2">
+                <div class="w-12 rounded-t-lg text-center text-[9px] font-medium text-accent pb-1" style="height: 40%; background-color: color-mix(in srgb, var(--color-accent) 20%, transparent)">Jan<br/>$1.2k</div>
+                <div class="w-12 rounded-t-lg text-center text-[9px] font-medium text-accent pb-1" style="height: 55%; background-color: color-mix(in srgb, var(--color-accent) 30%, transparent)">Feb<br/>$1.8k</div>
+                <div class="w-12 rounded-t-lg text-center text-[9px] font-medium text-accent pb-1" style="height: 65%; background-color: color-mix(in srgb, var(--color-accent) 40%, transparent)">Mar<br/>$2.1k</div>
+                <div class="w-12 rounded-t-lg text-center text-[9px] font-medium text-accent pb-1" style="height: 80%; background-color: color-mix(in srgb, var(--color-accent) 50%, transparent)">Apr<br/>$2.5k</div>
+                <div class="w-12 bg-custom-gradient rounded-t-lg text-center text-[9px] font-medium text-white pb-1" style="height: 95%">Jun<br/>$2.9k</div>
+              </div>
+            </div>
+            <p class="text-[10px] text-secondary-text mt-4 text-center">Data combines custom cake pop installations, macarons buffets, and equipment rental fees.</p>
+          </div>
+
+          <!-- Kitchen Alerts -->
+          <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+            <h4 class="font-medium text-base text-primary-text border-b border-border pb-2 mb-4">Kitchen Alerts</h4>
+            <div class="space-y-3 text-xs" id="admin-alerts-container">
+              <!-- Dynamic alerts -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: Order Manager -->
+      <section id="admin-orders" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Custom Order Manager</h3>
+          <p class="text-sm text-secondary-text mb-6">Track client catering details. Update baking/delivery status and write chef notes to guide the client on their dashboard.</p>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-start border-collapse text-xs">
+              <thead>
+                <tr class="bg-hover text-secondary-text uppercase font-bold border-b border-border">
+                  <th class="p-4">Order ID</th>
+                  <th class="p-4">Client Name</th>
+                  <th class="p-4">Catering Package</th>
+                  <th class="p-4">Delivery Date</th>
+                  <th class="p-4 text-center">Status</th>
+                  <th class="p-4 text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border" id="admin-orders-table-body">
+                <!-- Dynamic orders table -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Update Status Modal/Form (displayed inline for ease of access) -->
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm mt-6 hidden" id="status-controller-card">
+          <h4 class="font-medium text-sm text-primary-text border-b border-border pb-2 mb-4">Update Status for Order <span id="controller-order-id">#58102</span></h4>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-medium text-secondary-text mb-2">Stage Status</label>
+              <select id="controller-status-select" class="w-full p-3 bg-hover border border-border rounded-xl text-xs text-primary-text focus:outline-none">
+                <option value="Inquiry">Inquiry (Proposal Created)</option>
+                <option value="Tasting">Tasting (Flavors Finalized)</option>
+                <option value="Proofing">Proofing (Sketches Review)</option>
+                <option value="Baking">Baking (In Kitchen Oven)</option>
+                <option value="Delivery">Delivery (En Route)</option>
+                <option value="Delivered">Setup (Completed at Venue)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-secondary-text mb-2">Kitchen Progress Notes</label>
+              <input type="text" id="controller-notes-input" placeholder="Notes explaining progress to the client..." class="w-full p-3 bg-hover border border-border rounded-xl text-xs text-primary-text focus:outline-none" />
+            </div>
+          </div>
+
+          <div class="mt-6 flex justify-end gap-3">
+            <button onclick="hideStatusController()" class="px-4 py-2 border border-border rounded-xl text-xs text-secondary-text hover:bg-hover">Cancel</button>
+            <button onclick="saveOrderStatus()" class="btn-primary mt-auto px-5 py-2 rounded-xl text-xs font-bold text-white shadow-md">Apply Status Update</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: Design Proofs Upload Center -->
+      <section id="admin-proofs" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Design Proof Upload Center</h3>
+          <p class="text-sm text-secondary-text mb-6">Create design sketches or prototypes, upload them to the client's page, and monitor whether the client approves or requests revisions.</p>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Upload Form -->
+            <div class="lg:col-span-1 space-y-4">
+              <h4 class="font-medium text-sm text-primary-text border-b border-border pb-2">Upload New Proof</h4>
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Proof Title</label>
+                <input type="text" id="proof-upload-title" placeholder="e.g. Lavender Lemon Pop Design" class="w-full p-3 bg-hover border border-border rounded-xl text-xs text-primary-text focus:outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Design Specifications</label>
+                <textarea id="proof-upload-notes" rows="4" placeholder="Describe glazes, metallic details, sprinkles shapes..." class="w-full p-3 bg-hover border border-border rounded-xl text-xs text-primary-text focus:outline-none"></textarea>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Select Sketch Mockup (Simulated Image)</label>
+                <select id="proof-upload-image" class="w-full p-3 bg-hover border border-border rounded-xl text-xs text-primary-text focus:outline-none">
+                  <option value="rose_gold_theme">Rose Gold Wedding Draft</option>
+                  <option value="woodland_baby">Woodland Greenery and Animals Draft</option>
+                  <option value="starry_night">Starry Night Galaxy Theme Draft</option>
+                </select>
+              </div>
+
+              <button onclick="createDesignProof()" class="w-full btn-primary py-3 rounded-xl font-bold text-xs text-white shadow-md">
+                Upload and Notify Client
+              </button>
+            </div>
+
+            <!-- Existing Proofs Queue -->
+            <div class="lg:col-span-2">
+              <h4 class="font-medium text-sm text-primary-text border-b border-border pb-4 mb-4">Current Proofs Status Queue</h4>
+              <div class="space-y-4" id="admin-proofs-list">
+                <!-- Dynamic proofs list -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: Inspiration Board Queue -->
+      <section id="admin-inspirations" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Client Inspiration Reviewer</h3>
+          <p class="text-sm text-secondary-text mb-6">Review Pinterest links, color swatches, and moodboards uploaded by the client. Click items to read details.</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="admin-inspirations-grid">
+            <!-- Dynamic inspirations grid -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: Delivery & Setup Logistics -->
+      <section id="admin-logistics" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Delivery and Setup Logistics Manager</h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+              <h4 class="font-medium text-sm text-primary-text border-b border-border pb-2"><i class="fas fa-clipboard-list text-accent me-1"></i> Event Schedule Detail</h4>
+              
+              <div class="grid grid-cols-2 gap-4 text-xs">
+                <div class="p-4 bg-hover border border-border rounded-xl">
+                  <span class="text-secondary-text">Setup Date:</span>
+                  <p class="font-medium mt-1 text-primary-text text-sm" id="logistics-confirm-date">June 20, 2026</p>
+                </div>
+                <div class="p-4 bg-hover border border-border rounded-xl">
+                  <span class="text-secondary-text">Delivery Time window:</span>
+                  <p class="font-medium mt-1 text-primary-text text-sm" id="logistics-confirm-time">10:00 AM - 12:00 PM</p>
+                </div>
+              </div>
+
+              <div class="p-4 bg-hover border border-border rounded-xl text-xs">
+                <span class="text-secondary-text">Venue Address:</span>
+                <p class="font-medium mt-1 text-primary-text" id="logistics-confirm-address">Gourmet Hall Room 3, Denver, CO</p>
+              </div>
+
+              <div class="p-4 bg-hover border border-border rounded-xl text-xs">
+                <span class="text-secondary-text">Client Notes and Venue Rules:</span>
+                <p class="font-medium mt-1 text-primary-text" id="logistics-confirm-rules">Venue opens at 9:00 AM. Requires table linen setup. Outdoor patio loading dock.</p>
+              </div>
+            </div>
+
+            <!-- Logistics Assignment -->
+            <div class="p-6 bg-hover border border-border rounded-2xl space-y-4">
+              <h4 class="font-medium text-sm text-primary-text border-b border-border pb-2"><i class="fas fa-user-tag text-accent-light me-1"></i> Logistics Assignment</h4>
+              
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Select Delivery Courier</label>
+                <select id="logistics-courier-select" class="w-full p-2.5 bg-background border border-border rounded-lg text-xs focus:outline-none">
+                  <option value="John Doe">John Doe (Refrigerated Van #1)</option>
+                  <option value="Jane Smith">Jane Smith (Refrigerated Van #2)</option>
+                  <option value="Penelope Chef">Penelope Chef (Direct Kitchen Pick)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Setup Coordinator Assignment</label>
+                <select id="logistics-coordinator-select" class="w-full p-2.5 bg-background border border-border rounded-lg text-xs focus:outline-none">
+                  <option value="Penelope Chef">Chef Penelope (Table Display Designer)</option>
+                  <option value="Decor Crew A">Decor Crew A (Standard Setup)</option>
+                  <option value="Direct Dropoff">Direct Dropoff (No Display styling)</option>
+                </select>
+              </div>
+
+              <button onclick="confirmLogisticsAssignment()" class="w-full btn-primary py-3 rounded-xl font-bold text-xs text-white shadow-md">
+                Confirm and Update Client
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: Flavor Matrix Editor -->
+      <section id="admin-flavors" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm">
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text border-b border-border pb-4 mb-6">Menu and Flavor Matrix Editor</h3>
+          <p class="text-sm text-secondary-text mb-6">Manage available bases, glazes, and toppings. Toggle menu items active/inactive, or add new flavors for users to pick.</p>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Add Flavor Form -->
+            <div class="lg:col-span-1 p-5 bg-hover border border-border rounded-xl space-y-4">
+              <h4 class="font-medium text-sm text-primary-text border-b border-border pb-2">Add New Menu Item</h4>
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Item Category</label>
+                <select id="flavor-add-type" class="w-full p-2.5 bg-background border border-border rounded-lg text-xs focus:outline-none">
+                  <option value="bases">Cake Base</option>
+                  <option value="fillings">Filling Core</option>
+                  <option value="glazes">Outer Glaze Coating</option>
+                  <option value="toppings">Artisanal Topping</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Flavor Name</label>
+                <input type="text" id="flavor-add-name" placeholder="e.g. Pistachio Praline" class="w-full p-2.5 bg-background border border-border rounded-lg text-xs focus:outline-none" />
+              </div>
+              <div id="flavor-add-color-container">
+                <label class="block text-xs font-medium text-secondary-text mb-1">Glaze Color (Hex - for glazes only)</label>
+                <input type="color" id="flavor-add-color" value="#FF5E86" class="w-full h-8 rounded border border-border cursor-pointer focus:outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-secondary-text mb-1">Short Description (Optional)</label>
+                <input type="text" id="flavor-add-desc" placeholder="Brief flavor notes..." class="w-full p-2.5 bg-background border border-border rounded-lg text-xs focus:outline-none" />
+              </div>
+              
+              <button onclick="addNewFlavorToMenu()" class="w-full btn-primary py-2.5 rounded-xl font-bold text-xs text-white shadow-md">
+                Add Flavor Item
+              </button>
+            </div>
+
+            <!-- Active Flavor Lists -->
+            <div class="lg:col-span-2 space-y-6">
+              <div>
+                <h4 class="font-medium text-sm text-primary-text border-b border-border pb-2 mb-3">Active Menu Items</h4>
+                <div class="space-y-4" id="matrix-categories-list">
+                  <!-- Dynamic lists grouped by category -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7: Kitchen Inbox -->
+      <section id="admin-chat" class="admin-section hidden">
+        <div class="bg-card-custom border border-border p-6 rounded-2xl shadow-sm flex flex-col justify-between h-[480px]">
+          <div>
+            <div class="flex items-center justify-between border-b border-border pb-4 mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center font-medium text-accent">SJ</div>
+                <div>
+                  <h4 class="font-medium text-sm text-primary-text" id="chat-client-title">Sarah Jenkins</h4>
+                  <p class="text-xs text-secondary-text">Catering Client (#58102)</p>
+                </div>
+              </div>
+              <span class="text-[10px] text-emerald-500 font-medium"><i class="fas fa-circle me-1 animate-pulse"></i> Client is Online</span>
+            </div>
+            
+            <!-- Messages Container -->
+            <div class="space-y-4 h-[280px] overflow-y-auto pe-1 text-xs" id="admin-chat-messages">
+              <!-- Dynamic messages -->
+            </div>
+          </div>
+
+          <!-- Messenger Footer -->
+          <div class="flex gap-2 pt-4 border-t border-border mt-2">
+            <input type="text" id="admin-chat-input" placeholder="Type a response to Sarah Jenkins..." class="flex-grow p-3 bg-hover border border-border rounded-xl text-xs text-primary-text focus:outline-none focus:ring-1 focus:ring-accent" />
+            <button onclick="sendAdminChatMessage()" class="p-3 bg-custom-gradient text-white rounded-xl shadow-md"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="text-center text-xs text-secondary-text border-t border-border pt-8 pb-4 mt-6">
+        <p>© 2026 Juicora — Admin Suite Control Portal</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const html = document.documentElement;
+
+      // Shared State Initialization & Fetching
+      const defaultState = {
+       order: {
+        id: "#58102",
+        clientName: "Sarah Jenkins",
+        packageName: "Premium Custom Baby Shower Buffet",
+        status: "Baking",
+        statusNotes: "Cake pops are in the oven! Chef Penelope is supervising the custom rose gold coating.",
+        items: "120 Custom Cake Pops (Rose Gold and Soft Pink Theme), 40 Fresh Juices, 24 Velvet Cupcakes",
+        guests: 60,
+        price: 670.00,
+        deliveryDate: "2026-06-20",
+        deliveryTime: "10:00 AM - 12:00 PM",
+        venueDetails: "Gourmet Hall Room 3, Denver, CO",
+        venueRules: "Venue opens at 9:00 AM. Requires table linen setup. Outdoor patio loading dock.",
+        flavorCombo: {
+         base: "Strawberry Cheesecake",
+         filling: "Cream Cheese Fudge",
+         glaze: "White Chocolate Vanilla",
+         topping: "Gold leaf sparkles"
+        },
+        inspirations: [
+         { id: 1, name: "Baby Shower Moodboard", note: "Soft pastel pinks, rose gold details, and floral accents.", date: "2026-06-12", isPinterest: false, img: "rose_gold_theme" },
+         { id: 2, name: "Table Setup Reference", note: "Riser stands arranged symmetrically.", date: "2026-06-13", isPinterest: false, img: "woodland_baby" }
+        ],
+        proofs: [
+         {
+          id: 1,
+          title: "Rose Gold Glitter Pop Design Draft",
+          image: "rose_gold_theme",
+          notes: "Here is the visual design for the main cake pops. We will use edible rose gold glitter and premium white chocolate drizzle.",
+          status: "Pending",
+          feedback: "",
+          date: "2026-06-14"
+         }
+        ],
+        messages: [
+         { sender: "chef", text: "Hi Sarah! I received your inquiry for the pink baby shower cake pops. Have you finalized the gold leaf details?", time: "10:30 AM", date: "2026-06-14" },
+         { sender: "client", text: "Yes! I updated my profile to include gold leaf flakes.", time: "10:45 AM", date: "2026-06-14" }
+        ]
+       },
+       availableFlavors: {
+        bases: [
+         { id: "red-velvet", name: "Red Velvet Meringue", desc: "Rich and cocoa-flavored cake with subtle tang.", active: true },
+         { id: "strawberry-cheesecake", name: "Strawberry Cheesecake", desc: "Sweet strawberry cake blended with real cream cheese.", active: true },
+         { id: "chocolate-fudge", name: "Double Chocolate Fudge", desc: "Decadent dark chocolate cake for cocoa lovers.", active: true },
+         { id: "lavender-lemon", name: "Lavender Lemoncurd", desc: "Floral lavender infused cake with zesty lemon curd fill.", active: true },
+         { id: "vanilla-bean", name: "Classic Vanilla Bean", desc: "Fluffy vanilla bean cake with gourmet buttercream.", active: true }
+        ],
+        fillings: [
+         { id: "cream-cheese", name: "Cream Cheese Fudge", active: true },
+         { id: "lemon-curd", name: "Lemon Curd Tang", active: true },
+         { id: "chocolate-ganache", name: "Dark Chocolate Ganache", active: true },
+         { id: "caramel-drizzle", name: "Salted Caramel Drizzle", active: true }
+        ],
+        glazes: [
+         { id: "white-chocolate", name: "White Chocolate Vanilla", active: true, color: "#FFFDF0" },
+         { id: "dark-chocolate", name: "Premium Dark Chocolate", active: true, color: "#301B10" },
+         { id: "milk-chocolate", name: "Milk Chocolate Caramel", active: true, color: "#8B5A2B" },
+         { id: "ruby-chocolate", name: "Velvet Ruby Berry Chocolate", active: true, color: "#D0506A" }
+        ],
+        toppings: [
+         { id: "gold-leaf", name: "Gold leaf sparkles", active: true },
+         { id: "custom-drizzle", name: "Custom color drizzle", active: true },
+         { id: "sprinkles", name: "Handcrafted sugar pearls", active: true },
+         { id: "edible-glitter", name: "Edible silver glitter", active: true }
+        ]
+       }
+      };
+
+      function getDashboardState() {
+        let stateStr = localStorage.getItem('sweet_pops_dashboard_state');
+        if (!stateStr) {
+          localStorage.setItem('sweet_pops_dashboard_state', JSON.stringify(defaultState));
+          return defaultState;
+        }
+        return JSON.parse(stateStr);
+      }
+
+      function saveDashboardState(state) {
+        localStorage.setItem('sweet_pops_dashboard_state', JSON.stringify(state));
+      }
+
+      // Theme Switcher
+      const applyTheme = (theme) => {
+        html.setAttribute('data-theme', theme);
+        html.classList.toggle('dark', theme === 'dark');
+        document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+        document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+      };
+      
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+      applyTheme(localStorage.getItem('theme') || 'light');
+
+      // Language direction
+      const setDirection = (dir) => {
+        html.setAttribute('dir', dir);
+        localStorage.setItem('language', dir === 'rtl' ? 'ar' : 'en');
+        
+        // Align closed sidebar translation to new direction
+        const isSidebarOpen = sidebar && sidebar.classList.contains('translate-x-0');
+        if (sidebar && !isSidebarOpen) {
+          if (dir === 'rtl') {
+            sidebar.classList.add('translate-x-full');
+            sidebar.classList.remove('-translate-x-full');
+          } else {
+            sidebar.classList.add('-translate-x-full');
+            sidebar.classList.remove('translate-x-full');
+          }
+        }
+      };
+
+      // Mobile menu toggling
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('mobile-overlay');
+      const menuToggle = document.getElementById('mobile-menu-toggle');
+      const closeSidebar = document.getElementById('close-sidebar');
+
+      const toggleMobile = (open) => {
+        const isRtl = html.getAttribute('dir') === 'rtl';
+        if (open) {
+          sidebar.classList.add('translate-x-0');
+          sidebar.classList.remove('-translate-x-full', 'translate-x-full', 'rtl:translate-x-full');
+        } else {
+          sidebar.classList.remove('translate-x-0');
+          if (isRtl) {
+            sidebar.classList.add('translate-x-full');
+          } else {
+            sidebar.classList.add('-translate-x-full');
+          }
+        }
+        overlay.classList.toggle('active', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+      };
+
+      setDirection(localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr');
+      document.getElementById('lang-toggle')?.addEventListener('click', () => {
+        setDirection(html.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr');
+      });
+
+      menuToggle?.addEventListener('click', () => toggleMobile(true));
+      closeSidebar?.addEventListener('click', () => toggleMobile(false));
+      overlay?.addEventListener('click', () => toggleMobile(false));
+
+      // Section Toggling (Sidebar tabs)
+      const sections = [
+        'admin-overview', 
+        'admin-orders', 
+        'admin-proofs', 
+        'admin-inspirations', 
+        'admin-logistics', 
+        'admin-flavors', 
+        'admin-chat'
+      ];
+      const links = document.querySelectorAll('.sidebar-link');
+      
+      window.activateAdminSection = function (sectionId) {
+        sections.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('hidden');
+        });
+        const activeEl = document.getElementById(sectionId);
+        if (activeEl) activeEl.classList.remove('hidden');
+
+        links.forEach(link => {
+          link.classList.remove('active');
+          if (link.dataset.section === sectionId) {
+            link.classList.add('active');
+          }
+        });
+
+        if (sectionId === 'admin-chat') {
+          document.getElementById('admin-chat-badge')?.classList.add('hidden');
+        }
+        
+        if (window.innerWidth < 1024) toggleMobile(false);
+        refreshAdminUI();
+      };
+
+      links.forEach(link => {
+        if (link.dataset.section) {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            activateAdminSection(link.dataset.section);
+          });
+        }
+      });
+
+      // Logout Btn
+      document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = "login.html";
+      });
+
+      const mockImages = {
+        rose_gold_theme: 'https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?auto=format&fit=crop&w=500&q=80',
+        woodland_baby: 'https://images.unsplash.com/photo-1545048702-79362596cdc9?auto=format&fit=crop&w=500&q=80',
+        starry_night: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=500&q=80'
+      };
+
+      // RENDER CORE STATE TO ADMIN UI
+      function refreshAdminUI() {
+        const state = getDashboardState();
+        const ord = state.order;
+
+        // Stats
+        let pendingProofs = ord.proofs.filter(p => p.status === 'Pending').length;
+        document.getElementById('stat-pending-proofs').innerText = `${pendingProofs} Pending`;
+        if (pendingProofs > 0) {
+          document.getElementById('stat-pending-proofs').classList.add('text-accent');
+        } else {
+          document.getElementById('stat-pending-proofs').classList.remove('text-accent');
+        }
+
+        // Render alerts panel
+        renderAlertsPanel(ord);
+
+        // Render Orders Table
+        renderOrdersTable(ord);
+
+        // Render Proofs List
+        renderAdminProofsList(ord.proofs);
+
+        // Render Inspirations grid
+        renderAdminInspirations(ord.inspirations);
+
+        // Render Logistics Manager Details
+        document.getElementById('logistics-confirm-date').innerText = ord.deliveryDate;
+        document.getElementById('logistics-confirm-time').innerText = ord.deliveryTime;
+        document.getElementById('logistics-confirm-address').innerText = ord.venueDetails;
+        document.getElementById('logistics-confirm-rules').innerText = ord.venueRules || "None specified.";
+
+        // Render Chat Inbox
+        renderAdminChat(ord.messages);
+
+        // Render Matrix Configurator
+        renderMatrixEditor(state.availableFlavors);
+      }
+
+      // 1. RENDER ALERTS PANEL
+      function renderAlertsPanel(ord) {
+        const container = document.getElementById('admin-alerts-container');
+        if (!container) return;
+
+        const alerts = [];
+        
+        // Add status-related alerts
+        if (ord.status === 'Inquiry') {
+          alerts.push({ text: `New inquiry submitted by <strong>${ord.clientName}</strong>. Ready for proposal quotation.`, color: 'bg-blue-100 text-blue-800' });
+        } else if (ord.status === 'Tasting') {
+          alerts.push({ text: `Tasting package prepared for <strong>${ord.clientName}</strong>. Awaiting final flavor selection.`, color: 'bg-amber-100 text-amber-800' });
+        }
+
+        // Check pending proofs
+        const pendingProofs = ord.proofs.filter(p => p.status === 'Pending');
+        if (pendingProofs.length > 0) {
+          alerts.push({ text: `${pendingProofs.length} design proof is pending client feedback.`, color: 'bg-purple-100 text-purple-800' });
+        }
+
+        // Check proof revision request
+        const rejectedProofs = ord.proofs.filter(p => p.status === 'Rejected');
+        if (rejectedProofs.length > 0) {
+          alerts.push({ text: `Client requested adjustments for proof <strong>"${rejectedProofs[0].title}"</strong>. Check revision notes.`, color: 'bg-red-100 text-red-800' });
+        }
+
+        // Check if delivery rules added
+        if (ord.venueRules) {
+          alerts.push({ text: `Delivery instructions confirmed. Access rule: <em>"${ord.venueRules.substring(0, 30)}..."</em>`, color: 'bg-emerald-100 text-emerald-800' });
+        }
+
+        if (alerts.length === 0) {
+          container.innerHTML = `<p class="text-xs text-secondary-text">No active kitchen alerts at this time.</p>`;
+          return;
+        }
+
+        container.innerHTML = alerts.map(a => `
+          <div class="p-3 rounded-lg border border-transparent ${a.color} flex items-start gap-2">
+            <span class="mt-0.5"><i class="fas fa-bell"></i></span>
+            <p class="leading-normal">${a.text}</p>
+          </div>
+        `).join('');
+      }
+
+      // 2. RENDER ORDERS TABLE
+      function renderOrdersTable(ord) {
+        const tbody = document.getElementById('admin-orders-table-body');
+        if (!tbody) return;
+
+        let badge = '';
+        if (ord.status === 'Baking') badge = '<span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-medium uppercase text-[9px] border border-amber-200">Baking</span>';
+        else if (ord.status === 'Delivery') badge = '<span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-medium uppercase text-[9px] border border-blue-200">Delivery</span>';
+        else if (ord.status === 'Delivered') badge = '<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-medium uppercase text-[9px] border border-emerald-200">Delivered</span>';
+        else badge = `<span class="bg-gray-100 text-gray-700 px-2 py-0.5 rounded font-medium uppercase text-[9px] border border-gray-200">${ord.status}</span>`;
+
+        tbody.innerHTML = `
+          <tr class="hover:bg-hover/30 transition">
+            <td class="p-4 font-bold text-accent">${ord.id}</td>
+            <td class="p-4 font-medium text-primary-text">${ord.clientName}</td>
+            <td class="p-4 leading-normal">
+              <span class="font-medium">${ord.packageName}</span><br/>
+              <span class="text-[10px] text-secondary-text">${ord.items}</span>
+            </td>
+            <td class="p-4">${ord.deliveryDate}</td>
+            <td class="p-4 text-center">${badge}</td>
+            <td class="p-4 text-end">
+              <button onclick="showStatusController('${ord.id}')" class="px-3.5 py-1.5 bg-accent text-white font-bold rounded-lg shadow-sm hover:opacity-90">Manage Status</button>
+            </td>
+          </tr>
+        `;
+      }
+
+      window.showStatusController = function(id) {
+        const state = getDashboardState();
+        const ord = state.order;
+        document.getElementById('status-controller-card').classList.remove('hidden');
+        document.getElementById('controller-order-id').innerText = ord.id;
+        document.getElementById('controller-status-select').value = ord.status;
+        document.getElementById('controller-notes-input').value = ord.statusNotes;
+      };
+
+      window.hideStatusController = function() {
+        document.getElementById('status-controller-card').classList.add('hidden');
+      };
+
+      window.saveOrderStatus = function() {
+        const state = getDashboardState();
+        const ord = state.order;
+        const statusVal = document.getElementById('controller-status-select').value;
+        const noteVal = document.getElementById('controller-notes-input').value.trim();
+
+        ord.status = statusVal;
+        
+        if (noteVal) {
+          ord.statusNotes = noteVal;
+        } else {
+          // Fallback default notes based on status
+          if (statusVal === 'Inquiry') ord.statusNotes = 'Inquiry proposal under review. Catering manager is preparing custom pricing.';
+          else if (statusVal === 'Tasting') ord.statusNotes = 'Flavor tasting packages prepared. Awaiting final client choices.';
+          else if (statusVal === 'Proofing') ord.statusNotes = 'Custom design proof uploaded. Waiting for client to approve layout or request edits.';
+          else if (statusVal === 'Baking') ord.statusNotes = 'Cake pops are baking in the oven! Preparing custom coatings next.';
+          else if (statusVal === 'Delivery') ord.statusNotes = 'Order dispatched! Refrigerated courier John Doe is transporting the pops to the venue.';
+          else if (statusVal === 'Delivered') ord.statusNotes = 'Installation completed! Display table set up successfully at the venue.';
+        }
+
+        saveDashboardState(state);
+        alert('Success! Order status updated and synced to the client dashboard.');
+        hideStatusController();
+        refreshAdminUI();
+      };
+
+      // 3. RENDER PROOFS
+      function renderAdminProofsList(proofs) {
+        const container = document.getElementById('admin-proofs-list');
+        if (!container) return;
+
+        if (proofs.length === 0) {
+          container.innerHTML = `<p class="text-xs text-secondary-text">No design proofs uploaded yet.</p>`;
+          return;
+        }
+
+        container.innerHTML = proofs.map(p => {
+          const imgSrc = mockImages[p.image] || 'https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?auto=format&fit=crop&w=500&q=80';
+          let badge = '';
+          let noteBorderClass = '';
+
+          if (p.status === 'Pending') {
+            badge = '<span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-[10px] font-medium uppercase">Awaiting Review</span>';
+            noteBorderClass = 'border-amber-200 bg-amber-50/20';
+          } else if (p.status === 'Approved') {
+            badge = '<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-medium uppercase"><i class="fas fa-check-circle me-1"></i> Approved</span>';
+            noteBorderClass = 'border-emerald-200 bg-emerald-50/20';
+          } else {
+            badge = '<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-[10px] font-medium uppercase"><i class="fas fa-exclamation-triangle me-1"></i> Revision Requested</span>';
+            noteBorderClass = 'border-red-200 bg-red-50/20';
+          }
+
+          return `
+            <div class="p-4 border rounded-2xl flex flex-col sm:flex-row gap-4 hover:shadow-sm transition ${noteBorderClass}">
+              <img src="${imgSrc}" class="w-24 h-24 object-cover rounded-xl border border-border shrink-0" alt="Proof Sketch" />
+              <div class="flex-grow space-y-1 relative">
+                <button onclick="deleteDesignProof(${p.id})" class="absolute top-0 end-0 text-red-500 hover:text-red-700"><i class="fas fa-trash text-xs"></i></button>
+                <div class="flex justify-between items-center pe-6 flex-wrap gap-2">
+                  <h5 class="font-medium text-xs text-primary-text">${p.title}</h5>
+                  ${badge}
+                </div>
+                <p class="text-[10px] text-secondary-text leading-relaxed">${p.notes}</p>
+                ${p.status === 'Rejected' ? `
+                  <div class="mt-2.5 p-2 bg-red-50 rounded-lg text-[10px] text-red-600 border border-red-100">
+                    <strong>Revision Feedback:</strong> "${p.feedback}"
+                  </div>
+                ` : ''}
+                <p class="text-[9px] text-secondary-text pt-2">Uploaded on: ${p.date}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Create Design Proof
+      window.createDesignProof = function() {
+        const titleVal = document.getElementById('proof-upload-title').value.trim();
+        const notesVal = document.getElementById('proof-upload-notes').value.trim();
+        const imgSelect = document.getElementById('proof-upload-image').value;
+
+        if (!titleVal) {
+          alert('Please enter a proof title.');
+          return;
+        }
+
+        const state = getDashboardState();
+        const newProof = {
+          id: Date.now(),
+          title: titleVal,
+          notes: notesVal || 'No design notes provided.',
+          image: imgSelect,
+          status: 'Pending',
+          feedback: '',
+          date: new Date().toISOString().split('T')[0]
+        };
+
+        state.order.proofs.push(newProof);
+        saveDashboardState(state);
+        alert('Success! Design proof uploaded. Client Sarah Jenkins has been notified.');
+        
+        // Clear inputs
+        document.getElementById('proof-upload-title').value = '';
+        document.getElementById('proof-upload-notes').value = '';
+        refreshAdminUI();
+      };
+
+      window.deleteDesignProof = function(id) {
+        if (confirm('Are you sure you want to delete this design proof?')) {
+          const state = getDashboardState();
+          state.order.proofs = state.order.proofs.filter(p => p.id !== id);
+          saveDashboardState(state);
+          refreshAdminUI();
+        }
+      };
+
+      // 4. RENDER INSPIRATIONS
+      function renderAdminInspirations(inspirations) {
+        const grid = document.getElementById('admin-inspirations-grid');
+        if (!grid) return;
+
+        if (inspirations.length === 0) {
+          grid.innerHTML = `<p class="text-xs text-secondary-text">No theme inspirations submitted by client yet.</p>`;
+          return;
+        }
+
+        grid.innerHTML = inspirations.map(insp => {
+          const imgSrc = mockImages[insp.img] || 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80';
+          return `
+            <div class="bg-card-custom border border-border rounded-xl overflow-hidden hover:shadow-md transition">
+              <img src="${imgSrc}" class="w-full h-36 object-cover" alt="Inspiration" />
+              <div class="p-3 space-y-1">
+                <h5 class="font-medium text-xs text-primary-text">${insp.name}</h5>
+                <p class="text-[10px] text-secondary-text leading-normal">${insp.note}</p>
+                <div class="text-[9px] text-secondary-text pt-2">Submitted: ${insp.date}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 5. CONFIRM LOGISTICS ASSIGNMENT
+      window.confirmLogisticsAssignment = function() {
+        const state = getDashboardState();
+        const courierSelect = document.getElementById('logistics-courier-select').value;
+        const coordSelect = document.getElementById('logistics-coordinator-select').value;
+
+        state.order.statusNotes = `Logistics confirmed! Courier: ${courierSelect} is assigned. Table setup coordinated by: ${coordSelect}.`;
+        saveDashboardState(state);
+        alert('Logistics configuration confirmed and published to the client dashboard.');
+        refreshAdminUI();
+      };
+
+      // 6. CHAT
+      function renderAdminChat(messages) {
+        const container = document.getElementById('admin-chat-messages');
+        if (!container) return;
+
+        if (messages.length === 0) {
+          container.innerHTML = `<p class="text-xs text-secondary-text text-center py-6">No chat messages with Sarah Jenkins.</p>`;
+          return;
+        }
+
+        // Clear badges if on chat section
+        const activeSec = document.querySelector('.sidebar-link.active');
+        if (activeSec && activeSec.dataset.section === 'admin-chat') {
+          document.getElementById('admin-chat-badge')?.classList.add('hidden');
+        }
+
+        container.innerHTML = messages.map(msg => {
+          const isChef = msg.sender === 'chef';
+          const bgClass = isChef ? 'bg-accent/10 ms-auto text-end' : 'bg-hover me-auto text-start';
+          const senderLabel = isChef ? 'You' : 'Sarah Jenkins';
+          return `
+            <div class="p-3 rounded-xl max-w-[85%] ${bgClass}">
+              <p class="font-medium text-[10px] text-accent-light mb-1">${senderLabel}</p>
+              <p class="text-primary-text leading-relaxed">${msg.text}</p>
+              <span class="text-[8px] text-secondary-text block mt-1">${msg.time}</span>
+            </div>
+          `;
+        }).join('');
+
+        container.scrollTop = container.scrollHeight;
+      }
+
+      window.sendAdminChatMessage = function() {
+        const input = document.getElementById('admin-chat-input');
+        const text = input.value.trim();
+        if (!text) return;
+
+        const state = getDashboardState();
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const newMsg = {
+          sender: "chef",
+          text: text,
+          time: timeStr,
+          date: now.toISOString().split('T')[0]
+        };
+
+        state.order.messages.push(newMsg);
+        saveDashboardState(state);
+        input.value = '';
+        refreshAdminUI();
+      };
+
+      // Handle enter key on admin chat
+      document.getElementById('admin-chat-input')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          sendAdminChatMessage();
+        }
+      });
+
+      // 7. MATRIX EDITOR
+      function renderMatrixEditor(flavors) {
+        const container = document.getElementById('matrix-categories-list');
+        if (!container) return;
+
+        const categories = [
+          { title: "Cake Bases", key: "bases" },
+          { title: "Filling Cores", key: "fillings" },
+          { title: "Outer Glaze Coatings", key: "glazes" },
+          { title: "Artisanal Toppings", key: "toppings" }
+        ];
+
+        container.innerHTML = categories.map(cat => {
+          const items = flavors[cat.key];
+          const itemsHtml = items.map(item => {
+            const checked = item.active ? 'checked' : '';
+            const labelStyle = item.active ? 'text-primary-text font-semibold' : 'text-secondary-text line-through opacity-50';
+            return `
+              <div class="flex items-center justify-between p-2.5 bg-hover rounded-xl border border-border">
+                <div class="flex items-center gap-2">
+                  ${cat.key === 'glazes' ? `<span class="w-3.5 h-3.5 rounded-full border shadow-sm" style="background-color: ${item.color || '#ccc'}"></span>` : ''}
+                  <span class="text-xs ${labelStyle}">${item.name}</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" value="${item.id}" ${checked} onclick="toggleMenuFlavor('${cat.key}', '${item.id}')" class="sr-only peer">
+                  <div class="w-8 h-4 bg-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-accent"></div>
+                </label>
+              </div>
+            `;
+          }).join('');
+
+          return `
+            <div class="space-y-2">
+              <h5 class="font-medium text-xs uppercase tracking-wider text-secondary-text mb-1"><i class="fas fa-chevron-right text-accent me-1"></i> ${cat.title}</h5>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pb-4">
+                ${itemsHtml}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      window.toggleMenuFlavor = function(category, id) {
+        const state = getDashboardState();
+        const item = state.availableFlavors[category].find(x => x.id === id);
+        if (item) {
+          item.active = !item.active;
+          saveDashboardState(state);
+          refreshAdminUI();
+        }
+      };
+
+      // Toggle category add glaze fields
+      document.getElementById('flavor-add-type')?.addEventListener('change', (e) => {
+        const container = document.getElementById('flavor-add-color-container');
+        if (e.target.value === 'glazes') {
+          container.classList.remove('hidden');
+        } else {
+          container.classList.add('hidden');
+        }
+      });
+
+      // Initialize select fields hides
+      if (document.getElementById('flavor-add-type')?.value !== 'glazes') {
+        document.getElementById('flavor-add-color-container')?.classList.add('hidden');
+      }
+
+      // Add Menu Flavor
+      window.addNewFlavorToMenu = function() {
+        const category = document.getElementById('flavor-add-type').value;
+        const nameVal = document.getElementById('flavor-add-name').value.trim();
+        const descVal = document.getElementById('flavor-add-desc').value.trim();
+        const colorVal = document.getElementById('flavor-add-color').value;
+
+        if (!nameVal) {
+          alert('Please enter a flavor name.');
+          return;
+        }
+
+        const state = getDashboardState();
+        const newId = nameVal.toLowerCase().replace(/\s+/g, '-');
+        
+        const newFlavor = {
+          id: newId,
+          name: nameVal,
+          active: true
+        };
+
+        if (category === 'bases') newFlavor.desc = descVal || 'Delightful custom baked core.';
+        if (category === 'glazes') newFlavor.color = colorVal;
+
+        state.availableFlavors[category].push(newFlavor);
+        saveDashboardState(state);
+        alert(`Success! "${nameVal}" has been added to the active flavor menu list.`);
+
+        // Reset inputs
+        document.getElementById('flavor-add-name').value = '';
+        document.getElementById('flavor-add-desc').value = '';
+        refreshAdminUI();
+      };
+
+      // Cross-tab synchronization
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'sweet_pops_dashboard_state') {
+          const oldState = JSON.parse(e.oldValue);
+          const newState = JSON.parse(e.newValue);
+          
+          if (newState.order.messages.length > oldState.order.messages.length) {
+            const activeLink = document.querySelector('.sidebar-link.active');
+            if (!activeLink || activeLink.dataset.section !== 'admin-chat') {
+              document.getElementById('admin-chat-badge')?.classList.remove('hidden');
+            }
+          }
+          
+          refreshAdminUI();
+        }
+      });
+
+      // Run first UI draw
+      refreshAdminUI();
+    });
+  </script>
+</body>
+</html>

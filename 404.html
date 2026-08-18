@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/fav.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+  <title>404 - Page Not Found | Juicora Catering</title>
+
+  <script src="tailwind.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: 'var(--color-accent)',
+            'accent-light': 'var(--color-accent-light)',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* --- Premium Dessert & Pastel Pink Palette (same as main site) --- */
+    :root, html[data-theme='light'] {
+      --color-background: #FFFDF9;
+      --color-primary-text: #3D271D;
+      --color-secondary-text: #7C6053;
+      --color-accent: #FF5E86;
+      --color-accent-light: #A87C00;
+      --color-border: #F3ECE3;
+      --color-hover: #FFF5E6;
+      --color-footer-bg: #2A1A12;
+      --color-footer-text: #F5EBE6;
+    }
+    html[data-theme='dark'] {
+      --color-background: #0E0F12; /* Premium dark charcoal grey */
+      --color-primary-text: #F3F4F6; /* Soft light grey / white */
+      --color-secondary-text: #9CA3AF; /* Muted light grey */
+      --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary Brand Color) */
+      --color-accent-light: #D4AF37; /* Honey Pastry Gold (Secondary Brand Color) */
+      --color-border: #23272E; /* Clean dark grey border */
+      --color-hover: #1A1C20; /* Alternate dark grey for sections */
+      --color-footer-bg: #07080A; /* Pitch dark footer */
+      --color-footer-text: #E5E7EB; 
+    }
+    
+    body {
+      background-color: var(--color-background);
+      color: var(--color-primary-text);
+      font-family: 'Outfit', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+    
+    .text-primary-text { color: var(--color-primary-text); }
+    .text-secondary-text { color: var(--color-secondary-text); }
+    .text-accent { color: var(--color-accent); }
+    .text-accent-light { color: var(--color-accent-light); }
+    .bg-background { background-color: var(--color-background); }
+    .bg-hover { background-color: var(--color-hover); }
+    .border-border { border-color: var(--color-border); }
+
+    /* Typography */
+    /* ── Typography Size & Weight System ── */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 550 !important;
+    }
+    h1 {
+      font-size: 2.25rem !important; /* 36px */
+    }
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 3.75rem !important; /* 60px */
+      }
+    }
+    h2 {
+      font-size: 1.875rem !important; /* 30px */
+    }
+    @media (min-width: 640px) {
+      h2 {
+        font-size: 2.25rem !important; /* 36px */
+      }
+    }
+    h3 {
+      font-size: 1.25rem !important; /* 20px */
+    }
+    @media (min-width: 640px) {
+      h3 {
+        font-size: 1.5rem !important; /* 24px */
+      }
+    }
+    p, .text-secondary-text {
+      font-weight: 400 !important;
+    }
+
+    /* Gradient */
+    .bg-custom-gradient {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+      color: white;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 94, 134, 0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-accent);
+      border: 2px solid var(--color-accent);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      background: var(--color-accent);
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 94, 134, 0.25);
+    }
+
+    /* Floating sweet elements animation */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(3deg); }
+    }
+    .float-animation {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+    .float-animation-delayed {
+      animation: floatSlow 6s ease-in-out infinite 1s;
+    }
+    .float-animation-fast {
+      animation: floatSlow 4s ease-in-out infinite 0.5s;
+    }
+  </style>
+</head>
+<body class="antialiased flex flex-col justify-center min-h-screen bg-background transition-colors duration-300">
+
+  <main class="flex items-center justify-center px-4 py-8 md:py-12">
+    <div class="container mx-auto max-w-2xl">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+        
+        <!-- Left side: 404 text & call to action -->
+        <div class="text-center lg:text-start space-y-6 z-10">
+          <div class="mb-4">
+            <a href="index.html" class="inline-flex items-center gap-3">
+              <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cup Body -->
+            <path d="M 25 35 L 35 85 C 36 90 40 92 45 92 L 55 92 C 60 92 64 90 65 85 L 75 35 Z" fill="url(#juiceGrad)" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Cup Lid -->
+            <path d="M 20 35 C 20 25 80 25 80 35 Z" fill="#ffffff" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Straw -->
+            <path d="M 50 25 L 50 10 L 65 10" stroke="var(--color-accent-light)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Fruit Slice -->
+            <circle cx="25" cy="45" r="12" fill="#FFA726" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="25" cy="45" r="9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- Highlights -->
+            <path d="M 32 40 L 40 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+            <defs>
+              <linearGradient id="juiceGrad" x1="50" y1="90" x2="50" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF9800"/>
+                <stop offset="100%" stop-color="var(--color-accent)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+              <span class="text-3xl font-medium tracking-tight" style="color: var(--color-accent);">Juicora</span>
+            </a>
+          </div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium bg-accent/10 text-accent border border-accent/20">
+            <i class="fas fa-heart-broken text-xs"></i>
+            <span>Oops! Sweet Detour</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-medium tracking-tighter" style="color: var(--color-accent);">404</h1>
+          <h2 class="text-3xl sm:text-4xl font-medium text-primary-text mt-2">Page Not Found</h2>
+          <div class="w-20 h-1 bg-accent/40 mx-auto lg:mx-0 rounded-full"></div>
+          <p class="text-secondary-text text-base md:text-lg max-w-md mx-auto lg:mx-0 leading-relaxed">
+            Looks like this cake pop melted away! The page you're looking for doesn't exist or has been moved to our dessert gallery.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+            <a href="index.html" class="btn-primary px-8 py-3.5 rounded-xl font-bold shadow-lg text-center justify-center">
+              <i class="fas fa-home me-2"></i> Back to Homepage
+            </a>
+            <a href="gallery.html" class="btn-outline px-8 py-3.5 rounded-xl font-bold text-center">
+              Browse Desserts <i class="fas fa-arrow-right ms-2 text-xs"></i>
+            </a>
+          </div>
+          <div class="pt-8 text-sm text-secondary-text flex flex-wrap gap-4 justify-center lg:justify-start">
+            <a href="menu.html" class="hover:text-accent transition flex items-center gap-1"><i class="fas fa-leaf"></i> Cake Pops</a>
+            <span class="text-border">|</span>
+            <a href="smoothies.html" class="hover:text-accent transition flex items-center gap-1"><i class="fas fa-apple-whole"></i> Macarons</a>
+            <span class="text-border">|</span>
+            <a href="juices.html" class="hover:text-accent transition flex items-center gap-1"><i class="fas fa-glass-water"></i> Catering</a>
+          </div>
+        </div>
+
+        <!-- Right side: Playful dessert illustration (emoji + cake pops graphic) -->
+        <div class="relative flex justify-center items-center">
+          <div class="relative w-full max-w-md lg:max-w-lg">
+            <!-- Decorative floating elements -->
+            <div class="absolute -top-8 -start-8 float-animation opacity-80">
+              <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent/10 flex items-center justify-center text-4xl md:text-5xl shadow-lg border border-accent/20 backdrop-blur-sm">
+                🍰
+              </div>
+            </div>
+            <div class="absolute bottom-12 -end-6 float-animation-delayed opacity-70">
+              <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-accent-light/10 flex items-center justify-center text-3xl md:text-4xl shadow-md border border-accent-light/30 backdrop-blur-sm">
+                🧁
+              </div>
+            </div>
+            <div class="absolute top-1/3 -end-8 float-animation-fast opacity-60">
+              <div class="w-10 h-10 rounded-full bg-accent/15 flex items-center justify-center text-xl shadow-sm">
+                🍬
+              </div>
+            </div>
+            <div class="absolute bottom-1/3 -start-10 float-animation">
+              <div class="w-12 h-12 rounded-full bg-accent-light/20 flex items-center justify-center text-2xl">
+                🍫
+              </div>
+            </div>
+
+            <!-- Main central image / cake pop graphic -->
+            <div class="relative bg-background border-2 border-border rounded-3xl shadow-2xl p-6 md:p-8 transform hover:scale-[1.02] transition duration-500">
+              <div class="absolute inset-0 bg-gradient-to-br from-accent/5 to-accent-light/5 rounded-3xl pointer-events-none"></div>
+              <div class="flex flex-col items-center gap-5">
+                <!-- Custom cake pop illustration using FontAwesome + CSS -->
+                <div class="relative">
+                  <div class="w-40 h-40 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-accent/20 to-accent-light/20 flex items-center justify-center shadow-inner border-4 border-white/30">
+                    <i class="fas fa-cake-candles text-7xl md:text-8xl text-accent" style="filter: drop-shadow(2px 4px 12px rgba(0,0,0,0.1));"></i>
+                  </div>
+                  <!-- Stick -->
+                  <div class="absolute -bottom-10 start-1/2 transform -translate-x-1/2 w-3 h-16 bg-[#C4A27A] rounded-full shadow-md"></div>
+                  <!-- Drip decoration -->
+                  <div class="absolute -bottom-2 start-1/2 transform -translate-x-1/2 w-8 h-6 bg-accent/40 rounded-t-full blur-sm"></div>
+                </div>
+                <div class="text-center">
+                  <p class="text-accent font-medium text-sm uppercase tracking-wider">Handcrafted Daily</p>
+                  <p class="text-primary-text font-medium text-lg mt-1">Looks like this pop wandered off!</p>
+                  <p class="text-secondary-text text-sm">Try our delicious homepage instead →</p>
+                </div>
+              </div>
+              <!-- Decorative gold sparkles -->
+              <div class="absolute top-4 end-6 text-accent-light text-xl animate-pulse">✨</div>
+              <div class="absolute bottom-6 start-4 text-accent-light text-sm animate-pulse">🌟</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fun fact / quote section -->
+      <div class="mt-16 md:mt-20 text-center max-w-2xl mx-auto border-t border-border pt-10">
+        <div class="bg-hover/50 rounded-2xl p-6 md:p-8 inline-block w-full shadow-sm">
+          <i class="fas fa-quote-left text-accent text-2xl opacity-50 mb-3 block"></i>
+          <p class="text-primary-text text-base md:text-lg font-light">
+            "Even the sweetest kitchens have a missing recipe now and then. Let's get you back to the dessert bar!"
+          </p>
+          <div class="flex justify-center gap-2 mt-4">
+            <i class="fas fa-heart text-accent text-sm"></i>
+            <i class="fas fa-star text-accent-light text-sm"></i>
+            <i class="fas fa-heart text-accent text-sm"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+    
+  <script>
+    (function() {
+      // Theme handling (same logic as main site)
+      const html = document.documentElement;
+      const applyTheme = (theme) => {
+        html.setAttribute('data-theme', theme);
+        html.classList.toggle('dark', theme === 'dark');
+        const lightIcons = document.querySelectorAll('.light-icon');
+        const darkIcons = document.querySelectorAll('.dark-icon');
+        lightIcons.forEach(icon => {
+          if (theme === 'dark') icon.classList.add('hidden');
+          else icon.classList.remove('hidden');
+        });
+        darkIcons.forEach(icon => {
+          if (theme === 'light') icon.classList.add('hidden');
+          else icon.classList.remove('hidden');
+        });
+      };
+
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      applyTheme(savedTheme);
+
+      const themeToggle = document.getElementById('theme-toggle-404');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const currentTheme = html.getAttribute('data-theme');
+          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', newTheme);
+          applyTheme(newTheme);
+        });
+      }
+
+      // Optional: fix dark mode icon visibility on load
+      const current = html.getAttribute('data-theme');
+      if (current === 'dark') {
+        document.querySelectorAll('.light-icon').forEach(i => i.classList.add('hidden'));
+        document.querySelectorAll('.dark-icon').forEach(i => i.classList.remove('hidden'));
+      } else {
+        document.querySelectorAll('.light-icon').forEach(i => i.classList.remove('hidden'));
+        document.querySelectorAll('.dark-icon').forEach(i => i.classList.add('hidden'));
+      }
+
+      // Simple RTL handling (optional toggle, just for consistency)
+      const rtlFlag = localStorage.getItem('language') === 'ar';
+      if (rtlFlag) {
+        html.setAttribute('dir', 'rtl');
+      } else {
+        html.setAttribute('dir', 'ltr');
+      }
+    })();
+  </script>
+</body>
+</html> 

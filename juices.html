@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/fav.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+  <title>Juices | Juicora</title>
+
+  <script src="tailwind.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: 'var(--color-accent)',
+            'accent-light': 'var(--color-accent-light)',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* --- Premium Dessert & Pastel Pink Palette --- */
+    :root, html[data-theme='light'] {
+      --color-background: #FFFDF9; /* Creamy warm off-white */
+      --color-primary-text: #3D271D; /* Rich dark chocolate cocoa */
+      --color-secondary-text: #7C6053; /* Warm taupe / milk chocolate */
+      --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary) */
+      --color-accent-light: #A87C00; /* Honey Pastry Gold (Secondary) */
+      --color-border: #F3ECE3; /* Soft crust beige */
+      --color-hover: #FFF5E6; /* Warm vanilla cream hover */
+      --color-footer-bg: #2A1A12; /* Deep cocoa brown footer */
+      --color-footer-text: #F5EBE6; 
+    }
+    html[data-theme='dark'] {
+      --color-background: #0E0F12; /* Premium dark charcoal grey */
+      --color-primary-text: #F3F4F6; /* Soft light grey / white */
+      --color-secondary-text: #9CA3AF; /* Muted light grey */
+      --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary Brand Color) */
+      --color-accent-light: #D4AF37; /* Honey Pastry Gold (Secondary Brand Color) */
+      --color-border: #23272E; /* Clean dark grey border */
+      --color-hover: #1A1C20; /* Alternate dark grey for sections */
+      --color-footer-bg: #07080A; /* Pitch dark footer */
+      --color-footer-text: #E5E7EB; 
+    }
+    
+    body {
+      background-color: var(--color-background);
+      color: var(--color-primary-text);
+      font-family: 'Outfit', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+    
+    .text-primary-text { color: var(--color-primary-text); }
+    .text-secondary-text { color: var(--color-secondary-text); }
+    .text-accent { color: var(--color-accent); }
+    .text-accent-light { color: var(--color-accent-light); }
+    .bg-background { background-color: var(--color-background); }
+    .bg-hover { background-color: var(--color-hover); }
+    .border-border { border-color: var(--color-border); }
+
+    /* ── Typography Size & Weight System ── */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 550 !important;
+    }
+    h1 {
+      font-size: 2.25rem !important; /* 36px */
+    }
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 3.75rem !important; /* 60px */
+      }
+    }
+    h2 {
+      font-size: 1.875rem !important; /* 30px */
+    }
+    @media (min-width: 640px) {
+      h2 {
+        font-size: 2.25rem !important; /* 36px */
+      }
+    }
+    h3 {
+      font-size: 1.25rem !important; /* 20px */
+    }
+    @media (min-width: 640px) {
+      h3 {
+        font-size: 1.5rem !important; /* 24px */
+      }
+    }
+    p, .text-secondary-text {
+      font-weight: 400 !important;
+    }
+
+    /* Rich Gradient */
+    .bg-custom-gradient {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    }
+
+    #main-footer {
+      background-color: var(--color-footer-bg);
+      color: var(--color-footer-text);
+    }
+    #main-footer .footer-heading {
+      color: var(--color-accent) !important;
+    }
+    #main-footer .footer-link:hover {
+      color: var(--color-accent-light);
+      padding-left: 4px;
+      transition: all 0.2s ease;
+    }
+
+    /* Nav Link Underline */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s;
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+      white-space: nowrap;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 2px;
+      background-color: var(--color-accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* DROPDOWN */
+    .dropdown-wrapper { position: relative; }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-border);
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      min-width: 220px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+    .dropdown-wrapper:hover .dropdown-menu {
+      opacity: 1; visibility: visible; transform: translateY(0);
+      display: block;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.25rem;
+      color: var(--color-primary-text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover {
+      background-color: var(--color-hover);
+      color: var(--color-accent);
+      padding-left: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .dropdown-menu { position: static; display: none; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; }
+      .dropdown-wrapper:hover .dropdown-menu { display: block; }
+    }
+
+    /* ── Canonical Button System ── */
+    .btn-primary, .book-btn {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+      color: white;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn-primary:hover, .book-btn:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 94, 134, 0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-accent);
+      border: 2px solid var(--color-accent);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      background: var(--color-accent);
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 94, 134, 0.25);
+    }
+  </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+  <header class="sticky top-0 z-50 transition-colors duration-300 shadow-lg border-b border-border bg-background" id="main-header">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between h-[70px]">
+      <a href="index.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cup Body -->
+            <path d="M 25 35 L 35 85 C 36 90 40 92 45 92 L 55 92 C 60 92 64 90 65 85 L 75 35 Z" fill="url(#juiceGrad)" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Cup Lid -->
+            <path d="M 20 35 C 20 25 80 25 80 35 Z" fill="#ffffff" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Straw -->
+            <path d="M 50 25 L 50 10 L 65 10" stroke="var(--color-accent-light)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Fruit Slice -->
+            <circle cx="25" cy="45" r="12" fill="#FFA726" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="25" cy="45" r="9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- Highlights -->
+            <path d="M 32 40 L 40 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+            <defs>
+              <linearGradient id="juiceGrad" x1="50" y1="90" x2="50" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF9800"/>
+                <stop offset="100%" stop-color="var(--color-accent)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+          <span class="text-2xl font-medium tracking-tight" style="color: var(--color-accent);">Juicora</span>
+        </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden xl:flex items-center xl:space-x-3 2xl:space-x-6">
+        <div class="flex xl:space-x-3 2xl:space-x-6 rtl:space-x-reverse rtl:ms-6 text-primary-text font-medium xl:text-sm 2xl:text-base">
+          <!-- Home Dropdown -->
+          <div class="dropdown-wrapper">
+            <button class="nav-link flex items-center" id="home-dropdown-btn">
+              Home
+              <svg class="w-3 h-3 ms-1 relative top-[2.5px] transition-transform duration-200 text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div class="dropdown-menu">
+              <a href="index.html">Home 1</a>
+              <a href="home2.html">Home 2</a>
+            </div>
+          </div>
+          
+          <a href="about.html" class="nav-link">About Us</a>
+          <a href="menu.html" class="nav-link">Our Menu</a>
+          <a href="smoothies.html" class="nav-link">Smoothies</a>
+          <a href="juices.html" class="nav-link">Fresh Juices</a>
+          <a href="gallery.html" class="nav-link">Gallery</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+
+        </div>
+
+        <div class="w-px h-6 bg-border xl:mx-2 2xl:mx-3"></div>
+        
+        <div class="flex items-center xl:space-x-2 2xl:space-x-4">
+          <button id="theme-toggle" class="icon-btn text-primary-text hover:text-accent p-1.5 rounded-full transition duration-200">
+            <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
+          <button id="lang-icon" class="text-primary-text hover:text-accent p-1.5 rounded-full transition duration-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+            </svg>
+          </button>
+          <div class="flex items-center xl:gap-2 2xl:gap-3 xl:ms-2 2xl:ms-3">
+            <a href="login.html" class="btn-outline xl:px-4 2xl:px-6 py-2 rounded-xl font-bold shadow-md text-sm xl:text-xs 2xl:text-sm">Login</a>
+            <a href="signup.html" class="book-btn xl:px-4 2xl:px-6 py-2.5 rounded-xl font-bold shadow-md text-sm xl:text-xs 2xl:text-sm">Sign Up</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu trigger -->
+      <div class="xl:hidden flex items-center space-x-3">
+        <button id="mobile-theme-toggle-quick" class="icon-btn text-primary-text hover:text-accent p-1.5 rounded-full">
+          <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+          <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </button>
+        <button id="mobile-menu-open" class="icon-btn text-primary-text hover:text-accent p-1.5 rounded-full"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg></button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CATERING SERVICES CONTENT -->
+  <main class="flex-grow pb-16 bg-background transition-colors duration-300">
+   <!-- Section 1: Hero with Catering Focus -->
+<section class="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-background to-[#FFF5E6] dark:to-[#1B120C] transition-all duration-300">
+  <div class="absolute inset-0 opacity-10">
+    <img src="assets/f11.jpg" alt="Catering background" class="w-full h-full object-cover">
+  </div>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-[#FFDCE5] text-[#D82A52] dark:bg-[#401C24] dark:text-[#FFA3B8]">
+      <i class="fas fa-blender text-xs"></i> Full-Service Catering
+    </span>
+    <h1 class="text-4xl sm:text-5xl font-medium mt-6 leading-tight text-primary-text">
+      Premium <span style="color: var(--color-accent);">Juice Bar Catering</span><br>
+      For Unforgettable Events
+    </h1>
+    <p class="text-lg text-secondary-text max-w-2xl mx-auto mt-6">
+      From intimate gatherings to grand celebrations — we bring stunning mobile juice bars, custom smoothies, and revitalizing wellness shots to your venue. Delivery, setup, and live blending included.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+      <a href="#packages" class="book-btn px-8 py-4 rounded-xl font-bold shadow-lg text-white">Explore Packages</a>
+      <a href="#catering-form" class="btn-outline px-8 py-4 rounded-xl font-bold shadow-md">Request Catering →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Catering Services Overview with Images -->
+<section class="py-20 bg-background transition-colors duration-300">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <span class="text-accent font-medium uppercase tracking-wider text-sm">What We Offer</span>
+      <h2 class="text-3xl sm:text-4xl font-medium mt-2 text-primary-text">Full-Service Catering Solutions</h2>
+      <p class="text-secondary-text mt-4">We handle everything — from custom menu design to professional setup and cleanup.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Service 1 -->
+      <div class="bg-hover border border-border rounded-2xl overflow-hidden hover:shadow-xl transition">
+        <img src="assets/w1.jpg" alt="Custom menu design" class="w-full h-56 object-cover">
+        <div class="p-6">
+          <i class="fas fa-clipboard-list text-2xl text-accent mb-3"></i>
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text">Custom Blends & Menus</h3>
+          <p class="text-secondary-text text-sm mt-2">We work with you to create a bespoke beverage menu that matches your theme, wellness goals, and flavor preferences.</p>
+        </div>
+      </div>
+      <!-- Service 2 -->
+      <div class="bg-hover border border-border rounded-2xl overflow-hidden hover:shadow-xl transition">
+        <img src="assets/w2.jpg" alt="Delivery and setup" class="w-full h-56 object-cover">
+        <div class="p-6">
+          <i class="fas fa-truck-ramp-box text-2xl text-accent mb-3"></i>
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text">Mobile Bar Setup</h3>
+          <p class="text-secondary-text text-sm mt-2">White-glove delivery, professional setup, and styling of your interactive juice and smoothie station at your venue.</p>
+        </div>
+      </div>
+      <!-- Service 3 -->
+      <div class="bg-hover border border-border rounded-2xl overflow-hidden hover:shadow-xl transition">
+        <img src="assets/w3.jpg" alt="Live blending service" class="w-full h-56 object-cover">
+        <div class="p-6">
+          <i class="fas fa-glass-cheers text-2xl text-accent mb-3"></i>
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text">Live Blending Service</h3>
+          <p class="text-secondary-text text-sm mt-2">Our professional blendologists serve your guests live, ensuring a seamless, energetic, and engaging experience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Catering Packages with Image Gallery -->
+<section class="py-20 bg-hover transition-colors duration-300" id="packages">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <span class="text-accent-light font-medium uppercase tracking-wider text-sm">Packages</span>
+      <h2 class="text-3xl sm:text-4xl font-medium mt-2 text-primary-text">Catering Packages for Every Event</h2>
+      <p class="text-secondary-text mt-4">Choose the perfect package or let us create a custom quote for your specific needs.</p>
+    </div>
+
+    <div class="space-y-10 max-w-2xl mx-auto">
+      <!-- Silver Package -->
+      <div class="flex flex-col md:flex-row bg-background border border-border rounded-3xl overflow-hidden hover:shadow-xl transition duration-300">
+        <div class="w-full md:w-5/12 h-56 md:h-auto relative shrink-0">
+          <img src="assets/r1.jpg" alt="Petite catering package" class="w-full h-full object-cover">
+        </div>
+        <div class="w-full md:w-7/12 p-6 sm:p-8 flex flex-col justify-between flex-grow">
+          <div>
+            <span class="text-xs uppercase tracking-widest font-medium px-2 py-0.5 rounded bg-hover text-accent-light inline-block">Petite</span>
+            <h3 class="text-2xl sm:text-3xl font-medium text-primary-text mt-2">Silver — Petite Station</h3>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-medium text-primary-text">$380</span>
+              <span class="text-secondary-text text-sm">/event</span>
+            </div>
+            <p class="text-xs text-secondary-text mt-1">Serves 15-20 guests</p>
+            <hr class="my-4 border-border">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-secondary-text mb-6">
+              <li><i class="fas fa-check text-accent me-2"></i> 24 Cold-Pressed Juices</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 12 Signature Smoothies</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 12 Wellness Shots</li>
+              <li><i class="fas fa-check text-accent me-2"></i> Standard bar setup</li>
+              <li><i class="fas fa-check text-accent me-2"></i> Delivery & setup included</li>
+            </ul>
+          </div>
+          <a href="#catering-form" class="w-full py-2.5 border border-accent text-accent font-bold rounded-xl hover:bg-accent hover:text-white text-center transition">Inquire Silver Package</a>
+        </div>
+      </div>
+
+      <!-- Gold Package - Popular -->
+      <div class="flex flex-col md:flex-row-reverse bg-background border-2 border-accent rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 relative">
+        <span class="absolute top-4 start-4 bg-accent text-white px-4 py-1 rounded-full text-xs font-medium shadow-sm z-10">Most Popular</span>
+        <div class="w-full md:w-5/12 h-56 md:h-auto relative shrink-0">
+          <img src="assets/r2.jpg" alt="Grand catering package" class="w-full h-full object-cover">
+        </div>
+        <div class="w-full md:w-7/12 p-6 sm:p-8 flex flex-col justify-between flex-grow">
+          <div>
+            <h3 class="text-2xl sm:text-3xl font-medium text-accent mt-2">Gold — Grand Bar</h3>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-medium text-primary-text">$780</span>
+              <span class="text-secondary-text text-sm">/event</span>
+            </div>
+            <p class="text-xs text-secondary-text mt-1">Serves 40-50 guests</p>
+            <hr class="my-4 border-border">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-secondary-text mb-6">
+              <li><i class="fas fa-check text-accent me-2"></i> 48 Cold-Pressed Juices</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 36 Custom Smoothies</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 24 Premium Acai Bowls</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 24 Immunity Shots</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 1 Live Blendologist</li>
+              <li><i class="fas fa-check text-accent me-2"></i> Custom flavor selection</li>
+            </ul>
+          </div>
+          <a href="#catering-form" class="w-full py-2.5 book-btn text-white font-bold rounded-xl text-center shadow-md">Inquire Gold Package</a>
+        </div>
+      </div>
+
+      <!-- Platinum Package -->
+      <div class="flex flex-col md:flex-row bg-background border border-border rounded-3xl overflow-hidden hover:shadow-xl transition duration-300">
+        <div class="w-full md:w-5/12 h-56 md:h-auto relative shrink-0">
+          <img src="assets/r3.jpg" alt="Luxury wedding catering" class="w-full h-full object-cover">
+        </div>
+        <div class="w-full md:w-7/12 p-6 sm:p-8 flex flex-col justify-between flex-grow">
+          <div>
+            <span class="text-xs uppercase tracking-widest font-medium px-2 py-0.5 rounded bg-hover text-accent-light inline-block">Royal Wellness</span>
+            <h3 class="text-2xl sm:text-3xl font-medium text-primary-text mt-2">Platinum — Royal Wellness</h3>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl sm:text-3xl font-medium text-primary-text">$1,450+</span>
+              <span class="text-secondary-text text-sm">/event</span>
+            </div>
+            <p class="text-xs text-secondary-text mt-1">Serves 100+ guests</p>
+            <hr class="my-4 border-border">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-secondary-text mb-6">
+              <li><i class="fas fa-check text-accent me-2"></i> 100+ Custom Smoothies</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 72 Cold-Pressed Juices</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 48 Premium Acai Bowls</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 48 Wellness Shooters</li>
+              <li><i class="fas fa-check text-accent me-2"></i> Luxury mobile bar setup</li>
+              <li><i class="fas fa-check text-accent me-2"></i> 2 Live Blendologists</li>
+            </ul>
+          </div>
+          <a href="#catering-form" class="w-full py-2.5 border border-accent text-accent font-bold rounded-xl hover:bg-accent hover:text-white text-center transition">Inquire Platinum Package</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Event Types We Cater with Image Grid -->
+<section class="py-20 bg-background transition-colors duration-300">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <span class="text-accent font-medium uppercase tracking-wider text-sm">Event Portfolio</span>
+      <h2 class="text-3xl sm:text-4xl font-medium mt-2 text-primary-text">We Cater All Celebrations</h2>
+      <p class="text-secondary-text mt-4">From weddings to corporate wellness events — we've done it all.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="relative group overflow-hidden rounded-2xl aspect-square cursor-pointer">
+        <img src="assets/d1.jpg" alt="Wedding catering" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+          <span class="text-white font-medium text-sm bg-black/60 px-3 py-1 rounded-full">Weddings</span>
+        </div>
+      </div>
+      <div class="relative group overflow-hidden rounded-2xl aspect-square cursor-pointer">
+        <img src="assets/d2.jpg" alt="Corporate event catering" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+          <span class="text-white font-medium text-sm bg-black/60 px-3 py-1 rounded-full">Corporate Events</span>
+        </div>
+      </div>
+      <div class="relative group overflow-hidden rounded-2xl aspect-square cursor-pointer">
+        <img src="assets/d3.jpg" alt="Wellness retreat catering" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+          <span class="text-white font-medium text-sm bg-black/60 px-3 py-1 rounded-full">Wellness Retreats</span>
+        </div>
+      </div>
+      <div class="relative group overflow-hidden rounded-2xl aspect-square cursor-pointer">
+        <img src="assets/d4.jpg" alt="Birthday party catering" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+          <span class="text-white font-medium text-sm bg-black/60 px-3 py-1 rounded-full">Birthday Parties</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+      <div class="relative group overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer">
+        <img src="assets/d5.jpg" alt="Morning brunch catering" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-5">
+          <span class="text-white font-medium">Morning Brunches</span>
+        </div>
+      </div>
+      <div class="relative group overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer">
+        <img src="assets/d6.jpg" alt="Fitness event catering" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-5">
+          <span class="text-white font-medium">Fitness Events</span>
+        </div>
+      </div>
+      <div class="relative group overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer">
+        <img src="assets/d7.jpg" alt="Brand activation catering" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-5">
+          <span class="text-white font-medium">Brand Activations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: Catering Process with Step Images -->
+<section class="py-20 bg-hover transition-colors duration-300">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <span class="text-accent-light font-medium uppercase tracking-wider text-sm">How It Works</span>
+      <h2 class="text-3xl sm:text-4xl font-medium mt-2 text-primary-text">Simple Catering Process</h2>
+      <p class="text-secondary-text mt-4">From first consultation to refreshing celebration — we make it effortless.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="bg-background border border-border rounded-2xl overflow-hidden text-center flex flex-col">
+        <img src="assets/C1.jpg" alt="Consultation step" class="w-full h-40 object-cover">
+        <div class="p-5 flex flex-col flex-grow">
+          <div class="w-10 h-10 mx-auto rounded-full bg-accent text-white flex items-center justify-center font-medium -mt-8 mb-3 z-10 flex-shrink-0">1</div>
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text min-h-[48px] flex items-center justify-center mb-1">Consultation</h3>
+          <p class="text-xs text-secondary-text mt-auto">Share your vision, date, and guest count.</p>
+        </div>
+      </div>
+      <div class="bg-background border border-border rounded-2xl overflow-hidden text-center flex flex-col">
+        <img src="assets/C2.jpg" alt="Custom menu step" class="w-full h-40 object-cover">
+        <div class="p-5 flex flex-col flex-grow">
+          <div class="w-10 h-10 mx-auto rounded-full bg-accent text-white flex items-center justify-center font-medium -mt-8 mb-3 z-10 flex-shrink-0">2</div>
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text min-h-[48px] flex items-center justify-center mb-1">Menu Design</h3>
+          <p class="text-xs text-secondary-text mt-auto">We create a custom wellness menu with tasting options.</p>
+        </div>
+      </div>
+      <div class="bg-background border border-border rounded-2xl overflow-hidden text-center flex flex-col">
+        <img src="assets/C3.jpg" alt="Preparation step" class="w-full h-40 object-cover">
+        <div class="p-5 flex flex-col flex-grow">
+          <div class="w-10 h-10 mx-auto rounded-full bg-accent text-white flex items-center justify-center font-medium -mt-8 mb-3 z-10 flex-shrink-0">3</div>
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text min-h-[48px] flex items-center justify-center mb-1">Fresh Sourced Prep</h3>
+          <p class="text-xs text-secondary-text mt-auto">Our team sources local organic produce and preps fresh.</p>
+        </div>
+      </div>
+      <div class="bg-background border border-border rounded-2xl overflow-hidden text-center flex flex-col">
+        <img src="assets/C4.jpg" alt="Setup step" class="w-full h-40 object-cover">
+        <div class="p-5 flex flex-col flex-grow">
+          <div class="w-10 h-10 mx-auto rounded-full bg-accent text-white flex items-center justify-center font-medium -mt-8 mb-3 z-10 flex-shrink-0">4</div>
+          <h3 class="text-2xl sm:text-3xl font-medium text-primary-text min-h-[48px] flex items-center justify-center mb-1">Mobile Setup & Service</h3>
+          <p class="text-xs text-secondary-text mt-auto">We deliver, style the bar, and blend live for your event.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="main-footer" class="pt-20 transition-colors duration-300">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 pb-16 border-b border-gray-800">
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cup Body -->
+            <path d="M 25 35 L 35 85 C 36 90 40 92 45 92 L 55 92 C 60 92 64 90 65 85 L 75 35 Z" fill="url(#juiceGrad)" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Cup Lid -->
+            <path d="M 20 35 C 20 25 80 25 80 35 Z" fill="#ffffff" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Straw -->
+            <path d="M 50 25 L 50 10 L 65 10" stroke="var(--color-accent-light)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Fruit Slice -->
+            <circle cx="25" cy="45" r="12" fill="#FFA726" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="25" cy="45" r="9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- Highlights -->
+            <path d="M 32 40 L 40 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+            <defs>
+              <linearGradient id="juiceGrad" x1="50" y1="90" x2="50" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF9800"/>
+                <stop offset="100%" stop-color="var(--color-accent)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+          <span class="text-2xl font-medium tracking-tight" style="color: var(--color-accent);">Juicora</span>
+        </a>
+          <p class="text-sm leading-relaxed max-w-sm text-gray-300 mt-4">
+            Serving fresh, delicious, and healthy smoothies, cold-pressed juices, and wholesome snacks. Fuel your day with our vibrant, nutrient-packed blends.
+          </p>
+          <div class="flex gap-6 mt-10">
+            <a href="#" class="text-white hover:text-accent transition text-xl"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white hover:text-accent transition text-xl"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-white hover:text-accent transition text-xl"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading font-medium text-lg mb-6">Menu Offerings</h4>
+          <ul class="space-y-4 text-sm text-gray-400">
+            <li><a href="menu.html" class="footer-link">Our Menu</a></li>
+            <li><a href="smoothies.html" class="footer-link">Fresh Juices</a></li>
+            <li><a href="smoothies.html" class="footer-link">Smoothie Bowls</a></li>
+            <li><a href="juices.html" class="footer-link">Healthy Snacks</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading font-medium text-lg mb-6">Quick Links</h4>
+          <ul class="space-y-4 text-sm text-gray-400">
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="juices.html" class="footer-link">Our Mission</a></li>
+            <li><a href="gallery.html" class="footer-link">Gallery</a></li>
+            <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading font-medium text-lg mb-6">Newsletter</h4>
+          <div class="flex flex-col space-y-4">
+            <input type="email" placeholder="Email address" class="p-4 text-sm rounded-xl bg-gray-900 border border-gray-800 focus:outline-none text-white" />
+            <button class="btn-primary mt-auto font-medium py-3 rounded-xl">Join Newsletter</button>
+          </div>
+        </div>
+      </div>
+      <div class="py-10 text-center text-gray-500 text-sm">© 2026 Juicora. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- MOBILE DRAW DRAWER -->
+  <div id="mobile-menu-drawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+    <div id="drawer-backdrop" class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+    <div id="drawer-content" class="absolute top-0 start-0 end-0 bg-background rounded-b-2xl shadow-2xl p-6 xl:hidden max-h-[85vh] overflow-y-auto transform translate-y-[-100%] transition-transform duration-300 ease-out">
+      <div class="flex justify-between items-center pb-4 border-b border-border">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cup Body -->
+            <path d="M 25 35 L 35 85 C 36 90 40 92 45 92 L 55 92 C 60 92 64 90 65 85 L 75 35 Z" fill="url(#juiceGrad)" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Cup Lid -->
+            <path d="M 20 35 C 20 25 80 25 80 35 Z" fill="#ffffff" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Straw -->
+            <path d="M 50 25 L 50 10 L 65 10" stroke="var(--color-accent-light)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Fruit Slice -->
+            <circle cx="25" cy="45" r="12" fill="#FFA726" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="25" cy="45" r="9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- Highlights -->
+            <path d="M 32 40 L 40 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+            <defs>
+              <linearGradient id="juiceGrad" x1="50" y1="90" x2="50" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF9800"/>
+                <stop offset="100%" stop-color="var(--color-accent)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+          <span class="text-2xl font-medium tracking-tight" style="color: var(--color-accent);">Juicora</span>
+        </a>
+        <button id="mobile-menu-close" class="text-primary-text hover:text-accent"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+      </div>
+      
+      <nav class="flex flex-col space-y-2 py-4">
+        <!-- Home dropdown inside mobile -->
+        <div>
+          <button class="block text-primary-text font-medium text-lg py-2 w-full text-start flex justify-between items-center" id="mobile-homes-toggle">
+            Home <svg class="w-4 h-4 transform transition-transform duration-200 text-primary-text" id="homes-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div id="mobile-homes-menu" class="hidden ps-4 flex flex-col space-y-1 mt-1 border-s-2 border-border">
+            <a href="index.html" class="block text-secondary-text hover:text-accent text-base py-1">Home 1</a>
+            <a href="home2.html" class="block text-secondary-text hover:text-accent text-base py-1">Home 2</a>
+          </div>
+        </div>
+        
+        <a href="about.html" class="block text-primary-text font-semibold text-lg py-2">About Us</a>
+        <a href="menu.html" class="block text-primary-text font-semibold text-lg py-2">Our Menu</a>
+        <a href="smoothies.html" class="block text-primary-text font-semibold text-lg py-2">Smoothies</a>
+        <a href="juices.html" class="block text-primary-text font-semibold text-lg py-2">Fresh Juices</a>
+        <a href="gallery.html" class="block text-primary-text font-semibold text-lg py-2">Gallery</a>
+        <a href="contact.html" class="block text-primary-text font-semibold text-lg py-2">Contact</a>
+
+      </nav>
+
+      <div class="pt-4 border-t border-border mt-4 flex justify-around items-center">
+        <button id="mobile-lang-icon-drawer" class="flex flex-col items-center">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+          </svg>
+          <span class="text-xs mt-1 text-secondary-text">RTL</span>
+        </button>
+        <button id="drawer-theme-toggle" class="flex flex-col items-center">
+          <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          <span class="text-xs mt-1 text-secondary-text">Theme</span>
+        </button>
+      </div>
+      <div class="flex mt-5 gap-5 w-full">
+        <a href="login.html" class="flex-1 btn-outline text-center py-2.5 rounded-xl font-bold text-sm shadow-md">Login</a>
+        <a href="signup.html" class="flex-1 book-btn text-center py-2.5 rounded-xl font-bold text-sm shadow-md">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const html = document.documentElement;
+
+      // Drawer Control
+      const menuDrawer = document.getElementById('mobile-menu-drawer');
+      const menuContent = document.getElementById('drawer-content');
+      const menuBackdrop = document.getElementById('drawer-backdrop');
+
+      const openDrawer = () => {
+        menuDrawer.classList.remove('pointer-events-none');
+        menuContent.classList.remove('translate-y-[-100%]');
+        menuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
+        document.body.style.overflow = 'hidden';
+      };
+      const closeDrawer = () => {
+        menuContent.classList.add('translate-y-[-100%]');
+        menuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
+        setTimeout(() => { menuDrawer.classList.add('pointer-events-none'); document.body.style.overflow = ''; }, 300);
+      };
+
+      document.getElementById('mobile-menu-open').addEventListener('click', openDrawer);
+      document.getElementById('mobile-menu-close').addEventListener('click', closeDrawer);
+      menuBackdrop.addEventListener('click', closeDrawer);
+
+      // Accordions
+      const setupAccordion = (toggleId, menuId, iconId) => {
+        const toggle = document.getElementById(toggleId);
+        toggle?.addEventListener('click', () => {
+          const menu = document.getElementById(menuId);
+          const icon = document.getElementById(iconId);
+          menu.classList.toggle('hidden');
+          icon.classList.toggle('rotate-180');
+        });
+      };
+      setupAccordion('mobile-homes-toggle', 'mobile-homes-menu', 'homes-icon');
+      setupAccordion('mobile-dashboard-toggle', 'mobile-dashboard-menu', 'dashboard-icon');
+
+      // Theme Switcher
+      const themeToggles = [
+        document.getElementById('theme-toggle'), 
+        document.getElementById('drawer-theme-toggle'),
+        document.getElementById('mobile-theme-toggle-quick')
+      ];
+      
+      const applyTheme = (theme) => {
+        html.setAttribute('data-theme', theme);
+        html.classList.toggle('dark', theme === 'dark');
+        document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+        document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+      };
+      
+      themeToggles.forEach(btn => {
+        btn?.addEventListener('click', () => {
+          const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', next);
+          applyTheme(next);
+        });
+      });
+      applyTheme(localStorage.getItem('theme') || 'light');
+
+      // Language RTL toggle
+      const langToggles = [document.getElementById('lang-icon'), document.getElementById('mobile-lang-icon-drawer')];
+      langToggles.forEach(btn => btn?.addEventListener('click', () => {
+        const current = localStorage.getItem('language') === 'ar' ? 'en' : 'ar';
+        localStorage.setItem('language', current);
+        html.setAttribute('dir', current === 'ar' ? 'rtl' : 'ltr');
+      }));
+      html.setAttribute('dir', localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr');
+
+      // Active Nav Styling
+      const setActiveNavLink = () => {
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        
+        // Desktop Links
+        document.querySelectorAll('.nav-link').forEach(link => {
+          if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active', 'text-accent', 'font-bold');
+          } else {
+            link.classList.remove('active', 'text-accent', 'font-bold');
+          }
+        });
+
+        // Desktop Dropdowns active state
+        if (['index.html', 'home2.html'].includes(currentPath)) {
+          document.getElementById('home-dropdown-btn')?.classList.add('active', 'text-accent', 'font-bold');
+        }
+        if (['admin.html', 'userdash.html'].includes(currentPath)) {
+          document.getElementById('dashboard-dropdown-btn')?.classList.add('active', 'text-accent', 'font-bold');
+        }
+
+        // Mobile Drawer links
+        document.querySelectorAll('#drawer-content a').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPath) {
+            link.classList.add('text-accent', 'font-bold');
+            link.classList.remove('text-primary-text', 'text-secondary-text');
+          } else {
+            if (link.closest('#mobile-homes-menu') || link.closest('#mobile-dashboard-menu')) {
+              link.classList.add('text-secondary-text');
+              link.classList.remove('text-accent', 'font-bold');
+            } else {
+              link.classList.add('text-primary-text');
+              link.classList.remove('text-accent', 'font-bold');
+            }
+          }
+        });
+
+        // Mobile Toggles active state
+        if (['index.html', 'home2.html'].includes(currentPath)) {
+          document.getElementById('mobile-homes-toggle')?.classList.add('text-accent', 'font-bold');
+        }
+        if (['admin.html', 'userdash.html'].includes(currentPath)) {
+          document.getElementById('mobile-dashboard-toggle')?.classList.add('text-accent', 'font-bold');
+        }
+      };
+      setActiveNavLink();
+    
+      // Desktop dropdown click support for touch devices
+      document.querySelectorAll('.dropdown-wrapper').forEach(wrapper => {
+        const btn = wrapper.querySelector('button');
+        const menu = wrapper.querySelector('.dropdown-menu');
+        if (btn && menu) {
+          btn.addEventListener('click', (e) => {
+            if (window.innerWidth >= 1024) {
+              e.stopPropagation();
+              const isVisible = menu.style.opacity === '1';
+              // Reset other menus
+              document.querySelectorAll('.dropdown-menu').forEach(m => {
+                m.style.opacity = '';
+                m.style.visibility = '';
+                m.style.transform = '';
+              });
+              if (!isVisible) {
+                menu.style.opacity = '1';
+                menu.style.visibility = 'visible';
+                menu.style.transform = 'translateY(0)';
+              }
+            }
+          });
+        }
+      });
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.dropdown-menu').forEach(m => {
+          m.style.opacity = '';
+          m.style.visibility = '';
+          m.style.transform = '';
+        });
+      });
+});
+  </script>
+</body>
+</html>

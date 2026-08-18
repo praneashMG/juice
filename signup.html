@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" data-theme="light">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+ <title>Juicora | Join the Sweet Journey</title>
+ <link rel="icon" href="assets/fav.png" type="image/png">
+ <meta name="description" content="Create an account with Juicora — fresh cold-pressed juices, smoothie bowls, and custom juice bar catering.">
+
+ <!-- Font Awesome & Tailwind -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+ <script src="tailwind.js"></script>
+ <script>
+  tailwind.config = {
+   darkMode: 'class',
+   theme: {
+    extend: {
+     colors: {
+      primary: '#D4AF37',   // Vibrant Honey Gold (Secondary)
+      accent: '#FF5E86',   // Strawberry Rose Pink (Primary)
+      secondary: '#3D271D',  // Cocoa Brown
+      darkGrey: '#130C08'
+     },
+     fontFamily: {
+      'display': ['Playfair Display', 'serif'],
+      'sans': ['Outfit', 'sans-serif']
+     }
+    }
+   }
+  };
+ </script>
+ <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+ <style>
+  /* --- Fresh Juice & Vibrant Green Palette --- */
+  :root, html[data-theme='light'] {
+    --color-background: #FFFDF9; /* Creamy warm off-white */
+    --color-primary-text: #3D271D; /* Rich dark chocolate cocoa */
+    --color-secondary-text: #7C6053; /* Warm taupe / milk chocolate */
+    --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary) */
+    --color-accent-light: #A87C00; /* Vibrant Honey Gold (Secondary) */
+    --color-border: #F3ECE3; /* Soft crust beige */
+    --color-hover: #FFF5E6; /* Warm vanilla cream hover */
+  }
+  html[data-theme='dark'] {
+    --color-background: #0E0F12; /* Premium dark charcoal grey */
+    --color-primary-text: #F3F4F6; /* Soft light grey / white */
+    --color-secondary-text: #9CA3AF; /* Muted light grey */
+    --color-accent: #FF5E86; /* Strawberry Rose Pink (Primary Brand Color) */
+    --color-accent-light: #D4AF37; /* Vibrant Honey Gold (Secondary Brand Color) */
+    --color-border: #23272E; /* Clean dark grey border */
+    --color-hover: #1A1C20; /* Alternate dark grey for sections */
+  }
+
+  body {
+   font-family: 'Outfit', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+   font-family: 'Playfair Display', serif !important;
+   font-weight: 550 !important;
+  }
+  .{
+   font-family: 'Playfair Display', serif !important;
+  }
+  h1 {
+   font-size: 2.25rem !important; /* 36px */
+  }
+  @media (min-width: 640px) {
+   h1 {
+    font-size: 3.75rem !important; /* 60px */
+   }
+  }
+  h2 {
+   font-size: 1.875rem !important; /* 30px */
+  }
+  @media (min-width: 640px) {
+   h2 {
+    font-size: 2.25rem !important; /* 36px */
+   }
+  }
+  h3 {
+   font-size: 1.25rem !important; /* 20px */
+  }
+  @media (min-width: 640px) {
+   h3 {
+    font-size: 1.5rem !important; /* 24px */
+   }
+  }
+
+  [dir="rtl"] .rtl-flip {
+   transform: scaleX(-1);
+  }
+
+  body {
+   background: linear-gradient(135deg, var(--color-background) 0%, var(--color-hover) 100%);
+   color: var(--color-primary-text);
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0;
+   padding: 1rem;
+   transition: background-color 0.3s, color 0.3s;
+  }
+
+  .auth-card {
+   transition: all 0.3s ease;
+   background-color: var(--color-background);
+   border: 1px solid var(--color-border);
+  }
+
+  .input-field {
+   transition: all 0.2s ease;
+   background-color: var(--color-background);
+   border-color: var(--color-border);
+   color: var(--color-primary-text);
+  }
+
+  .input-field:focus {
+   ring: 2px solid var(--color-accent);
+   border-color: var(--color-accent);
+  }
+
+  .btn-primary {
+   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+  }
+
+  /* Floating Controls exactly like index.html + login page style */
+  .controls {
+   position: fixed;
+   top: 1rem;
+   right: 1rem;
+   display: flex;
+   gap: 0.75rem;
+   z-index: 50;
+  }
+
+  html[dir="rtl"] .controls {
+   right: auto;
+   left: 1rem;
+  }
+
+  .btn-control {
+   width: 42px;
+   height: 42px;
+   border-radius: 50%;
+   background: var(--color-background);
+   border: 1px solid var(--color-border);
+   color: var(--color-primary-text);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  }
+
+  .btn-control:hover {
+   background: var(--color-accent);
+   color: white;
+   border-color: var(--color-accent);
+  }
+
+  /* brand left side overlay & texture */
+  .brand-overlay {
+   background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+  }
+
+  .blob-bg {
+   position: absolute;
+   width: 200%;
+   height: 200%;
+   background: radial-gradient(circle at 30% 20%, rgba(255, 94, 134, 0.2), transparent 70%);
+   pointer-events: none;
+  }
+
+  @media (max-width: 360px) {
+   body { padding: 0.5rem; }
+   .auth-card { border-radius: 1.5rem; }
+   .sm\:p-5 { padding: 0.75rem !important; }
+   h3 { font-size: 1.15rem !important; margin-bottom: 0.25rem !important; }
+   p { font-size: 10px !important; }
+   .w-11.h-11 { width: 2.25rem !important; height: 2.25rem !important; }
+   .w-11.h-11 svg { width: 1.15rem !important; height: 1.15rem !important; }
+   .mb-4, .mb-5 { margin-bottom: 0.5rem !important; }
+   .space-y-2.5, .space-y-3 { gap: 0.6rem !important; }
+   .input-field { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; border-radius: 0.75rem !important; font-size: 12px !important; }
+   .btn-primary { padding-top: 0.6rem !important; padding-bottom: 0.6rem !important; border-radius: 0.75rem !important; }
+   .text-\[9px\] { font-size: 8px !important; }
+   .mt-4 { margin-top: 0.75rem !important; }
+   .h-12.w-12 { width: 2rem !important; height: 2rem !important; }
+   .h-12.w-12 i { font-size: 0.9rem !important; }
+   .text-xl { font-size: 1rem !important; }
+  }
+ </style>
+</head>
+
+<body class="transition-colors duration-300">
+
+ <!-- Floating Controls (Theme + RTL) exactly matching index -->
+ <div class="controls">
+  <button onclick="toggleRTL()" class="btn-control" title="Switch Direction" aria-label="RTL Toggle">
+   <i class="fas fa-exchange-alt"></i>
+  </button>
+  <button onclick="toggleTheme()" class="btn-control" title="Dark/Light Mode" aria-label="Theme Toggle">
+   <i class="fas fa-moon light-icon"></i>
+   <i class="fas fa-sun dark-icon hidden"></i>
+  </button>
+ </div>
+
+ <div class="relative w-full max-w-4xl">
+  <div class="auth-card w-full flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-2xl">
+   
+   <!-- LEFT SIDE: SOAP SPA BRANDING -->
+   <div class="hidden md:flex md:w-5/12 relative p-8 flex-col justify-between bg-cover bg-center"
+      style="background-image: url('assets/t1.jpg');">
+    <div class="absolute inset-0 brand-overlay"></div>
+    <!-- decorative elements -->
+    <div class="absolute inset-0 opacity-20">
+     <i class="fas fa-cookie text-8xl absolute bottom-6 end-6 text-white/30"></i>
+     <i class="fas fa-leaf text-6xl absolute top-12 start-4 text-white/20"></i>
+     <i class="fas fa-ice-cream text-5xl absolute bottom-32 start-8 text-primary/30"></i>
+    </div>
+    
+    <div class="relative z-10">
+     <!-- Logo identical to index.html -->
+     <a href="index.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cup Body -->
+            <path d="M 25 35 L 35 85 C 36 90 40 92 45 92 L 55 92 C 60 92 64 90 65 85 L 75 35 Z" fill="url(#juiceGrad)" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Cup Lid -->
+            <path d="M 20 35 C 20 25 80 25 80 35 Z" fill="#ffffff" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Straw -->
+            <path d="M 50 25 L 50 10 L 65 10" stroke="var(--color-accent-light)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Fruit Slice -->
+            <circle cx="25" cy="45" r="12" fill="#FFA726" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="25" cy="45" r="9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- Highlights -->
+            <path d="M 32 40 L 40 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+            <defs>
+              <linearGradient id="juiceGrad" x1="50" y1="90" x2="50" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF9800"/>
+                <stop offset="100%" stop-color="var(--color-accent)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+          <span class="text-2xl font-medium tracking-tight" style="color: var(--color-accent);">Juicora</span>
+        </a>
+     
+     <div class="mt-12">
+      <h2 class="text-3xl sm:text-4xl font-medium text-white leading-tight mb-4">
+       Sweeten Your<br>Celebrations Today
+      </h2>
+      <p class="text-white/80 text-sm max-w-xs leading-relaxed">
+       Create an account to request custom orders, save your event menus, and track your juice bar designs for your special day.
+      </p>
+     </div>
+    </div>
+    
+    <div class="relative z-10 mt-12">
+     <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/20 shadow-lg">
+      <i class="fas fa-quote-left text-white/50 text-sm mb-2"></i>
+      <p class="text-sm text-white/90">"The team turned our wellness retreat into a vibrant paradise. The custom ginger shots were a total hit!"</p>
+      <p class="text-xs text-white/70 mt-3 flex items-center gap-1"><i class="fas fa-star text-yellow-300 text-[10px]"></i> — Priya K., Happy Mother</p>
+     </div>
+    </div>
+   </div>
+
+   <!-- RIGHT SIDE: SIGNUP FORM -->
+   <div class="w-full md:w-7/12 flex items-center justify-center p-4 sm:p-5 lg:p-8 py-8 md:py-12">
+    <div class="w-full max-w-lg">
+     
+     <!-- Mobile Logo -->
+     <div class="md:hidden text-center mb-6 mt-2">
+      <a href="index.html" class="flex items-center justify-center gap-2.5">
+       <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cup Body -->
+            <path d="M 25 35 L 35 85 C 36 90 40 92 45 92 L 55 92 C 60 92 64 90 65 85 L 75 35 Z" fill="url(#juiceGrad)" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Cup Lid -->
+            <path d="M 20 35 C 20 25 80 25 80 35 Z" fill="#ffffff" stroke="var(--color-accent)" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Straw -->
+            <path d="M 50 25 L 50 10 L 65 10" stroke="var(--color-accent-light)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Fruit Slice -->
+            <circle cx="25" cy="45" r="12" fill="#FFA726" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="25" cy="45" r="9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- Highlights -->
+            <path d="M 32 40 L 40 85" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+            <defs>
+              <linearGradient id="juiceGrad" x1="50" y1="90" x2="50" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF9800"/>
+                <stop offset="100%" stop-color="var(--color-accent)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+       <span class="text-2xl font-medium tracking-tight" style="color: var(--color-accent);">Juicora</span>
+      </a>
+     </div>
+
+     <div class="text-center mb-6">
+      <h2 class="text-2xl sm:text-3xl font-medium text-primary-text">Create an Account</h2>
+      <p class="text-[11px] sm:text-xs text-secondary-text mt-1.5 max-w-xs mx-auto">
+       Create an account and design your custom juice bar menu
+      </p>
+     </div>
+
+     <!-- Social Sign Up Options -->
+     <div class="flex justify-center gap-3 sm:gap-4 mb-5">
+      <button class="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:opacity-85 transition shadow-sm bg-white dark:bg-secondary">
+       <svg class="w-5 h-5" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.5 0 6.7 1.2 9.2 3.6l6.9-6.9C36.1 2 30.3 0 24 0 14.6 0 6.6 5.5 2.7 13.5l7.3 5.7C11.9 13.5 17.5 9.5 24 9.5z" />
+        <path fill="#34A853" d="M46.1 24.5c0-1.7-.2-3.4-.4-5H24v9.5h12.5c-.5 3.1-2.2 5.6-4.6 7.3l7.3 5.7c4.3-4 6.9-9.9 6.9-17.5z" />
+        <path fill="#4A90E2" d="M10 28.7c-.5-1.4-.8-2.9-.8-4.4s.3-3 .8-4.4l-7.3-5.7C1 17.1 0 20.4 0 24s1 6.9 2.7 9.8l7.3-5.7z" />
+        <path fill="#FBBC05" d="M24 48c6.5 0 11.9-2.1 15.8-5.7l-6.9-5.4c-2 1.3-4.6 2.1-8.9 2.1-6.6 0-12.1-3.6-14.1-8.6l-7.3 5.7C6.6 42.5 14.6 48 24 48z" />
+       </svg>
+      </button>
+      <button class="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:opacity-85 transition shadow-sm bg-white dark:bg-secondary text-secondary dark:text-white">
+       <i class="fab fa-apple text-xl"></i>
+      </button>
+      <button class="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:opacity-85 transition shadow-sm bg-white dark:bg-secondary">
+       <svg class="w-5 h-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M22 12a10 10 0 10-11.5 9.88v-7H8v-2.88h2.5V9.5c0-2.46 1.47-3.82 3.72-3.82 1.08 0 2.2.2 2.2.2v2.4h-1.24c-1.22 0-1.6.76-1.6 1.54v1.85H16l-.4 2.88h-2.18v7A10 10 0 0022 12z" />
+       </svg>
+      </button>
+     </div>
+
+     <div class="flex items-center gap-3 mb-4">
+      <div class="flex-1 h-px bg-border"></div>
+      <span class="text-[9px] font-medium uppercase text-secondary-text">or sign up with email</span>
+      <div class="flex-1 h-px bg-border"></div>
+     </div>
+
+     <!-- Signup Form -->
+     <form class="space-y-4" onsubmit="event.preventDefault(); handleSignup();">
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+         <label class="block text-[9px] font-medium uppercase tracking-wider text-secondary-text mb-1">Name</label>
+         <input type="text" id="firstName" required class="input-field w-full px-4 py-2.5 rounded-xl text-sm border" placeholder="Name">
+        </div>
+
+        <div>
+         <label class="block text-[9px] font-medium uppercase tracking-wider text-secondary-text mb-1">Email Address</label>
+         <input type="email" id="signupEmail" required class="input-field w-full px-4 py-2.5 rounded-xl text-sm border" placeholder="hello@juicebar.com">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+         <label class="block text-[9px] font-medium uppercase tracking-wider text-secondary-text mb-1">Password</label>
+         <div class="relative">
+          <input type="password" id="signup-password" required class="input-field w-full px-4 py-2.5 rounded-xl text-sm pe-10 border" placeholder="Create password">
+          <button type="button" onclick="togglePasswordVisibility('signup-password', this)" class="absolute inset-y-0 end-0 pe-3 flex items-center text-gray-400 hover:text-gray-600"><i class="far fa-eye text-xs"></i></button>
+         </div>
+        </div>
+
+        <div>
+         <label class="block text-[9px] font-medium uppercase tracking-wider text-secondary-text mb-1">Confirm Password</label>
+         <div class="relative">
+          <input type="password" id="signup-confirm-password" required class="input-field w-full px-4 py-2.5 rounded-xl text-sm pe-10 border" placeholder="Confirm password">
+          <button type="button" onclick="togglePasswordVisibility('signup-confirm-password', this)" class="absolute inset-y-0 end-0 pe-3 flex items-center text-gray-400 hover:text-gray-600"><i class="far fa-eye text-xs"></i></button>
+         </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 py-1">
+       <input 
+        type="checkbox" 
+        id="terms" 
+        required
+        class="w-4 h-4 rounded border-gray-300 dark:border-white/20 text-accent focus:ring-accent focus:ring-1"
+       >
+       <label 
+        for="terms" 
+        class="text-[11px] text-secondary-text leading-normal cursor-pointer"
+       >
+        I agree to Juicora's <span class="text-accent font-medium hover:underline">Terms</span> and <span class="text-accent font-medium hover:underline">Privacy</span>
+       </label>
+      </div>
+
+      <button type="submit"
+       class="btn-primary mt-auto w-full py-3 rounded-xl text-white font-medium text-sm shadow-lg shadow-accent/20 mt-1 hover:opacity-92 transition-transform active:scale-95 flex items-center justify-center gap-2">
+       <i class="fas fa-leaf text-xs"></i>
+       Get Sign Up
+      </button>
+     </form>
+
+     <p class="text-[10px] mt-4 text-center text-secondary-text">
+      Already have an account?
+      <a href="login.html" class="text-accent font-medium hover:underline">Log in here</a>
+     </p>
+
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <script>
+  // Theme Toggle (integrated with Juicora theme and Tailwind dark class)
+  const htmlElement = document.documentElement;
+  function applyTheme(theme) {
+   htmlElement.setAttribute('data-theme', theme);
+   if (theme === 'dark') {
+    htmlElement.classList.add('dark');
+   } else {
+    htmlElement.classList.remove('dark');
+   }
+   
+   // Update icons
+   const lightIcons = document.querySelectorAll('.light-icon');
+   const darkIcons = document.querySelectorAll('.dark-icon');
+   lightIcons.forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+   darkIcons.forEach(i => i.classList.toggle('hidden', theme === 'light'));
+  }
+
+  function toggleTheme() {
+   const current = htmlElement.getAttribute('data-theme') || 'light';
+   const next = current === 'light' ? 'dark' : 'light';
+   localStorage.setItem('theme', next);
+   applyTheme(next);
+  }
+  
+  // RTL Toggle
+  function applyLanguage(lang) {
+   htmlElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+   htmlElement.setAttribute('lang', lang);
+  }
+
+  function toggleRTL() {
+   const currentLang = localStorage.getItem('language') === 'ar' ? 'en' : 'ar';
+   localStorage.setItem('language', currentLang);
+   applyLanguage(currentLang);
+  }
+  
+  // Password Visibility Toggle
+  function togglePasswordVisibility(inputId, buttonEl) {
+   const input = document.getElementById(inputId);
+   const icon = buttonEl.querySelector('i');
+   if (input.type === 'password') {
+    input.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+   } else {
+    input.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
+   }
+  }
+  
+  // Handle Signup
+  function handleSignup() {
+   const name = document.getElementById('firstName').value.trim();
+   const email = document.getElementById('signupEmail').value.trim();
+   const password = document.getElementById('signup-password').value;
+   const confirmPassword = document.getElementById('signup-confirm-password').value;
+   const termsCheck = document.getElementById('terms');
+
+   if (!name) {
+    alert("Please enter your name.");
+    return;
+   }
+   
+   if (!email.includes('@') || email.length < 5) {
+    alert("Please enter a valid email address.");
+    return;
+   }
+   
+   if (password.length < 6) {
+    alert("Password must be at least 6 characters.");
+    return;
+   }
+   
+   if (password !== confirmPassword) {
+    alert("Passwords do not match. Please try again.");
+    return;
+   }
+   
+   if (!termsCheck.checked) {
+    alert("Please agree to the Terms and Privacy Policy to continue.");
+    return;
+   }
+   
+   alert(`✨ Welcome ${name}! Your Juicora account has been created. Please login to continue.`);
+   window.location.href = 'login.html';
+  }
+  
+  // Apply stored settings on load
+  applyTheme(localStorage.getItem('theme') || 'light');
+  applyLanguage(localStorage.getItem('language') || 'en');
+ </script>
+</body>
+
+</html>
