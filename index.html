@@ -30,6 +30,7 @@
     <style>
         /* --- Fresh Juice & Vibrant Green Palette --- */
         :root, html[data-theme='light'] {
+      color-scheme: light;
             --color-background: #FFFDF9; /* Creamy warm off-white */
             --color-primary-text: #3D271D; /* Rich dark chocolate cocoa */
             --color-secondary-text: #7C6053; /* Warm taupe / milk chocolate */
@@ -41,6 +42,7 @@
             --color-footer-text: #F5EBE6; 
         }
         html[data-theme='dark'] {
+      color-scheme: dark;
             --color-background: #0E0F12; /* Premium dark charcoal grey */
             --color-primary-text: #F3F4F6; /* Soft light grey / white */
             --color-secondary-text: #9CA3AF; /* Muted light grey */
@@ -447,7 +449,7 @@
                     <p class="text-secondary-text mt-4 max-w-2xl mx-auto text-lg">Tailored wellness experiences for individuals and events.</p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
                     <!-- Package 1 -->
                     <div class="border border-border rounded-3xl p-8 bg-background hover:border-accent transition-colors duration-300 flex flex-col h-full">
                         <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-accent text-xl mb-6">
@@ -625,7 +627,7 @@
                                 <i class="fas fa-lock text-accent"></i> 
                                 Your privacy is protected. We will never share your information.
                             </p>
-                            <button type="submit" class="w-full sm:w-auto px-10 py-4 bg-primary-text text-background font-bold rounded-xl hover:bg-accent hover:shadow-lg hover:shadow-accent/20 transition-all flex items-center justify-center gap-3">
+                            <button type="submit" class="w-full sm:w-auto px-10 py-4 bg-primary-text text-background font-bold rounded-xl hover:bg-accent hover:shadow-lg hover:shadow-accent/20 transition-all flex items-center justify-center gap-3 whitespace-nowrap shrink-0">
                                 Request Proposal <i class="fas fa-arrow-right text-sm"></i>
                             </button>
                         </div>

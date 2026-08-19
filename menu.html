@@ -30,6 +30,7 @@
   <style>
     /* --- Premium Dessert & Pastel Pink Palette --- */
     :root, html[data-theme='light'] {
+      color-scheme: light;
       --color-background: #FFFDF9; /* Creamy warm off-white */
       --color-primary-text: #3D271D; /* Rich dark chocolate cocoa */
       --color-secondary-text: #7C6053; /* Warm taupe / milk chocolate */
@@ -41,6 +42,7 @@
       --color-footer-text: #F5EBE6; 
     }
     html[data-theme='dark'] {
+      color-scheme: dark;
       --color-background: #0E0F12; /* Premium dark charcoal grey */
       --color-primary-text: #F3F4F6; /* Soft light grey / white */
       --color-secondary-text: #9CA3AF; /* Muted light grey */
@@ -736,7 +738,7 @@
       <p class="text-secondary-text mt-4">From craving to fueling — we make healthy eating simple and stress-free.</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="bg-background border border-border rounded-2xl p-6 text-center">
         <div class="w-16 h-16 mx-auto rounded-full bg-accent/10 flex items-center justify-center text-2xl font-medium text-accent mb-4">1</div>
         <h3 class="text-2xl sm:text-3xl font-medium text-primary-text">Choose Your Base</h3>
