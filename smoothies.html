@@ -239,9 +239,9 @@
           <span class="text-2xl font-medium tracking-tight" style="color: var(--color-accent);">Juicora</span>
         </a>
 
-      <!-- Desktop Nav -->
-      <div class="hidden xl:flex items-center xl:space-x-3 2xl:space-x-6">
-        <div class="flex xl:space-x-3 2xl:space-x-6 rtl:space-x-reverse rtl:ms-6 text-primary-text font-medium xl:text-sm 2xl:text-base">
+      <!-- Desktop Nav Links -->
+            <div class="hidden xl:flex flex-1 items-center justify-center">
+                <div class="flex xl:space-x-6 2xl:space-x-8 rtl:space-x-reverse text-primary-text font-medium xl:text-sm 2xl:text-base">
           <!-- Home Dropdown -->
           <div class="dropdown-wrapper">
             <button class="nav-link flex items-center" id="home-dropdown-btn">
@@ -262,10 +262,10 @@
           <a href="contact.html" class="nav-link">Contact</a>
 
         </div>
+            </div>
 
-        <div class="w-px h-6 bg-border xl:mx-2 2xl:mx-3"></div>
-        
-        <div class="flex items-center xl:space-x-2 2xl:space-x-4">
+            <!-- Right Buttons -->
+            <div class="hidden xl:flex items-center xl:space-x-2 2xl:space-x-4 shrink-0">
           <button id="theme-toggle" class="icon-btn text-primary-text hover:text-accent p-1.5 rounded-full transition duration-200">
             <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
             <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
@@ -294,23 +294,60 @@
   </header>
 <!-- MAIN JUICE BAR CATERING CONTENT -->
   <main class="flex-grow pb-16 bg-background transition-colors duration-300">
-  <!-- Section 1: Hero -->
-<section class="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-background to-[#FFF5E6] dark:to-[#1B120C] transition-all duration-300">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-[#FFDCE5] text-[#D82A52] dark:bg-[#401C24] dark:text-[#FFA3B8]">
-      <i class="fas fa-glass-water text-xs"></i> Wellness Bar Collection
+ <!-- Section 1: Premium Juice Bar & Smoothie Station Hero -->
+<section
+  class="relative py-24 lg:py-32 overflow-hidden bg-cover bg-center bg-no-repeat transition-all duration-300"
+  style="background-image: url('/assets/rrr.jpg');"
+>
+  
+  <!-- Background Overlay -->
+  <div class="absolute inset-0 bg-white/90 dark:bg-[#1B120C]/90"></div>
+
+  <!-- Hero Content -->
+  <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+    <!-- Badge -->
+    <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-[#FFDCE5] text-[#D82A52] dark:bg-[#401C24] dark:text-[#FFA3B8] shadow-sm">
+      <i class="fas fa-glass-water text-xs"></i>
+      Wellness Bar Collection
     </span>
-    <h1 class="text-4xl sm:text-5xl font-medium mt-6 leading-tight text-primary-text">
-      Premium <span style="color: var(--color-accent);">Juice Bar</span><br>
+
+    <!-- Heading -->
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-medium mt-6 leading-tight text-primary-text">
+      Premium
+      <span style="color: var(--color-accent);">
+        Juice Bar
+      </span>
+      <br>
       and Smoothie Station
     </h1>
-    <p class="text-lg text-secondary-text max-w-2xl mx-auto mt-6">
-      Elevate your event with a stunning wellness bar featuring cold-pressed juices, signature smoothies, vibrant acai bowls, and immunity shots — all beautifully displayed and served to perfection.
+
+    <!-- Description -->
+    <p class="text-lg lg:text-xl text-secondary-text max-w-3xl mx-auto mt-6 leading-relaxed">
+      Elevate your event with a stunning wellness bar featuring cold-pressed
+      juices, signature smoothies, vibrant acai bowls, and immunity shots —
+      all beautifully displayed and served to perfection.
     </p>
+
+    <!-- Buttons -->
     <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-      <a href="#menu" class="book-btn px-8 py-4 rounded-xl font-bold shadow-lg text-white">View Full Menu</a>
-      <a href="#booking" class="btn-outline px-8 py-4 rounded-xl font-bold shadow-md">Request Juice Bar →</a>
+
+      <a
+        href="#menu"
+        class="book-btn px-8 py-4 rounded-xl font-bold shadow-lg text-white transition-all duration-300 hover:scale-105"
+      >
+        View Full Menu
+      </a>
+
+      <a
+        href="#booking"
+        class="btn-outline px-8 py-4 rounded-xl font-bold shadow-md transition-all duration-300 hover:scale-105"
+      >
+        Request Juice Bar →
+      </a>
+
     </div>
+
   </div>
 </section>
 
@@ -929,7 +966,7 @@
   <!-- Footer -->
   <footer id="main-footer" class="pt-20 transition-colors duration-300">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 pb-16 border-b border-gray-800">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-12 pb-16 border-b border-gray-800">
         <div class="lg:col-span-2">
           <a href="index.html" class="flex items-center gap-2.5">
           <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
@@ -983,7 +1020,24 @@
           </ul>
         </div>
         <div>
-          <h4 class="footer-heading font-medium text-lg mb-6">Newsletter</h4>
+                    <h4 class="footer-heading font-medium text-lg mb-6">Contact Info</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-location-dot text-accent mt-1"></i>
+                            <span>123 Wellness Way, Suite 200<br>Los Angeles, CA 90001</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-phone text-accent mt-1"></i>
+                            <span>(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-clock text-accent mt-1"></i>
+                            <span>Mon - Fri: 7am - 6pm<br>Sat - Sun: 8am - 2pm</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading font-medium text-lg mb-6">Newsletter</h4>
           <div class="flex flex-col space-y-4">
             <input type="email" placeholder="Email address" class="p-4 text-sm rounded-xl bg-gray-900 border border-gray-800 focus:outline-none text-white" />
             <button class="btn-primary mt-auto font-medium py-3 rounded-xl">Join Newsletter</button>

@@ -239,47 +239,46 @@
           <span class="text-2xl font-medium tracking-tight" style="color: var(--color-accent);">Juicora</span>
         </a>
 
-      <!-- Desktop Nav -->
-      <div class="hidden xl:flex items-center xl:space-x-3 2xl:space-x-6">
-        <div class="flex xl:space-x-3 2xl:space-x-6 rtl:space-x-reverse rtl:ms-6 text-primary-text font-medium xl:text-sm 2xl:text-base">
-          <!-- Home Dropdown -->
-          <div class="dropdown-wrapper">
-            <button class="nav-link flex items-center" id="home-dropdown-btn">
-              Home
-              <svg class="w-3 h-3 ms-1 relative top-[2.5px] transition-transform duration-200 text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </button>
-            <div class="dropdown-menu">
-              <a href="index.html">Home 1</a>
-              <a href="home2.html">Home 2</a>
+      <!-- Desktop Nav Links -->
+            <div class="hidden xl:flex flex-1 items-center justify-center">
+                <div class="flex xl:space-x-6 2xl:space-x-8 rtl:space-x-reverse text-primary-text font-medium xl:text-sm 2xl:text-base">
+                    <!-- Home Dropdown -->
+                    <div class="dropdown-wrapper">
+                        <button class="nav-link flex items-center" id="home-dropdown-btn">
+                            Home
+                            <svg class="w-3 h-3 ms-1 relative top-[2.5px] transition-transform duration-200 text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="index.html">Home 1</a>
+                            <a href="home2.html">Home 2</a>
+                        </div>
+                    </div>
+                    
+                    <a href="about.html" class="nav-link">About Us</a>
+                    <a href="menu.html" class="nav-link">Our Menu</a>
+                    <a href="smoothies.html" class="nav-link">Smoothies</a>
+                    <a href="juices.html" class="nav-link">Fresh Juices</a>
+                    <a href="gallery.html" class="nav-link">Gallery</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+
+                </div>
             </div>
-          </div>
-          
-          <a href="about.html" class="nav-link">About Us</a>
-          <a href="menu.html" class="nav-link">Our Menu</a>
-          <a href="smoothies.html" class="nav-link">Smoothies</a>
-          <a href="juices.html" class="nav-link">Fresh Juices</a>
-          <a href="gallery.html" class="nav-link">Gallery</a>
-          <a href="contact.html" class="nav-link">Contact</a>
 
-        </div>
-
-        <div class="w-px h-6 bg-border xl:mx-2 2xl:mx-3"></div>
-        
-        <div class="flex items-center xl:space-x-2 2xl:space-x-4">
-          <button id="theme-toggle" class="icon-btn text-primary-text hover:text-accent p-1.5 rounded-full transition duration-200">
-            <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-          </button>
-          <button id="lang-icon" class="text-primary-text hover:text-accent p-1.5 rounded-full transition duration-200">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-            </svg>
-          </button>
-          <div class="flex items-center xl:gap-2 2xl:gap-3 xl:ms-2 2xl:ms-3">
-            <a href="login.html" class="btn-outline xl:px-4 2xl:px-6 py-2 rounded-xl font-bold shadow-md text-sm xl:text-xs 2xl:text-sm">Login</a>
-            <a href="signup.html" class="book-btn xl:px-4 2xl:px-6 py-2.5 rounded-xl font-bold shadow-md text-sm xl:text-xs 2xl:text-sm">Sign Up</a>
-          </div>
-        </div>
+            <!-- Right Buttons -->
+            <div class="hidden xl:flex items-center xl:space-x-2 2xl:space-x-4 shrink-0">
+                <button id="theme-toggle" class="icon-btn text-primary-text hover:text-accent p-1.5 rounded-full transition duration-200">
+                    <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+                <button id="lang-icon" class="text-primary-text hover:text-accent p-1.5 rounded-full transition duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                    </svg>
+                </button>
+                <div class="flex items-center xl:gap-2 2xl:gap-3 xl:ms-2 2xl:ms-3">
+                    <a href="login.html" class="btn-outline xl:px-4 2xl:px-6 py-2 rounded-xl font-bold shadow-md text-sm xl:text-xs 2xl:text-sm">Login</a>
+                    <a href="signup.html" class="book-btn xl:px-4 2xl:px-6 py-2.5 rounded-xl font-bold shadow-md text-sm xl:text-xs 2xl:text-sm">Sign Up</a>
+                </div>
       </div>
 
       <!-- Mobile menu trigger -->
@@ -295,8 +294,12 @@
 <!-- MAIN CONTACT US CONTENT -->
   <main class="flex-grow pb-16 bg-background transition-colors duration-300">
    <!-- Section 1: Hero Header -->
-<section class="relative py-20 lg:py-24 overflow-hidden bg-gradient-to-br from-background to-[#FFF5E6] dark:to-[#1B120C] transition-all duration-300">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<section class="relative py-20 lg:py-24 overflow-hidden transition-all duration-300">
+  <div class="absolute inset-0">
+    <img src="assets/h4.jpg" alt="Contact us background" class="w-full h-full object-cover">
+  </div>
+  <div class="absolute inset-0 bg-white/90 dark:bg-[#1B120C]/90"></div>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
     <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-[#FFDCE5] text-[#D82A52] dark:bg-[#401C24] dark:text-[#FFA3B8]">
       <i class="fas fa-envelope text-xs"></i> Get in Touch
     </span>
@@ -397,14 +400,7 @@
       <div class="space-y-6">
         <!-- Map Placeholder -->
         <div class="bg-hover border border-border rounded-2xl overflow-hidden">
-          <div class="bg-[#FFDCE5] dark:bg-[#401C24] h-64 flex items-center justify-center">
-            <div class="text-center">
-              <i class="fas fa-map-marker-alt text-4xl text-accent mb-2"></i>
-              <p class="text-primary-text font-medium">Interactive Map</p>
-              <p class="text-secondary-text text-sm">123 Wellness Way, Los Angeles, CA</p>
-              <p class="text-xs text-secondary-text mt-2">📍 5 min from Downtown LA</p>
-            </div>
-          </div>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.715220364966!2d-118.243683!3d34.052235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c648fa1d4803%3A0xdec27bf11f9fd336!2sDowntown%20Los%20Angeles%2C%20Los%20Angeles%2C%20CA!5e0!3m2!1sen!2sus!4v1684346743952!5m2!1sen!2sus" width="100%" height="256" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           <div class="p-5">
             <div class="flex items-center gap-2 mb-3">
               <i class="fas fa-clock text-accent"></i>
@@ -453,70 +449,106 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-14">
       
       <!-- FAQ 1 -->
-      <div class="group">
-        <h3 class="text-2xl font-medium text-primary-text mb-4 group-hover:text-accent transition-colors flex items-start gap-4">
-          <span class="text-accent/30 text-3xl font-light">01.</span>
-          <span>How far in advance should I place my order?</span>
-        </h3>
-        <p class="text-secondary-text text-lg leading-relaxed ps-12">
+      <details class="group bg-background border border-border rounded-2xl p-6 shadow-sm hover:border-accent transition-colors cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+        <summary class="text-2xl font-medium text-primary-text group-hover:text-accent transition-colors flex items-start justify-between outline-none list-none">
+          <div class="flex items-start gap-4">
+            <span class="text-accent/30 text-3xl font-light">01.</span>
+            <span>How far in advance should I place my order?</span>
+          </div>
+          <span class="text-accent transition-transform duration-300 group-open:-rotate-180 shrink-0 ms-4">
+             <i class="fas fa-chevron-down mt-1"></i>
+          </span>
+        </summary>
+        <p class="text-secondary-text text-lg leading-relaxed ps-12 pt-4">
           We recommend booking 2-4 weeks in advance for custom juice bars and smoothie stations. For large weddings and corporate events (100+ guests), please book 6-8 weeks ahead.
+        
         </p>
-      </div>
+      </details>
 
       <!-- FAQ 2 -->
-      <div class="group">
-        <h3 class="text-2xl font-medium text-primary-text mb-4 group-hover:text-accent transition-colors flex items-start gap-4">
-          <span class="text-accent/30 text-3xl font-light">02.</span>
-          <span>Do you offer tastings?</span>
-        </h3>
-        <p class="text-secondary-text text-lg leading-relaxed ps-12">
+      <details class="group bg-background border border-border rounded-2xl p-6 shadow-sm hover:border-accent transition-colors cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+        <summary class="text-2xl font-medium text-primary-text group-hover:text-accent transition-colors flex items-start justify-between outline-none list-none">
+          <div class="flex items-start gap-4">
+            <span class="text-accent/30 text-3xl font-light">02.</span>
+            <span>Do you offer tastings?</span>
+          </div>
+          <span class="text-accent transition-transform duration-300 group-open:-rotate-180 shrink-0 ms-4">
+             <i class="fas fa-chevron-down mt-1"></i>
+          </span>
+        </summary>
+        <p class="text-secondary-text text-lg leading-relaxed ps-12 pt-4">
           Yes! Tasting flights are available Monday-Thursday by appointment. A small fee applies, which is credited toward your final catering order.
+        
         </p>
-      </div>
+      </details>
 
       <!-- FAQ 3 -->
-      <div class="group">
-        <h3 class="text-2xl font-medium text-primary-text mb-4 group-hover:text-accent transition-colors flex items-start gap-4">
-          <span class="text-accent/30 text-3xl font-light">03.</span>
-          <span>What's your delivery radius?</span>
-        </h3>
-        <p class="text-secondary-text text-lg leading-relaxed ps-12">
+      <details class="group bg-background border border-border rounded-2xl p-6 shadow-sm hover:border-accent transition-colors cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+        <summary class="text-2xl font-medium text-primary-text group-hover:text-accent transition-colors flex items-start justify-between outline-none list-none">
+          <div class="flex items-start gap-4">
+            <span class="text-accent/30 text-3xl font-light">03.</span>
+            <span>What's your delivery radius?</span>
+          </div>
+          <span class="text-accent transition-transform duration-300 group-open:-rotate-180 shrink-0 ms-4">
+             <i class="fas fa-chevron-down mt-1"></i>
+          </span>
+        </summary>
+        <p class="text-secondary-text text-lg leading-relaxed ps-12 pt-4">
           We deliver within 50 miles of Los Angeles. Event setup and delivery is free within 30 miles. Travel fees apply for locations beyond.
+        
         </p>
-      </div>
+      </details>
 
       <!-- FAQ 4 -->
-      <div class="group">
-        <h3 class="text-2xl font-medium text-primary-text mb-4 group-hover:text-accent transition-colors flex items-start gap-4">
-          <span class="text-accent/30 text-3xl font-light">04.</span>
-          <span>Can you accommodate dietary restrictions?</span>
-        </h3>
-        <p class="text-secondary-text text-lg leading-relaxed ps-12">
+      <details class="group bg-background border border-border rounded-2xl p-6 shadow-sm hover:border-accent transition-colors cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+        <summary class="text-2xl font-medium text-primary-text group-hover:text-accent transition-colors flex items-start justify-between outline-none list-none">
+          <div class="flex items-start gap-4">
+            <span class="text-accent/30 text-3xl font-light">04.</span>
+            <span>Can you accommodate dietary restrictions?</span>
+          </div>
+          <span class="text-accent transition-transform duration-300 group-open:-rotate-180 shrink-0 ms-4">
+             <i class="fas fa-chevron-down mt-1"></i>
+          </span>
+        </summary>
+        <p class="text-secondary-text text-lg leading-relaxed ps-12 pt-4">
           Absolutely! All our bases are 100% vegan, and we offer gluten-free, dairy-free, and nut-free blending options. Please specify your needs when ordering.
+        
         </p>
-      </div>
+      </details>
 
       <!-- FAQ 5 -->
-      <div class="group">
-        <h3 class="text-2xl font-medium text-primary-text mb-4 group-hover:text-accent transition-colors flex items-start gap-4">
-          <span class="text-accent/30 text-3xl font-light">05.</span>
-          <span>What is your cancellation policy?</span>
-        </h3>
-        <p class="text-secondary-text text-lg leading-relaxed ps-12">
+      <details class="group bg-background border border-border rounded-2xl p-6 shadow-sm hover:border-accent transition-colors cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+        <summary class="text-2xl font-medium text-primary-text group-hover:text-accent transition-colors flex items-start justify-between outline-none list-none">
+          <div class="flex items-start gap-4">
+            <span class="text-accent/30 text-3xl font-light">05.</span>
+            <span>What is your cancellation policy?</span>
+          </div>
+          <span class="text-accent transition-transform duration-300 group-open:-rotate-180 shrink-0 ms-4">
+             <i class="fas fa-chevron-down mt-1"></i>
+          </span>
+        </summary>
+        <p class="text-secondary-text text-lg leading-relaxed ps-12 pt-4">
           Full refund available up to 14 days before event. 50% refund between 7-13 days. No refunds within 7 days of event due to fresh ingredient sourcing.
+        
         </p>
-      </div>
+      </details>
 
       <!-- FAQ 6 -->
-      <div class="group">
-        <h3 class="text-2xl font-medium text-primary-text mb-4 group-hover:text-accent transition-colors flex items-start gap-4">
-          <span class="text-accent/30 text-3xl font-light">06.</span>
-          <span>Do you provide setup and cleanup?</span>
-        </h3>
-        <p class="text-secondary-text text-lg leading-relaxed ps-12">
+      <details class="group bg-background border border-border rounded-2xl p-6 shadow-sm hover:border-accent transition-colors cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+        <summary class="text-2xl font-medium text-primary-text group-hover:text-accent transition-colors flex items-start justify-between outline-none list-none">
+          <div class="flex items-start gap-4">
+            <span class="text-accent/30 text-3xl font-light">06.</span>
+            <span>Do you provide setup and cleanup?</span>
+          </div>
+          <span class="text-accent transition-transform duration-300 group-open:-rotate-180 shrink-0 ms-4">
+             <i class="fas fa-chevron-down mt-1"></i>
+          </span>
+        </summary>
+        <p class="text-secondary-text text-lg leading-relaxed ps-12 pt-4">
           Yes! All catering packages include professional delivery, styling, and setup. Post-event pickup and bar breakdown is included for Platinum packages.
+        
         </p>
-      </div>
+      </details>
 
     </div>
   </div>
@@ -596,7 +628,7 @@
   <!-- Footer -->
   <footer id="main-footer" class="pt-20 transition-colors duration-300">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 pb-16 border-b border-gray-800">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-12 pb-16 border-b border-gray-800">
         <div class="lg:col-span-2">
           <a href="index.html" class="flex items-center gap-2.5">
           <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-accent/10 border border-accent/20 shadow-sm relative overflow-hidden group hover:bg-accent/20 transition-all duration-300">
@@ -650,7 +682,24 @@
           </ul>
         </div>
         <div>
-          <h4 class="footer-heading font-medium text-lg mb-6">Newsletter</h4>
+                    <h4 class="footer-heading font-medium text-lg mb-6">Contact Info</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-location-dot text-accent mt-1"></i>
+                            <span>123 Wellness Way, Suite 200<br>Los Angeles, CA 90001</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-phone text-accent mt-1"></i>
+                            <span>(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-clock text-accent mt-1"></i>
+                            <span>Mon - Fri: 7am - 6pm<br>Sat - Sun: 8am - 2pm</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading font-medium text-lg mb-6">Newsletter</h4>
           <div class="flex flex-col space-y-4">
             <input type="email" placeholder="Email address" class="p-4 text-sm rounded-xl bg-gray-900 border border-gray-800 focus:outline-none text-white" />
             <button class="btn-primary mt-auto font-medium py-3 rounded-xl">Join Newsletter</button>
